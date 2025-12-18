@@ -5,7 +5,7 @@ jwt包括三个部分，**header payload** **Signature（签名）**
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 解码为 { "alg": "HS256", "typ": "JWT" } alg属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；typ属性表示这个令牌（token）的类型（type），JWT 令牌统一写为JWT
 
 ## 1.2 payload
-![](../../assets/file-20251211172848979.png)
+![[file-20251211172848979.png]]
 ## 1.3 Signature
 
 Signature 部分是对前两部分的签名，防止数据篡改。
@@ -21,7 +21,7 @@ HMACSHA256(   base64UrlEncode(header) + "." +   base64UrlEncode(payload),   secr
 
 ## 1.4 最终的到jwt字符
 
-![](assets/jwt/file-20251211172835982.png)
+![[file-20251211172835982.png]]
 
 # 0x02 主要利用
 
@@ -37,7 +37,7 @@ python jwt_tool.py <JWT>
 
 解码器，相当于在线工具，会解读出header和payload
 
-![](assets/jwt/file-20251211172842687.png)
+![[file-20251211172842687.png]]
 
 ```JavaScript
 python jwt_tool.py <JWT> -C -d <字典文件>
@@ -45,7 +45,7 @@ python jwt_tool.py <JWT> -C -d <字典文件>
 
 爆破JWT的密钥，之后可以用来伪造签名
 
-![](assets/jwt/file-20251211172848979.png)
+![[file-20251211172848979.png]]
 
 [更多参数](https://github.com/ticarpi/jwt_tool/wiki/Using-jwt_tool)
 

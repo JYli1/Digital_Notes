@@ -62,7 +62,7 @@ public class studens extends Persons{
 
 父类可以new子类
 
-![](https://cdn.nlark.com/yuque/0/2025/png/51404470/1757501784037-2c677936-de51-4609-9d2a-e70e69b8a1a3.png)
+![[1757501784037-2c677936-de51-4609-9d2a-e70e69b8a1a3.png]]
 
   
 
@@ -733,4 +733,4 @@ class WeddingCompany implenment Marry{
 
 ### 代码
 
-![](https://cdn.nlark.com/yuque/0/2025/png/51404470/1757986145302-ea622436-4fe4-4170-a104-44222b0dac96.png)
+![[1757986145302-ea622436-4fe4-4170-a104-44222b0dac96.png]]
