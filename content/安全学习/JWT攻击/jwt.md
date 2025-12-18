@@ -5,7 +5,7 @@ jwt包括三个部分，**header payload** **Signature（签名）**
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 解码为 { "alg": "HS256", "typ": "JWT" } alg属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；typ属性表示这个令牌（token）的类型（type），JWT 令牌统一写为JWT
 
 ## 1.2 payload
-![file-20251211172848979](../../assets/file-20251211172848979.png)
+![](../../assets/file-20251211172848979.png)
 ## 1.3 Signature
 
 Signature 部分是对前两部分的签名，防止数据篡改。
