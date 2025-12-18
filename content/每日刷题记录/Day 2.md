@@ -371,3 +371,4 @@ Select *from sc where sno=95001 and if(substr(database(),1,1)='x',(SELECT count(
 https://www.fujieace.com/penetration-test/blind-time-delay.html
 https://www.cnblogs.com/forforever/p/13019703.html
 
+# 0x05 
