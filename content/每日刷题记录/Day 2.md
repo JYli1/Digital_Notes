@@ -36,7 +36,7 @@ select replace(".",char(46),".");
 select replace('replace(".",char(46),".")',char(46),'replace(".",char(46),".")');
 ```
 得到几乎相同了只有一点细微的差别
-![700](assets/Quine注入/file-20251217173850996.png)
+![[file-20251217173850996.png]]
 
 最终payload：
 ```sql
