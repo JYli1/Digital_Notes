@@ -6,7 +6,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 解码为 { "alg": "HS256", "typ": "JWT" } 
 
 ## 1.2 payload
 
-![](assets/jwt/file-20251211172826373.png)
+![[file-20251211172826373.png)]]
 ## 1.3 Signature
 
 Signature 部分是对前两部分的签名，防止数据篡改。
