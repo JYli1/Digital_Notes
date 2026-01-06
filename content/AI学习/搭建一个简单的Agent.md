@@ -8,4 +8,4 @@
 pip install requests tavily-python openai
 ```
 (注意python版本最好在3.9/3.10，开始使用的3.11时报错，换到3.9时正常，应该是生态没跟上)
-
+下面开始写代码，因为代码亮不大，所以写在一个文件也行
