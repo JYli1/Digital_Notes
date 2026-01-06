@@ -1050,5 +1050,87 @@
       }
     },
     "expandedKeys": []
+  },
+  "笔记站搭建.md": {
+    "scroll": 40.16190833959429,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-2",
+      "item-1-0",
+      "item-2-5",
+      "item-2-9"
+    ]
+  },
+  "content/AI学习/MCP简单使用.md": {
+    "scroll": 66.75084736344947,
+    "cursor": {
+      "from": {
+        "line": 44,
+        "ch": 0
+      },
+      "to": {
+        "line": 44,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-0",
+      "item-2-3"
+    ]
+  },
+  "content/每日刷题记录/Day 5.md": {
+    "scroll": 75.17024739583333,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "CODE_OF_CONDUCT.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
+  },
+  "README.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
