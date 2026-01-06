@@ -42,6 +42,16 @@
 - sha1(‘aaO8zKZF’)
 - sha1(‘aa3OFF9m’)
 
+# md5强比较
+```http
+A = M%C9h%FF%0E%E3%5C%20%95r%D4w%7Br%15%87% 
+D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%00%A8%28K%F3n%8EKU% 
+B3_Bu%93%D8Igm%A0%D1U%5D%83%60%FB_%07%FE%A2
+
+B = M%C9h%FF%0E%E3%5C%20% 
+95r%D4w%7Br%15%87%D3o%A7%B2%1B%DCV%B7J%3D%C0x%3E%7B%95%18%AF%BF%A2%0 
+2%A8%28K%F3n%8EKU%B3_Bu%93%D8Igm%A0%D1%D5%5D%83%60%FB_%07%FE%A2
+```
   
 
 # PHP伪协议
@@ -68,11 +78,10 @@
 
 作用：**读取****源代码**并进行base64编码输出
 
-示例：http://127.0.0.1/cmd.php?cmd=php://filter/read=convert.base64-encode/resource=【文件名】（针对php文件需要base64编码）
+示例：`http://127.0.0.1/cmd.php?cmd=php://filter/read=convert.base64-encode/resource=【文件名】`（针对php文件需要base64编码）
 
-**php****://filter/read=string.rot13/resource=flag.txt（不能base64时可以用这个）**
-
-**php****://filter/convert.iconv.UTF-8.UTF-7/resource=/flag(另外一种用法，把内容解释为****UTF-8****后以UTF-7输出)**
+`php://filter/read=string.rot13/resource=flag.txt（不能base64时可以用这个）
+`php://filter/convert.iconv.UTF-8.UTF-7/resource=/flag(另外一种用法，把内容解释为UTF-8后以UTF-7输出)
 
 参数：resource=<要过滤的数据流> 这个参数是必须的。它指定了你要筛选过滤的数据流 read=<读链的筛选列表> 该参数可选。可以设定一个或多个过滤器名称，以管道符（|）分隔。 write=<写链的筛选列表> 该参数可选。可以设定一个或多个过滤器名称，以管道符（|）分隔。 <；两个链的筛选列表> 任何没有以 read= 或 write= 作前缀 的筛选器列表会视情况应用于读或写链。
 
@@ -80,7 +89,7 @@
 
 作用：**执行**POST数据中的php代码
 
-示例： **http://127.0.0.1/cmd.phpcmd****=php://input**
+示例： **http://127.0.0.1/cmd.php?cmd=php://input
 
 psot传参传入php代码即可
 
@@ -90,5 +99,5 @@ psot传参传入php代码即可
 
 作用：自PHP>=5.2.0起，可以使用data://数据流装器，以传递相应格式的数据。通常可以用来执行PHP代码。一般需要用到`base64编码`传输
 
-示例：http://127.0.0.1/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOy8vPz4=
+示例：`http://127.0.0.1/include.php?file=data://text/plain;base64,PD9waHAgcGhwaW5mbygpOy8vPz4=
 

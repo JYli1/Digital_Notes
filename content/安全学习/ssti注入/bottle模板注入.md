@@ -108,7 +108,7 @@ with open('../../secret.txt', 'r') as f:
     secret = f.read()
 ```
 我们可以通过`/download`路由去查看它
-![[file-20251215193553299.png]]
+![500](assets/bottle模板注入/file-20251215193553299.png)
 拿到了密钥。
 然后通过http服务来伪造cookie
 ```python
@@ -141,3 +141,4 @@ if __name__ == "__main__":
 
 ```
 得到cookie后使用并访问`/secret `路由即可触发反序列化。
+

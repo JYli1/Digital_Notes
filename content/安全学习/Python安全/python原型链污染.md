@@ -63,7 +63,7 @@ print(ctf1.flag)
 print(ctf2.flag)
 ```
 
-![[file-20251211235452965.png]]
+![](assets/python原型链污染/file-20251211235452965.png)
 
 从结果看出，flag属性被污染了。先获取类，再获取父类，污染了父类的flag属性。
 

@@ -168,7 +168,7 @@ if( ($this->syc != $this->lover) && (md5($this->syc) === md5($this->lover)) && (
 
 md5()和sha1()可以对一个类进行hash，并且会触发这个类的 __toString 方法；且当eval()函数传入一个类对象时，也会触发这个类里的 __toString 方法。
 
-![[file-20251212232247762.png]]
+![700](assets/php原生类利用/file-20251212232247762.png)
 
 
 还需要过滤掉小括号和引号
@@ -198,15 +198,15 @@ echo(urlencode(serialize($c)));
 ?>
 ```
 
-![[file-20251215231830508.png]]
+![](assets/php原生类利用/file-20251215231830508.png)
 
-![[file-20251215231843418.png]]
+![](assets/php原生类利用/file-20251215231843418.png)
 
 # 利用SoapClient::__Call进行SSRF
 
 ==这里需要在php.ini打开soap的拓展配置找到extension=php_soap.dll，取消注释
 
-![[file-20251215232254584.png]]
+![500](assets/php原生类利用/file-20251215232254584.png)
 
 PHP 的内置类 SoapClient 是一个专门用来访问web服务的类，可以提供一个基于SOAP协议访问Web服务的 PHP 客户端。
 
@@ -272,7 +272,7 @@ if($ip!=='127.0.0.1'){
 
 打开题目后，内容如下：
 
-![[?code=N2IzY2U2ZjI1NzIzNDQ5Y2IzN2EyYzlkNmNhODhhOGJfSHhpaTJEdmhsRmxIaVU5djhldDV2NGNHREFNeXdZTGZfVG9rZW46TUk4eGJzUEdvb0lPZ3V4eXVIQWNPUFN0bnFiXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA]]
+![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=N2IzY2U2ZjI1NzIzNDQ5Y2IzN2EyYzlkNmNhODhhOGJfSHhpaTJEdmhsRmxIaVU5djhldDV2NGNHREFNeXdZTGZfVG9rZW46TUk4eGJzUEdvb0lPZ3V4eXVIQWNPUFN0bnFiXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA)
 
 ```PHP
 <?php
@@ -346,7 +346,7 @@ nc -lvvp 9999
 
 刷新页面之后，可以得到以下请求内容：
 
-![[?code=NDY0Y2FjNTNiYWMyZDVkYzc3MGVjNWZhNTYzMTAwM2FfZEw4U1NvMWhxZjNtTEs4MFFtNHZlcnpKWG1RZG94N1dfVG9rZW46R2JUMGJ4YlFXb2ZKYkp4ajVEN2NJSFdVbk9oXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA]]
+![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=NDY0Y2FjNTNiYWMyZDVkYzc3MGVjNWZhNTYzMTAwM2FfZEw4U1NvMWhxZjNtTEs4MFFtNHZlcnpKWG1RZG94N1dfVG9rZW46R2JUMGJ4YlFXb2ZKYkp4ajVEN2NJSFdVbk9oXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA)
 
 仔细观察后，发现是一个POST请求，并且**SOAPAction**的值是可控的
 
@@ -365,7 +365,7 @@ $client->getFlag();
 
 nc监听后，得到的结果如下：
 
-![[?code=YTYyMDFhOTRkNGFlNmQ0MjYwMWI5M2Q4ZjI2YTU0NTBfSklFeUcwM1hmMk5oUFdCTEdtTnhKVmFST2RNeUtYR1ZfVG9rZW46R2ZsaGJlUzg5b1V1V1N4b1lrNmNCODJHbjViXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA]]
+![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=YTYyMDFhOTRkNGFlNmQ0MjYwMWI5M2Q4ZjI2YTU0NTBfSklFeUcwM1hmMk5oUFdCTEdtTnhKVmFST2RNeUtYR1ZfVG9rZW46R2ZsaGJlUzg5b1V1V1N4b1lrNmNCODJHbjViXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA)
 
 可以看到，**User-Agent**也被注入进去了，此时，**User-Agent**就成为了我们的可控参数
 
@@ -393,7 +393,7 @@ $client->getFlag();
 
 同样的，nc监听后，结果如下：
 
-![[?code=ZWIwMzIwNWQ0NTY0ZDA0MGFlMzBhMTk4NmEwZTNhODZfTlBaZ3k1c2Vua29kanQ1TEJ6YXZoQlpkck5yNWtVejRfVG9rZW46WVZSbGJ3eFJ4b3BJQ1d4QlFkSWNLVlF1bjBjXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA]]
+![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=ZWIwMzIwNWQ0NTY0ZDA0MGFlMzBhMTk4NmEwZTNhODZfTlBaZ3k1c2Vua29kanQ1TEJ6YXZoQlpkck5yNWtVejRfVG9rZW46WVZSbGJ3eFJ4b3BJQ1d4QlFkSWNLVlF1bjBjXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA)
 
 其中紫色方框中的是有效的HTTP请求，因为我们设置了**Content-Length**的值为**13**，超出13个字符以外的都会被服务器丢弃，所以影响不大。
 
@@ -422,7 +422,7 @@ O%3A10%3A%22SoapClient%22%3A4%3A%7Bs%3A3%3A%22uri%22%3Bs%3A17%3A%22http%3A%2F%2F
 
 这样flag就被写到了**flag.txt**中，访问之后即可拿到flag：
 
-![[?code=NWVhYjE2YTY1YzQ2N2U1ZjA3ZjNjNmZmMTI3Zjc4ZDVfOHJOWE9BdkRrUjFvQk9CMWZLbThhS0t1R2t1NFMxSE5fVG9rZW46Tjd1b2IyRkxPb0hQT0F4Sjh4WGM2VEgwbkJlXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA]]
+![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=NWVhYjE2YTY1YzQ2N2U1ZjA3ZjNjNmZmMTI3Zjc4ZDVfOHJOWE9BdkRrUjFvQk9CMWZLbThhS0t1R2t1NFMxSE5fVG9rZW46Tjd1b2IyRkxPb0hQT0F4Sjh4WGM2VEgwbkJlXzE3NjQ1MzA3NTk6MTc2NDUzNDM1OV9WNA)
 
 但是这题本身是可以直接访问**flag.php**页面，伪造请求头得到flag的。
 
@@ -519,9 +519,9 @@ foreach ($obj as $content) {
 ## [SUCTF 2018]Homework
 进入题目，随便注册一个账号，登录作业平台。看到一个 `calc` 计算器类的代码。有两个按钮，一个用于调用 `calc` 类实现两位数的四则运算。另一个用于上传文件，提交代码。
 
-![[file-20251215230758251.png]]
+![700](assets/php原生类利用/file-20251215230758251.png)
 
-![[file-20251215230806635.png]]
+![700](assets/php原生类利用/file-20251215230806635.png)
 
 `calc` 计算器类的代码为：
 
@@ -566,7 +566,7 @@ class calc{
 
 我们点击calc按钮，计算2+2=4，我们观察url处的参数，再结合`calc`计算器类的代码可知module为调用的类，args为类的构造方法的参数：
 
-![[file-20251215230901489.png]]
+![700](assets/php原生类利用/file-20251215230901489.png)
 
 所以我们可以通过这种形式调用PHP中的内置类。这里我们通过调用 SimpleXMLElement 这个内置类来构造 XXE。
 
@@ -612,6 +612,6 @@ file_put_contents("result.txt", $_GET['file']) ;
 
 如下图所示，成功将网站的源码以base64编码的形式读取并带出到result.txt中：
 
-![[file-20251215231144654.png]]
+![](assets/php原生类利用/file-20251215231144654.png)
 
 后续解题过程就不写了。

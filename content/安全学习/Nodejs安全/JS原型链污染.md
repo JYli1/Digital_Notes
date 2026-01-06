@@ -83,11 +83,11 @@ function merge(target, source) {
 
 和python原型链污染类似，不断递归调用，找到最里面，最后`target[key] = source[key]`赋值操作可以造成原型链污染
 
-![[file-20251215171523978.png]]
+![](assets/JS原型链污染/file-20251215171523978.png)
 
 先这样试一下，发现并没有完成原型链污染，因为这里把__proto__当作了原型，而不是一个key
 
-![[file-20251215171529852.png]]
+![](assets/JS原型链污染/file-20251215171529852.png)
 
 改一下之后发现污染成功，他们的差别就是后者采用了json格式，这样__proto__被解析成了key，走完了merge函数。这就是为什么原型链污染要传json格式的payload了。
 

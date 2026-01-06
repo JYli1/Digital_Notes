@@ -215,7 +215,7 @@ res = requests.get(full_url)
 print(f"\n[+]  执行结果:\n{res.text}")
 
 ```
-![[file-20251207170036464.png]]
+![](assets/miniVNCTF/file-20251207170036464.png)
 
 # 【notebook】
 首先简单的测了一下，发现好像都是前端？
@@ -225,15 +225,15 @@ print(f"\n[+]  执行结果:\n{res.text}")
 于是去查了一下，居然还是一种语法，有CVE漏洞：
 https://forum.butian.net/share/2559
 据文章所说PlantUML是一种开源的、用于绘制UML（Unified Modeling Language）图表的工具
-![[file-20251207170628869.png]]
+![](assets/miniVNCTF/file-20251207170628869.png)
 大概就是通过特定的语法把我们的文字转化为图片。
 
 然后就去想，这能在那里利用呢？题目不是笔记系统吗，很可能支持生成图表呀。
 输入`/`,查看功能，果然 代码绘图。看到胜利的希望了
-![[file-20251207170832512.png]]
-我们输入文章中的POC，生成图表![[file-20251207170935345.png]]
+![500](assets/miniVNCTF/file-20251207170832512.png)
+我们输入文章中的POC，生成图表![500](assets/miniVNCTF/file-20251207170935345.png)
 得到提示，八九不离十了，打一波ssrf，换成提示中的路径，成功！
-![[file-20251207171054175.png]]
+![500](assets/miniVNCTF/file-20251207171054175.png)
 
 # 【法尔plus】（赛后复现）
 进来可以拿到源码,还一个是phpinfo界面
@@ -346,7 +346,7 @@ echo base64_encode(file_get_contents($phar_file . ".gz"));
 ```
 base64编码是为了方便我们等下复制上传内容。
 
-![[file-20251207173557953.png]]
+![](assets/miniVNCTF/file-20251207173557953.png)
 运行得到的base64字符串就是我们要上传的内容。
 我们使用python脚本发包（因为涉及到先上传在包含，用脚本会比较方便）
 ```python
@@ -406,7 +406,7 @@ if __name__ == "__main__":
 发包后：
 先通过`file_put_contents($filename, $data);`写入phar文件
 在通过`include($data)`包含文件，我们这里设置`$data`为phar伪协议，会自动解压phar文件并包含其中的php文件。
-![[file-20251207174103687.png]]
+![](assets/miniVNCTF/file-20251207174103687.png)
 可以看到我们上面写的`phpinfo()`已经执行了。现在我们已经有了php任意代码执行。
 这里我们可以传一个后门上去就不用每次都构造了。
 ```php
@@ -440,7 +440,7 @@ $phar->compress(Phar::GZ); // 必须压缩
 echo base64_encode(file_get_contents($phar_file . ".gz"));
 ?>
 ```
-![[file-20251207174641018.png]]
+![](assets/miniVNCTF/file-20251207174641018.png)
 可以看到已经拿到webshell了。但是会发现`system`等函数都执行不了，用`file_get_contents`等函数也只能看当前目录。题目说phpinfo很重要。一看
 结果设置了`open_basedir`和`disable_function`。这里我就被卡住了，用尽了办法也没绕过取，是新版本，但是谷歌居然没搜到，我就以为是我的方向错了，呜呜呜
 
@@ -448,7 +448,7 @@ echo base64_encode(file_get_contents($phar_file . ".gz"));
 后来赛后师傅提示了我一下去仔细搜了一下，果然有最新php 8.4的`open_basedir`绕过
 https://fushuling.com/index.php/2025/11/01/%E6%9C%80%E6%96%B0%E7%89%88-php-%E7%BB%95-open_basedir-%E5%92%8C-disable_functions/
 这里我试了文中提到的最新的反而没成功，用相对过时的反而成功了，好奇怪。
-![[file-20251207181321995.png]]也是看到这位师傅说的，发现比赛环境刚好是8.4.14。所以采用了文章中说的非预期。
+![](assets/miniVNCTF/file-20251207181321995.png)也是看到这位师傅说的，发现比赛环境刚好是8.4.14。所以采用了文章中说的非预期。
 
 
 我们先准备一个`a.cpp`文件
@@ -479,8 +479,8 @@ curl_setopt($ch, CURLOPT_SSLENGINE,"/var/www/html/exploit.so");
 $data = curl_exec($ch);
 ```
 
-![[file-20251207181951562.png]]
+![](assets/miniVNCTF/file-20251207181951562.png)
 但是这里好像是无回显的，所以我选择了写入文件，改变命令只需要修改cpp文件即可。
-![[file-20251207182036691.png]]
+![](assets/miniVNCTF/file-20251207182036691.png)
 （为了保证绕过了，还是cat了一下，以下过程和上面完全一样）
-![[file-20251207182950816.png]]
+![](assets/miniVNCTF/file-20251207182950816.png)

@@ -369,9 +369,9 @@ res = patch(base.replace(".",add(sql2)),sql).replace(" ","/**/").replace("'.'",'
 
 print(res)
 ```
-![[file-20251217195614491.png]]
+![](assets/Quine注入/file-20251217195614491.png)
 就帮我们构造好了（-1后面有个`'`我忘记了）
-![[file-20251217200038962.png]]
+![500](assets/Quine注入/file-20251217200038962.png)
 输入就出了
 
 # 0x03 第五空间 2021【yet_another_mysql_injection】（sql盲注）
@@ -412,7 +412,7 @@ print("[+] password =", password)
 原理就是查询成功的话，就算密码错了也会回显`wrong password`，而如果我们or后面的为假导致查询失败的话，会回显`something wrong`，
 我们利用回显是不是`something wron`判断是否成功。
 这里`=`号被禁用的话就用`strcmp()`比较，相等会返回0不相等返回非0，所以这里取！
-![[file-20251217201303468.png]]
+![500](assets/Day%201/file-20251217201303468.png)
 最后成功盲注到密码，输入进去也可以得到flag
 # 0x04 VNCTF2023【电子木鱼】
 给了源码，是Rust语言写的一个功德计算的程序，功德大于十亿得到flag
@@ -514,9 +514,9 @@ payload:
 `post传：name=Cost&quantity=214748365`.
 # 0x05 VNCTF2023【象棋王子】
 翻一下js文件，发现fuckjs代码：
-![[file-20251203193025605.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251203193025605.png)
 到控制台执行
-![[file-20251203193025617.png]]
+![500](assets/VNCTF%20%202023%20web%20复现/file-20251203193025617.png)
 #  0x06 VNCTF2023【BabyGo】
 给了附件，是go语言源码，看不太懂就叫ai分析了。
 ```go
@@ -822,19 +822,19 @@ func main()  {
    
 这里要下载一些模块什么的就叫ai帮忙了，总之运行脚本会得到一个文件。
 
-![[file-20251205162925828.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251205162925828.png)
 （这里面的`zip`包是后来手动打包的）
 
 2. 文件上传 
 我们来到`/upload`路由。
 上传我们的zip
-![[file-20251205163137388.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251205163137388.png)
 3. 解压缩文件
 访问`/unzip`路由，path路径指定`../`上级目录。
 注意这里一开始没有指定path路径的话会默认解压到`/uploads`目录下，此时还会吧zip删除。所以第一次没操作好需要重新上传。
-![[file-20251205163454802.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251205163454802.png)
 4. 访问反序列化路由
-![[file-20251205163525736.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251205163525736.png)
 显示good说明覆盖成功。
 5. 命令执行
 这里我没怎么懂，但是就是很复杂的命令拼接，因为会把`/backdoor`路由下的`?pkg`参数拼接到命令执行函数中。
@@ -850,5 +850,5 @@ var(a="1
 ```http
 ?pkg=%22os%2Fexec%22%0A%20fmt%22%0A%29%0A%0Afunc%09init()%7B%0Acmd%3A%3Dexec.Command(%22cat%22%2C%22%2Fffflllaaaggg%22)%0Aout%2C_%3A%3Dcmd.CombinedOutput()%0Afmt.Println(string(out))%0A%7D%0A%0Avar(a%3D%221
 ```
-![[file-20251205163820848.png]]
+![](assets/VNCTF%20%202023%20web%20复现/file-20251205163820848.png)
 

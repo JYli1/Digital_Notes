@@ -19,7 +19,7 @@
 # 0x04 逗号绕过
 join绕过
 `select 1,2,3`=`select * from (select 1)a join (select 2)b join(select 3)c`
-![[file-20251216005927604.png]]
+![](assets/常见bypass/file-20251216005927604.png)
 # 0x05 绕过等于号
 1. `<>`等价于`!=`，
 2. 使用like模糊匹配

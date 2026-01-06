@@ -9,13 +9,13 @@
 show variables like "%secure%"     #查看文件读写权限
 ```
 
-![[file-20251215201719984.png]]
+![](assets/SQL注入提权/file-20251215201719984.png)
 
 查看`secure_file_priv`显示文件读写权限，null表示无权限，空为任意文件读写，还有指定路径读写
 
 （本地如果是null的话可以去mysql目录的my.ini的[mysqld]中添加secure_file_priv = ''再重启mysql）
 
-![[file-20251215201737597.png]]
+![](assets/SQL注入提权/file-20251215201737597.png)
 
 在 MySQL 5.5 之前 secure_file_priv 默认是空，这个情况下可以向任意绝对路径写文件
 
@@ -25,8 +25,8 @@ show variables like "%secure%"     #查看文件读写权限
 
 我们执行命令
 
-![[file-20251215201747625.png]]
-![[file-20251215201807163.png]]
+![500](assets/SQL注入提权/file-20251215201747625.png)
+![](assets/SQL注入提权/file-20251215201807163.png)
 
   
 
@@ -55,11 +55,11 @@ SHOW VARIABLES LIKE 'general%';    #查看权限
 
 日志功能默认关闭了
 
-![[file-20251215201823833.png]]
+![](assets/SQL注入提权/file-20251215201823833.png)
 
 但是这个我们可以自行修改，开启日志功能，直接select就可以把内容保存到日志文件中然后我们把日志文件路径改一下，文件后缀改为php，这样就可以解析了。
 
-![[file-20251215201829110.png]]
+![500](assets/SQL注入提权/file-20251215201829110.png)
 
 这里虽然可以成功写入，但是这个 info.php 是 MySQL 创建的 ：
 
@@ -84,7 +84,7 @@ UDF是数据库允许用户自定义函数的一种功能，自定义后的函�
 - **udf库文件位置（** **`sqlmap目录/data/udf/mysql`** **）**
     
 
-![[file-20251215202503009.png]]
+![500](assets/SQL注入提权/file-20251215202503009.png)
 
 不过 sqlmap 中 自带这些动态链接库为了防止被误杀都经过编码处理过，不能被直接使用。不过可以利用 sqlmap 自带的解码工具 cloak.py 来解码使用，cloak.py 的位置为：`/extra/cloak/cloak.py` ，解码方法如下：
 
@@ -146,7 +146,7 @@ select @@basedir;
 SELECT hex(load_file('D:\\My_download\\phpstudy_pro\\Extensions\\MySQL5.7.26\\bin\\lib_mysqludf_sys_64.dll')) into dumpfile 'D:/udf.txt';
 ```
 
-![[file-20251215202512115.png]]
+![](assets/SQL注入提权/file-20251215202512115.png)
 
 生成了文件，可以看一下，都是16进制编码。
 
@@ -157,7 +157,7 @@ SELECT 0x7f454c4602... INTO DUMPFILE 'D:\\My_download\\phpstudy_pro\\Extensions\
 .26\\lib\\plugin\\UDF.dll"\';
 ```
 
-![[file-20251215202516793.png]]
+![](assets/SQL注入提权/file-20251215202516793.png)
 
 这里已经成功写入了。
 
@@ -167,7 +167,7 @@ SELECT 0x7f454c4602... INTO DUMPFILE 'D:\\My_download\\phpstudy_pro\\Extensions\
 
 然后根据udf文件创建函数就好了，这里创建的函数不能自己随意创建，因为这个udf文件不是我们自己写的
 
-![[file-20251215202521487.png]]
+![](assets/SQL注入提权/file-20251215202521487.png)
 
 我们先看一下有没有函数，
 
@@ -175,7 +175,7 @@ SELECT 0x7f454c4602... INTO DUMPFILE 'D:\\My_download\\phpstudy_pro\\Extensions\
 select * from mysql.func;
 ```
 
-![[file-20251215202525752.png]]
+![](assets/SQL注入提权/file-20251215202525752.png)
 
 现在是没有的。我们执行：
 
@@ -185,11 +185,11 @@ create function sys_eval returns string soname 'udf.dll';
 
 再查看一下
 
-![[file-20251215202529774.png]]
+![600](assets/SQL注入提权/file-20251215202529774.png)
 
 成功写入函数。现在已经提权成功。像使用version()函数一样就好了
 
-![[file-20251215202533791.png]]
+![500](assets/SQL注入提权/file-20251215202533791.png)
 
 **删除函数**
 

@@ -13,20 +13,20 @@ SELECT object_name FROM `performance_schema`. `objects_summary_global_by_type` W
 ```
 ## 无列名注入
 当不知道列名的时候可以通过联合查询把要查询的表和1，2，3联合起来，使列名更改
-![[file-20251212190338646.png]]
+![300](assets/禁用information_schema/file-20251212190338646.png)
 
 
 然后通过取的别名去读取每一列的内容，像这样。（末尾的a是命名，就是代表后面的查询结果命名为一个a表）
 
-![[file-20251212190353728.png]]
+![500](assets/禁用information_schema/file-20251212190353728.png)
 
 ### 当 \` 被禁用
 
 可以用as重命名代替反引号，这样不用反引号达到相同效果
-![[file-20251212191002145.png]]
+![400](assets/禁用information_schema/file-20251212191002145.png)
 
 同时查询多列
-![[file-20251212191010031.png]]
+![500](assets/禁用information_schema/file-20251212191010031.png)
 ## join报错出列名
 
 ```sql

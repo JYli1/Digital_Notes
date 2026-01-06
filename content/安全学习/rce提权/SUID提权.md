@@ -203,23 +203,23 @@ if (isset($_REQUEST['action'])) {
 
 主要代码：
 
-![[file-20251216103653744.png]]
+![600](assets/SUID提权/file-20251216103653744.png)
 
 首先要存在action，input，就会进入handler方法。其中的execute方法中调用了exec函数
 
-![[file-20251216103703554.png]]
+![600](assets/SUID提权/file-20251216103703554.png)
 
 **所以我们可以直接rce。**
 
 ## RCE上传webshell
 
-![[file-20251216103718117.png]]
+![600](assets/SUID提权/file-20251216103718117.png)
 
 接下来我我们找到`/flag`，但是想要cat时发现不成功，whoami发现只有低权限。于是尝试suid提权。
 
 我们这里先上传一句话木马，因为有些命令在网页上不能正常执行，不知道为什么。
 
-![[file-20251216103726355.png]]
+![600](assets/SUID提权/file-20251216103726355.png)
 
 实际上已经写入了，我们可以直接访问后连接即可。
 
@@ -227,12 +227,12 @@ if (isset($_REQUEST['action'])) {
 
 先看一下有suid权限的文件，发现网页目录下就有。很可疑，到https://gtfobins.github.io/查一下。
 
-![[file-20251216103735096.png]]
+![600](assets/SUID提权/file-20251216103735096.png)
 
 果然有一个wc
 
-![[file-20251216103742774.png]]
+![](assets/SUID提权/file-20251216103742774.png)
 
 按照文档说明使用它读取`/flag`
 
-![[file-20251216103754006.png]]
+![](assets/SUID提权/file-20251216103754006.png)
