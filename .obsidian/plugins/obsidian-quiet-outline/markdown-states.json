@@ -1151,14 +1151,17 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 14,
-        "ch": 8
+        "line": 2,
+        "ch": 14
       },
       "to": {
-        "line": 14,
-        "ch": 8
+        "line": 2,
+        "ch": 14
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-2-2",
+      "item-2-0"
+    ]
   }
 }
