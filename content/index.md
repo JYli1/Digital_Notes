@@ -1,5 +1,5 @@
 ---
-title: 我的数字笔记
+title: JYli's Notes
 date: 2024-01-01
 ---
 
