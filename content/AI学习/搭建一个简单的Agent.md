@@ -1,6 +1,6 @@
 在本案例中，我们的目标是构建一个能处理分步任务的智能旅行助手。需要解决的用户任务定义为："你好，请帮我查询一下今天北京的天气，然后根据天气推荐一个合适的旅游景点。"要完成这个任务，智能体必须展现出清晰的逻辑规划能力。它需要先调用天气查询工具，并将获得的观察结果作为下一步的依据。在下一轮循环中，它再调用景点推荐工具，从而得出最终建议。
 ## 0x01 准备工作
-### 1.1 
+### 1.1 python库下载
 1. `request`库，用于发送http请求调用api，获取天气数据之类的
 2. `tavily-python`是一个强大的 AI 搜索 API 客户端，用于获取实时的网络搜索结果，可以在[官网](https://www.tavily.com/)注册后获取 API
 3. `openai`是 OpenAI 官方提供的 Python SDK，用于调用 GPT 等大语言模型服务
@@ -11,7 +11,8 @@ pip install requests tavily-python openai
 (注意python版本最好在3.9/3.10，开始使用的3.11时报错，换到3.9时正常，应该是生态没跟上)
 下面开始写代码，因为代码亮不大，所以写在一个文件也行
 `以下代码按顺序写在同一文件下即可`
-
+### 1.2 tavily-pythonAPI获取
+使用 API 调用大模型需要 API 密钥，这里我们以Qwen为例，您可以从[ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。
 
 ## 0x02 代码编写
 ### 2.1 提示词部分
