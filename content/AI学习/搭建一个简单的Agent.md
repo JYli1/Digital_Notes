@@ -15,7 +15,8 @@ pip install requests tavily-python openai
 使用 API 调用大模型需要 API 密钥，这里我们以Qwen为例，可以从[ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。
 1. 进入官网登录
 2. 在 首页 -> 访问令牌 中
-![](assets/搭建一个简单的Agent/file-20260107072401248.png)
+![[file-20260107072401248.png]]
+3. 在 模型库 -> 支持体验 -> 
 
 
 ## 0x02 代码编写
