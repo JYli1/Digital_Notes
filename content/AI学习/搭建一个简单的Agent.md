@@ -71,4 +71,7 @@ def get_weather(city: str) -> str:
         return f"错误:解析天气数据失败，可能是城市名称无效 - {e}"
 
 ```
-这就像一个python程序，通过调用API实现。
+这就像一个python程序，通过调用API实现：
+1. 传入城市
+2. 到API请求指定城市的天气，返回json格式的天气数据
+3. 格式
