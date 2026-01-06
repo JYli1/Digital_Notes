@@ -120,4 +120,6 @@ def get_attraction(city: str, weather: str) -> str:
         return f"错误:执行Tavily搜索时出现问题 - {e}"
 
 ```
-就是调用`Tavily Search API`去搜索
+就是调用`Tavily Search API`去搜索，其实就是调用一个ai搜索的API接口，得到的答案作为我们的答案返回。
+
+## 最后，我们将所有工具函数放入一个字典，供主循环调用：
