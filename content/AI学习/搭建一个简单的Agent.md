@@ -9,6 +9,7 @@ pip install requests tavily-python openai
 ```
 (注意python版本最好在3.9/3.10，开始使用的3.11时报错，换到3.9时正常，应该是生态没跟上)
 下面开始写代码，因为代码亮不大，所以写在一个文件也行
+`一下代码an'shun'x`
 
 ## 提示词部分
 驱动真实 LLM 的关键在于**提示工程（Prompt Engineering）**。我们需要设计一个“指令模板”，告诉 LLM 它应该扮演什么角色、拥有哪些工具、以及如何格式化它的思考和行动。这是我们智能体的“说明书”，它将作为`system_prompt`传递给 LLM。 提示词是让大模型正确工作的重要部分：
@@ -122,4 +123,12 @@ def get_attraction(city: str, weather: str) -> str:
 ```
 就是调用`Tavily Search API`去搜索，其实就是调用一个ai搜索的API接口，得到的答案作为我们的答案返回。
 
-## 最后，我们将所有工具函数放入一个字典，供主循环调用：
+## 工具归总
+最后，我们将所有工具函数放入一个字典，供主循环调用：
+```python
+# 将所有工具函数放入一个字典，方便后续调用
+available_tools = {
+    "get_weather": get_weather,
+    "get_attraction": get_attraction,
+}
+```
