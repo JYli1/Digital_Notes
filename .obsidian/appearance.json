@@ -1,0 +1,10 @@
+{
+  "theme": "obsidian",
+  "cssTheme": "Minimal",
+  "accentColor": "#0beadb",
+  "enabledCssSnippets": [
+    "color",
+    "tight-body",
+    "comment-strong"
+  ]
+}

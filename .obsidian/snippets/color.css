@@ -1,0 +1,17 @@
+/* 深色主题下行内代码高亮 - 永久治愈看不清 */
+.prose code,
+.cm-inline-code {
+    background: rgba(155, 191, 253, 0.25) !important;   /* 半透明蓝灰底 */
+    color: #04b7fd !important;                        /* 亮蓝色文字 */
+    padding: 0.15em 0.35em !important;
+    border-radius: 4px !important;
+    font-size: 92% !important;
+    font-weight: 500 !important;
+}
+
+/* 如果你用的是 Minimal、Things 这类主题，再加一行保险 */
+.theme-dark .inline-code,
+.theme-dark code {
+    background: rgba(120, 150, 200, 0.25) !important;
+    color: #89ddff !important;
+}
