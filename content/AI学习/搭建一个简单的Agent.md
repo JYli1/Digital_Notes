@@ -4,6 +4,7 @@
 2. `tavily-python`是一个强大的 AI 搜索 API 客户端，用于获取实时的网络搜索结果，可以在[官网](https://www.tavily.com/)注册后获取 API
 3. `openai`是 OpenAI 官方提供的 Python SDK，用于调用 GPT 等大语言模型服务
 所以我们安装库：
-```pow
+```bash
 pip install requests tavily-python openai
 ```
+(注意python版本最好在3.9/3.10，开始使用的3.11时报错)
