@@ -16,7 +16,7 @@ pip install requests tavily-python openai
 1. 进入官网登录
 2. 在 首页 -> 访问令牌 中
 ![[file-20260107072401248.png]]
-3. 在 模型库 -> 支持体验 -> 
+3. 在 模型库 -> 支持体验 -> 推理API-inference -> DeepSeek-V3.2 
 
 
 ## 0x02 代码编写
