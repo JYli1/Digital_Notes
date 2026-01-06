@@ -11,4 +11,27 @@ pip install requests tavily-python openai
 下面开始写代码，因为代码亮不大，所以写在一个文件也行
 
 ## 提示词部分
-驱动真实 LLM 的关键在于**提示工程（Prompt Engineering）**。我们需要设计一个“指令模板”，告诉 LLM 它应该扮演什么角色、拥有哪些工具、以及如何格式化它的思考和行动。这是我们智能体的“说明书”，它将作为`system_prompt`传递给 LLM。
+驱动真实 LLM 的关键在于**提示工程（Prompt Engineering）**。我们需要设计一个“指令模板”，告诉 LLM 它应该扮演什么角色、拥有哪些工具、以及如何格式化它的思考和行动。这是我们智能体的“说明书”，它将作为`system_prompt`传递给 LLM。 提示词是让大模型正确工作的重要部分：
+```python
+AGENT_SYSTEM_PROMPT = """
+你是一个智能旅行助手。你的任务是分析用户的请求，并使用可用工具一步步地解决问题。
+
+# 可用工具:
+- `get_weather(city: str)`: 查询指定城市的实时天气。
+- `get_attraction(city: str, weather: str)`: 根据城市和天气搜索推荐的旅游景点。
+
+# 行动格式:
+你的回答必须严格遵循以下格式。首先是你的思考过程，然后是你要执行的具体行动，每次回复只输出一对Thought-Action：
+Thought: [这里是你的思考过程和下一步计划]
+Action: [这里是你要调用的工具，格式为 function_name(arg_name="arg_value")]
+
+# 任务完成:
+当你收集到足够的信息，能够回答用户的最终问题时，你必须在`Action:`字段后使用 `finish(answer="...")` 来输出最终答案。
+
+请开始吧！
+"""
+
+```
+这是一个示例。
+
+## 工具 1：查询真实天气
