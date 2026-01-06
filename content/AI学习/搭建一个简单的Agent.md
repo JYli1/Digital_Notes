@@ -11,8 +11,10 @@ pip install requests tavily-python openai
 (注意python版本最好在3.9/3.10，开始使用的3.11时报错，换到3.9时正常，应该是生态没跟上)
 下面开始写代码，因为代码亮不大，所以写在一个文件也行
 `以下代码按顺序写在同一文件下即可`
-### 1.2 tavily-pythonAPI获取
-使用 API 调用大模型需要 API 密钥，这里我们以Qwen为例，您可以从[ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。
+### 1.2 大模型API获取
+使用 API 调用大模型需要 API 密钥，这里我们以Qwen为例，可以从[ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。
+1. 进入官网登录
+2. 
 
 ## 0x02 代码编写
 ### 2.1 提示词部分
