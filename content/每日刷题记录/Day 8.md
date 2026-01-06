@@ -199,16 +199,16 @@ lock_within = [
 ```
 `{{`、`[`、`'`、`"`、`_`........感觉几乎都没了啊
 打继承链得有`_`，这里还获取不了`request`的参数也都没了
-![](assets/Day%208/file-20251226170048410.png)
+![[file-20251226170048410.png]]
 ### request模块获取任意字符
 但是其实我们可以注意到，他为什么不是直接把`request`过滤，而是要禁他的一些方法的，就像它是在禁用get请求post请求，然后让我们找其他请求一样。
 这里通过LAMENTXU师傅博客我又学到一招：
 https://www.cnblogs.com/LAMENTXU/articles/18730353
-![](assets/Day%208/file-20251226170102736.png)
+![[file-20251226170102736.png]]
 可以使用`request.endpoint`获取到当前路由的函数名，即`r3al_ins1de_th0ught`
-![](assets/Day%208/file-20251226170150733.png)
+![[file-20251226170150733.png]]
 并且这个方法还有可以直接取到字符（下标从0开始）：
-![](assets/Day%208/file-20251226170755236.png)
+![[file-20251226170755236.png]]
 注意这里为什么要加一个`%23} (#})`呢，是因为源码中：
 ```python
             if name.startswith("Follow-your-heart-"):
@@ -226,14 +226,14 @@ https://www.cnblogs.com/LAMENTXU/articles/18730353
 然后我们就可以去获取`data`了,这样我们就有了任意字符，并且可以通过`|attr`过滤器获取属性进行利用，这里有个技巧：
 我之前总觉得`request.data`是从post请求获取数据，但是这里是get请求呀，尝试后发现get也行，只要你有`body`
 所以`request.data`应该就是从body中获取数据吧，这里演示一下：
-![](assets/Day%208/file-20251226173516118.png)
+![[file-20251226173516118.png]]
 看到已经成功获取了
 ### 绕过删除模块
 这里把很多的rce函数给删掉了，
 这里也很自然可以想到`方法重载`
 ==python2中可以使用reload函数对类进行重载，在python3中，这个函数搬到了importlib类里。可以以此重载到被删除的方法。==
 效果就是：
-![](assets/Day%208/file-20251226173854375.png)
+![[file-20251226173854375.png]]
 我们把`os.system`删掉了但是又重载了一下，还是使用成功了。
 最后我们可以写payload了，这里就直接用的LAMENTXU师傅的脚本：
 ```python

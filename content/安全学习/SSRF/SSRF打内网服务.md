@@ -4,7 +4,7 @@
 
 本地执行mysql命令，并用wireshark抓取流量包
 
-![](assets/SSRF打内网服务/file-20251221204631753.png)
+![[file-20251221204631753.png]]
 
 执行命令后抓到流量包
 
@@ -32,7 +32,7 @@ git clone把项目克隆，克隆到kali直接用
 
 完整利用过程
 
-![](assets/SSRF打内网服务/file-20251221204706824.png)
+![[file-20251221204706824.png]]
 
 其他参数可以去github查
 
@@ -161,7 +161,7 @@ quit         停止cli连接
 
 Gopherus工具直接得到payload
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjhmMTQ1YTRjZmQ2MTU3Y2UxZmY4NzUwZmY5M2JjZmNfMVRHbjBHenUzY0kyOVJ2WnpyYmFDdjRHOWdJbm9FclBfVG9rZW46R05JWGJoUXJub250OEx4Qnkwd2N3ZDZJbkxkXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=ZjhmMTQ1YTRjZmQ2MTU3Y2UxZmY4NzUwZmY5M2JjZmNfMVRHbjBHenUzY0kyOVJ2WnpyYmFDdjRHOWdJbm9FclBfVG9rZW46R05JWGJoUXJub250OEx4Qnkwd2N3ZDZJbkxkXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 工具的payload是写入了一个shell.php，get提交命令即可
 
@@ -177,7 +177,7 @@ ssh-keygen -t rsa
 
 生成公私钥
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=MzJjYjRiMjhjYTMwNjkzOTEzYzVjZTU3MGIzMjcyNmVfSGdFbWs2VlVxenBtSno1UDFPTktEOVA1VVV2SjFJRW5fVG9rZW46WlpBNWJWTnhIbzY3YTh4WHhrZ2NjRkRUbnZQXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=MzJjYjRiMjhjYTMwNjkzOTEzYzVjZTU3MGIzMjcyNmVfSGdFbWs2VlVxenBtSno1UDFPTktEOVA1VVV2SjFJRW5fVG9rZW46WlpBNWJWTnhIbzY3YTh4WHhrZ2NjRkRUbnZQXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 我们需要把id_rsa.pub上传到目标服务器。
 
@@ -210,7 +210,7 @@ ssh-keygen -t rsa
 
 直接用Gopherus工具，用ReverShell模式
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=NzU2OTY4ZDFlMzRiYTNkYjkyMzFhY2YwYWI5MWM2NjZfTG1Cd2RUM2pwVnhZZ1JXa3VlM0xDR095bjVJNTVpU0NfVG9rZW46TllJcWJEOEY2bzVMM014RVVSemNIRUgybnRoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=NzU2OTY4ZDFlMzRiYTNkYjkyMzFhY2YwYWI5MWM2NjZfTG1Cd2RUM2pwVnhZZ1JXa3VlM0xDR095bjVJNTVpU0NfVG9rZW46TllJcWJEOEY2bzVMM014RVVSemNIRUgybnRoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 记得改端口
 
@@ -218,7 +218,7 @@ ssh-keygen -t rsa
 
 ### 弊端
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=OGNmMDE2NDMyNTgyM2ViMDU1ZGJhMGE4YjVlNTkwNzRfSUZHNGtNUUxvTGE0UEszMWFBenRsR1RPUmZBU1RMa0RfVG9rZW46VDlMMWJmNkhSb2s0ZHh4b2tPaGNUczRIbkRoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=OGNmMDE2NDMyNTgyM2ViMDU1ZGJhMGE4YjVlNTkwNzRfSUZHNGtNUUxvTGE0UEszMWFBenRsR1RPUmZBU1RMa0RfVG9rZW46VDlMMWJmNkhSb2s0ZHh4b2tPaGNUczRIbkRoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 # dict协议打未授权redis
 
@@ -228,7 +228,7 @@ ssh-keygen -t rsa
 dict://x.x.x.x:6379/<Redis 命令>
 ```
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=YThkYzY0ZmJiMDFlOTY4OGJhMTY2MTkzZDNkN2FjYzJfY0F2UFJhQmtDV0h4Zk5xRmF0bENJaDlhc3BSVml4QmRfVG9rZW46VHFaZGJaVzZNb0x4OTd4SHZTUGNDN1F6blJmXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=YThkYzY0ZmJiMDFlOTY4OGJhMTY2MTkzZDNkN2FjYzJfY0F2UFJhQmtDV0h4Zk5xRmF0bENJaDlhc3BSVml4QmRfVG9rZW46VHFaZGJaVzZNb0x4OTd4SHZTUGNDN1F6blJmXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 直接用dict协议可以执行redis命令
 
@@ -321,7 +321,7 @@ fastcig也有header和body
 
 下面是动态网页的运行过程：
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU4ZGY4NzFmNzM4NzgyODg3ZjdmMTRkNjM5YmQ1YzJfd0NVRG1CQ3pROHVnRmZwcUVXc0psN1ZnbWVkQjVqRU9fVG9rZW46R0hnTmJvYTV4b3pkRGR4NGd5NGNZSFVSbkpIXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=NTU4ZGY4NzFmNzM4NzgyODg3ZjdmMTRkNjM5YmQ1YzJfd0NVRG1CQ3pROHVnRmZwcUVXc0psN1ZnbWVkQjVqRU9fVG9rZW46R0hnTmJvYTV4b3pkRGR4NGd5NGNZSFVSbkpIXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 ## 攻击原理
 
@@ -594,7 +594,7 @@ if __name__ == '__main__':
 1. 开启监听
     
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=NTRmYTg4OTE2MzUxZGQ3ZDg4MjQ1YzE1MjJkMmE1MzZfRE81VmtFamUwVlhCSzhzVlJzVXNYOTlOQTRXWms2NGFfVG9rZW46WFVEY2J3WkI3b3VTQ3p4bFQyeWNnREIzbmxlXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=NTRmYTg4OTE2MzUxZGQ3ZDg4MjQ1YzE1MjJkMmE1MzZfRE81VmtFamUwVlhCSzhzVlJzVXNYOTlOQTRXWms2NGFfVG9rZW46WFVEY2J3WkI3b3VTQ3p4bFQyeWNnREIzbmxlXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 2. 执行exp
     
@@ -603,13 +603,13 @@ if __name__ == '__main__':
 python [脚本名] -c [要执行的代码] -p [端口号] [ip] [要执行的php文件]
 ```
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=MzBkMjc0MDAzY2IwZDI2OWI3MjcyODc4M2Y3ZGUyMjZfdlBXRldVa0pINHRxaGlCUUtBVXhxU0dBVVI1T2c2dnBfVG9rZW46RnY3Q2JWOERab3dYVWt4bXZZdmNTZ1lzbkZoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=MzBkMjc0MDAzY2IwZDI2OWI3MjcyODc4M2Y3ZGUyMjZfdlBXRldVa0pINHRxaGlCUUtBVXhxU0dBVVI1T2c2dnBfVG9rZW46RnY3Q2JWOERab3dYVWt4bXZZdmNTZ1lzbkZoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 9000端口是PHP-FPM的默认监听端口
 
 会得到二进制流
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=MzcwODFlZmRjZjAyZmJiZmU5OWVkY2Q3ZGUyZWQyNmFfQ2w1NW5sREg5cDJqQnRPS0t3MzF2Z2RKMVoxTUxPMDVfVG9rZW46SlVuR2JjRGI3b2d5cWp4TnlxWGNDV095bjJ0XzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=MzcwODFlZmRjZjAyZmJiZmU5OWVkY2Q3ZGUyZWQyNmFfQ2w1NW5sREg5cDJqQnRPS0t3MzF2Z2RKMVoxTUxPMDVfVG9rZW46SlVuR2JjRGI3b2d5cWp4TnlxWGNDV095bjJ0XzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 3. python脚本转化成url编码
     
@@ -630,7 +630,7 @@ print(b)
 4. 然后再url编码用gopher发给ssrf服务器（记得是打9000端口）
     
 
-![](https://ucnckoaspefs.feishu.cn/space/api/box/stream/download/asynccode/?code=YjBlYjg4NDlhY2M4NGNjMTg5ZjkyZmQ0MGY2NmZhMjNfTmNpb1FUVUJueEVWVDlrMmNwR0FwU2FlcXF6ZU8zVVRfVG9rZW46TEppc2J2SVhCbzZYd0J4NmVKc2NKWkpnbmJoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA)
+![[?code=YjBlYjg4NDlhY2M4NGNjMTg5ZjkyZmQ0MGY2NmZhMjNfTmNpb1FUVUJueEVWVDlrMmNwR0FwU2FlcXF6ZU8zVVRfVG9rZW46TEppc2J2SVhCbzZYd0J4NmVKc2NKWkpnbmJoXzE3NjYzMjExNjA6MTc2NjMyNDc2MF9WNA]]
 
 ## 工具
 

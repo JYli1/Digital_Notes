@@ -1,7 +1,7 @@
 # HCTF 2018【admin】
 
 进来是登录注册，随便注册一个进来，把每个页面简单看一下，在`/change`页面发现提示：
-![](assets/Day%204/file-20251221224128176.png)
+![[file-20251221224128176.png]]
 这个连接已经失效了，在别人的wp里面找到了源码：
 ```python
 #!/usr/bin/env python
@@ -137,10 +137,10 @@ PS D:\webtool\flask-session-cookie-manager> python .\flask_session_cookie_manage
 
 ```
 拿到session后访问`/index`即可
-![500](assets/Day%204/file-20251221230006763.png)
+![[file-20251221230006763.png]]
 # 护网杯 2018【easy_tornado】
 打开是三个路由
-![500](assets/Day%204/file-20251221231752625.png)
+![[file-20251221231752625.png]]
 ```
 /flag.txt<br>flag in /fllllllllllllag
 
@@ -162,11 +162,11 @@ echo md5($cookie_secret.md5($filename));
 后来注意到题目是`easy_tornado`,会不会是什么提示？
 去搜了一下python中有一个`tornado`模板，可能存在ssti
 尝试改变一下`filehash`参数，出现报错页面，试一下ssti
-![](assets/Day%204/file-20251221233819138.png)
+![[file-20251221233819138.png]]
 果然可以解析，我们去学习一下`tornado`的ssti
 ==简单理解handler.settings即可，可以把它理解为tornado模板中内置的环境配置信息名称，通过handler.settings可以访问到环境配置的一些信息，看到tornado模板基本上可以通过handler.settings一把梭。==
 这里是用到这个知识点，并不是纯粹的ssti
-![](assets/Day%204/file-20251222000542057.png)
+![[file-20251222000542057.png]]
 通过配置信息得到了我们需要的`cookie_secret`
 写个脚本加密一下，就好了
 ```python
@@ -181,7 +181,7 @@ filename = "/fllllllllllllag"
 result = md5(cookie_secret + md5(filename))
 print(result)
 ```
-![](assets/Day%204/file-20251222002713807.png)
+![[file-20251222002713807.png]]
 # MRCTF2020【Ez_bypass】
 进来给了源代码：
 ```php
@@ -234,7 +234,7 @@ if (md5($id) === md5($gg) && $id !== $gg)
 ```
 第一想法是数组绕过，但是这只在低版本有效，因为我们数组绕过的原理就是md5函数无法处理数组，会返回null
 但是高版本`(7.3之前还行)`中md5处理数组时会直接报错
-![](assets/Day%204/file-20251222004817213.png)
+![[file-20251222004817213.png]]
 所以我们这里只能md5强碰撞，强行找到md5值相等的不同字符串
 2. 第二关：
 ```php
@@ -343,7 +343,7 @@ $flag = new Flag();
 $flag->file = "flag.php";
 echo serialize($flag);
 ```
-![500](assets/Day%204/file-20251222013156041.png)
+![[file-20251222013156041.png]]
 （好像除了index.php之外都并不是直接给的，但是我们也只需要利用php伪协议去读取就好了）
 
 # 极客大挑战 2019【HardSQL】
@@ -354,7 +354,7 @@ echo serialize($flag);
 ```
 substr被过滤了，但是报错又只能显示一点数量的内容，我们这里用一个小技巧
 right函数：从右边显示内容，这样可以得到另外的flag
-![](assets/Day%204/file-20251222024034259.png)
+![[file-20251222024034259.png]]
 
 # 网鼎杯 2020 青龙组【AreUSerialz】
 ```php
@@ -450,9 +450,9 @@ php反序列化的题，考了一些小知识点
 首先是waf绕过，对于反序列化时的保护属性问题
 大概从`php7.3`开始有了变化，
 `老版本php`，有原protect属性，又反序列化了一个同名的public属性，此时会出现两个不同属性
-![500](assets/Day%204/file-20251222034216579.png)
+![[file-20251222034216579.png]]
 而`新版本php`遇到这种情况会是只有一个protect属性，也就是对属性类型不敏感
-![500](assets/Day%204/file-20251222034358082.png)
+![[file-20251222034358082.png]]
 利用这个特性我们可以直接用public属性去改protect属性了（private也可以）
 
 还有就是
@@ -532,4 +532,4 @@ auto_prepend_file = .user.ini
 执行php文件前包含本身，然后通过注释写入php代码，这样就可以直接执行了
 
 注意，这里能用.user.ini的原因是上传目录中存在index.php文件，如果不存在那也不会自动包含
-![](assets/Day%204/file-20251222045818220.png)
+![[file-20251222045818220.png]]

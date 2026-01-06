@@ -98,9 +98,9 @@ payload:
 `post传：name=Cost&quantity=214748365`.
 # 【象棋王子】
 翻一下js文件，发现fuckjs代码：
-![](assets/VNCTF%20%202023%20web%20复现/file-20251203193025605.png)
+![[file-20251203193025605.png]]
 到控制台执行
-![500](assets/VNCTF%20%202023%20web%20复现/file-20251203193025617.png)
+![[file-20251203193025617.png]]
 # 【BabyGo】
 给了附件，是go语言源码，看不太懂就叫ai分析了。
 ```go
@@ -406,19 +406,19 @@ func main()  {
    
 这里要下载一些模块什么的就叫ai帮忙了，总之运行脚本会得到一个文件。
 
-![](assets/VNCTF%20%202023%20web%20复现/file-20251205162925828.png)
+![[file-20251205162925828.png]]
 （这里面的`zip`包是后来手动打包的）
 
 2. 文件上传 
 我们来到`/upload`路由。
 上传我们的zip
-![](assets/VNCTF%20%202023%20web%20复现/file-20251205163137388.png)
+![[file-20251205163137388.png]]
 3. 解压缩文件
 访问`/unzip`路由，path路径指定`../`上级目录。
 注意这里一开始没有指定path路径的话会默认解压到`/uploads`目录下，此时还会吧zip删除。所以第一次没操作好需要重新上传。
-![](assets/VNCTF%20%202023%20web%20复现/file-20251205163454802.png)
+![[file-20251205163454802.png]]
 4. 访问反序列化路由
-![](assets/VNCTF%20%202023%20web%20复现/file-20251205163525736.png)
+![[file-20251205163525736.png]]
 显示good说明覆盖成功。
 5. 命令执行
 这里我没怎么懂，但是就是很复杂的命令拼接，因为会把`/backdoor`路由下的`?pkg`参数拼接到命令执行函数中。
@@ -434,4 +434,4 @@ var(a="1
 ```http
 ?pkg=%22os%2Fexec%22%0A%20fmt%22%0A%29%0A%0Afunc%09init()%7B%0Acmd%3A%3Dexec.Command(%22cat%22%2C%22%2Fffflllaaaggg%22)%0Aout%2C_%3A%3Dcmd.CombinedOutput()%0Afmt.Println(string(out))%0A%7D%0A%0Avar(a%3D%221
 ```
-![](assets/VNCTF%20%202023%20web%20复现/file-20251205163820848.png)
+![[file-20251205163820848.png]]

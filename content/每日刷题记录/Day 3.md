@@ -1,6 +1,6 @@
 # 0x01 网鼎杯 2020 朱雀组【phpweb】
 进去看到报错，看到这里是调用了`data()`函数，抓包看看
-![](assets/Day%203/file-20251223195900037.png)
+![[file-20251223195900037.png]]
 应该就是`func`：函数名；`p`：参数
 
 试着`file_get_contents`读一下`index.php`
@@ -67,16 +67,16 @@ echo serialize($test);
 但是这样只有一次呀，当时可以执行，这咋连接。。。
 后面了解了一下，蚁剑可以直接设置发包的参数，直接连接就好了
 这里是php版本5.几，所以还可以调用`assert`，但是7版本之后assert也变成语言结构了，所以就不能写马了，
-![](assets/Day%203/file-20251220014214991.png)
+![[file-20251220014214991.png]]
 或者还有其他方法，以后再了解一下。
 
 # 0x02 CISCN2019 华东南赛区【Web4】
 进去是一个链接，但是打不开了，（不知道为什么）但是查看源代码发现是传一个url参数，猜测是ssrf，尝试之后也没反应，也可能是文件包含，再试试，果然能读到
-![600](assets/Day%203/file-20251220021309697.png)
+![[file-20251220021309697.png]]
 抓包在读一下其他文件，同时也发现了存在特殊的cookie
-![500](assets/Day%203/file-20251220021354705.png)
+![[file-20251220021354705.png]]
 以为是jwt，尝试解码一下
-![500](assets/Day%203/file-20251220021551745.png)
+![[file-20251220021551745.png]]
 这看着也不是常规的jwt。这里我们也查到了当前进程存在的文件，所以直接看源码了
 ```python
 # encoding:utf-8
@@ -131,11 +131,11 @@ app.config['SECRET_KEY'] = str(random.random()*233)
 app.debug = True
 ```
 这里是一个伪随机数，设置了种子的，还要了解一下`uuid.getnode()`
-![](assets/Day%203/file-20251220022618712.png)
+![[file-20251220022618712.png]]
 看到这里值是和mac地址有关，学了一下怎么获得mac地址
 `/sys/class/net/eth0/address`
 这是linux中存储mac地址的地方
-![](assets/Day%203/file-20251220023000279.png)
+![[file-20251220023000279.png]]
 了解了一下，flask的session是会和`secret_key`有关的，有了这个key就可以用工具直接伪造了。
 这里我们直接按照逻辑得到`secret_key`
 我们通过脚本可以得到mac对应的key
@@ -167,18 +167,18 @@ PS D:\webtool\flask-session-cookie-manager> python flask_session_cookie_manager3
 eyJ1c2VybmFtZSI6eyIgYiI6IlpuVmphdz09In19.aUWhdQ.taV6yt4OcPpldzPixEfVI_XnvbA
 ```
 然后访问flag路由就好了，注意这里，我们伪造是只需要key的，因为后面的签名和前面有关
-![500](assets/Day%203/file-20251220030430083.png)
+![[file-20251220030430083.png]]
 
 # 0x04 HackINI  2023 【just-work-type】
 简单的jwt伪造
 爆破jwt密钥
-![400](assets/Day%203/file-20251220120645844.png)
+![[file-20251220120645844.png]]
 然后伪造cookie发包就好了。
-![500](assets/Day%203/file-20251220120717636.png)
+![[file-20251220120717636.png]]
 # 0x05 HackINI  2021【sqli-0x1】
 查看源码提示了代码审计
 
-![500](assets/Day%203/file-20251220222939741.png)
+![[file-20251220222939741.png]]
 
 我们大概浏览一下。
 
@@ -186,7 +186,7 @@ eyJ1c2VybmFtZSI6eyIgYiI6IlpuVmphdz09In19.aUWhdQ.taV6yt4OcPpldzPixEfVI_XnvbA
 
 接下来主要看最下面的验证，因为根际下面的html代码，只要`$logged`为真就返回flag
 
-![500](assets/Day%203/file-20251220223003149.png)
+![[file-20251220223003149.png]]
 
 所以主要看这一块
 
@@ -245,11 +245,11 @@ $salt = '888'
 
 就饶过了
 
-![500](assets/Day%203/file-20251220223038158.png)
+![[file-20251220223038158.png]]
 
 这里a是一个不存在的，所以没结果，所以回显的结果就会是我们查询的1和一个编码字符串，这里提取的是password字段，那应该就是第二个，所以才把编码字符串放在2的位置。
 
-![500](assets/Day%203/file-20251220223046713.png)
+![[file-20251220223046713.png]]
 
 # 0x06 HackINI  2022 【Whois】
 得到源码
@@ -296,11 +296,11 @@ else {
 
 重点在`shell_exec("/usr/bin/whois -h ${host} ${query}")`，可以拼接命令，但是又不允许有`;`，linux中允许`;`或换行符`\n`分割命令。如：
 
-![500](assets/Day%203/file-20251220223404369.png)
+![[file-20251220223404369.png]]
 
 所以我们这里可以用换行符，注意要用`%0a`
 
-![800](assets/Day%203/file-20251220223412787.png)
+![[file-20251220223412787.png]]
 
 # 0x07 Next.js 中间件鉴权绕过漏洞 (CVE-2025-29927)
 ## 漏洞描述
@@ -349,7 +349,7 @@ Creating cve-2025-29927_web_1 ... done
 
 ```
 
-![](assets/Day%203/file-20251220223741944.png)
+![[file-20251220223741944.png]]
 
 看到在3000端口启动了对应环境
 
@@ -359,7 +359,7 @@ Creating cve-2025-29927_web_1 ... done
 
 自动重定向到了`/login`路由。
 
-![500](assets/Day%203/file-20251220223753598.png)
+![[file-20251220223753598.png]]
 
 需要我们登录，我们可以输入admin：password登录。
 
@@ -373,7 +373,7 @@ Creating cve-2025-29927_web_1 ... done
 x-middleware-subrequest:middleware:middleware:middleware:middleware:middleware
 ```
 
-![700](assets/Day%203/file-20251220224019593.png)
+![[file-20251220224019593.png]]
 
 可以看到成功确权访问了admin管理界面
 
@@ -431,22 +431,22 @@ x-middleware-subrequest:src/middleware:src/middleware:src/middleware:src/middlew
 
 ## [WatCTF 2025 ]Waterloo Trivia Dash
 
-![500](assets/Day%203/file-20251220224230189.png)
+![[file-20251220224230189.png]]
 
 答完三道题后得到一个按钮，按了没反应，于是复制连接看一下。
 
 `http://112.124.64.34:3080/admin`，是一个admin路由，抓包看
 
-![](assets/Day%203/file-20251220224256641.png)
+![[file-20251220224256641.png]]
 
 访问之后会307跳转到根路由。
 
 我们信息收集一下
 
-![500](assets/Day%203/file-20251220224308801.png)
+![[file-20251220224308801.png]]
 
 发现是Next.js版本15.2.2 < 15.2.3 存在已知的漏洞。我们尝试攻击
 
-![](assets/Day%203/file-20251220224316653.png)
+![[file-20251220224316653.png]]
 
 该题的中间件是在src目录下。

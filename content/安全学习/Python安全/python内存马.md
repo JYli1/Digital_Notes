@@ -22,9 +22,9 @@ sys.modules['__main__'].__dict__['app'].add_url_rule('/shell','shell',lambda:__i
 
 这个方法在高版本的flask中是不能直接用来添加路由的，原因是这个check方法，在老版本中只有在debug模式才会触发这个check，而在新版本中这个chec被弄得到处都是，只要我们的`self.got_first_request` 为true，就会触发下面的异常。感兴趣的话可以跟进看一下，他在其他方法中被强制赋值为Ture了
 
-![](assets/python内存马/file-20251210211027110.png)
+![[file-20251210211027110.png]]
 
-![](assets/python内存马/file-20251210211033969.png)
+![[file-20251210211033969.png]]
 
 https://research.qianxin.com/archives/2329 文章介绍了为什么不能用和怎么解决，但是还是可以有别的方法，直接给`self.got_first_request`赋值为False。
 

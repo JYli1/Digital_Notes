@@ -2,7 +2,7 @@ php://filter是php伪协议中常用的，一般我们用来读取源代码
 ```php
 include(php://filter/read=convert.base64-encode/resource=【文件名】);
 ```
-![700](assets/filter-chain%20RCE/file-20251218131840603.png)
+![[file-20251218131840603.png]]
 一直听过有一种filter链打RCE的方式但是一直都没去看过，感觉很难，这次VN面试也问到了，还是有些后悔，现在来学习下一下。
 
 # 前置知识
@@ -103,7 +103,7 @@ https://wanth3f1ag.top/2025/05/19/filters-chain%E5%AE%9E%E7%8E%B0RCE/#%E6%9E%84%
 
 图片来源[https://www.synacktiv.com/sites/default/files/inline-images/prepend_character8.png](https://www.synacktiv.com/sites/default/files/inline-images/prepend_character8.png)
 
-![700](assets/filter-chain%20RCE/file-20251218145523921.png)
+![[file-20251218145523921.png]]
 
 - 将字符串转换为UTF16以前置’\xff\xfe’
 - 将创建的字符串转换为latin6，’\xff’相当于拉丁字符kra `'k'`
@@ -152,11 +152,11 @@ include($_GET['file']);
 简单的一个文件包含
 这里可以打pearcmd包含，也可以用filter链包含
 我们用工具生成pyload：
-![](assets/filter-chain%20RCE/file-20251218153659904.png)
-直接rce了，![](assets/filter-chain%20RCE/file-20251218153746180.png)
+![[file-20251218153659904.png]]
+直接rce了，![[file-20251218153746180.png]]
 # 有效路径
 这个技巧的一个主要问题就是需要一个有效的文件路径，当然，我们可以用已知的/etc/passwd，但是因为PHP包装器允许一个嵌套到另一个，所以我们可以通过使用PHP包装器php：//temp作为整个过滤器链的输入资源，不再需要猜测目标文件系统上的有效路径，这取决于操作系统。
 
-![](assets/filter-chain%20RCE/file-20251218153859847.png)
+![[file-20251218153859847.png]]
 # 参考文章
 https://wanth3f1ag.top/2025/05/19/filters-chain%E5%AE%9E%E7%8E%B0RCE/#%E6%9E%84%E9%80%A0%E5%AD%97%E7%AC%A6
