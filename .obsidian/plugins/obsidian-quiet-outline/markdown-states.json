@@ -1052,7 +1052,7 @@
     "expandedKeys": []
   },
   "笔记站搭建.md": {
-    "scroll": 82.41233766233766,
+    "scroll": 77.2556080283353,
     "cursor": {
       "from": {
         "line": 99,
@@ -1193,5 +1193,49 @@
     "expandedKeys": [
       "item-2-0"
     ]
+  },
+  "docs/features/callouts.md": {
+    "scroll": 22.580078125,
+    "cursor": {
+      "from": {
+        "line": 39,
+        "ch": 14
+      },
+      "to": {
+        "line": 39,
+        "ch": 14
+      }
+    },
+    "expandedKeys": [
+      "item-2-0"
+    ]
+  },
+  "docs/plugins/CrawlLinks.md": {
+    "scroll": 8.192312507825216,
+    "cursor": {
+      "from": {
+        "line": 20,
+        "ch": 15
+      },
+      "to": {
+        "line": 20,
+        "ch": 15
+      }
+    },
+    "expandedKeys": []
+  },
+  "docs/configuration.md": {
+    "scroll": 67.90703278584564,
+    "cursor": {
+      "from": {
+        "line": 57,
+        "ch": 30
+      },
+      "to": {
+        "line": 57,
+        "ch": 30
+      }
+    },
+    "expandedKeys": []
   }
 }
