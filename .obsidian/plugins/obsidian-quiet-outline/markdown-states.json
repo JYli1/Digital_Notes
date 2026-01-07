@@ -1330,5 +1330,19 @@
       }
     },
     "expandedKeys": []
+  },
+  "docs/plugins/Favicon.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 6,
+        "ch": 96
+      },
+      "to": {
+        "line": 6,
+        "ch": 96
+      }
+    },
+    "expandedKeys": []
   }
 }
