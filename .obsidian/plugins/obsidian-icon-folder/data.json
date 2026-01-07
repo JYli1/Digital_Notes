@@ -43,10 +43,6 @@
     "iconColor": "#f50505"
   },
   "安全学习": "TiShieldCheckered",
-  "期末考试": {
-    "iconName": "LiSchool",
-    "iconColor": "#f7e8e3"
-  },
   "python爬虫学习": {
     "iconName": "TiBrandPython",
     "iconColor": "#3dccf0"
@@ -93,5 +89,9 @@
   "AI学习": {
     "iconName": "TiInputAi",
     "iconColor": "#0ff07c"
+  },
+  "content/期末考试": {
+    "iconName": "LiSchool",
+    "iconColor": "#f7e8e3"
   }
 }
