@@ -1183,11 +1183,11 @@
     "cursor": {
       "from": {
         "line": 24,
-        "ch": 0
+        "ch": 31
       },
       "to": {
         "line": 24,
-        "ch": 0
+        "ch": 31
       }
     },
     "expandedKeys": [
