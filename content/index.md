@@ -9,8 +9,9 @@ date: 2024-01-01
 
 我的博客：https://jyli1.github.io
 
-我的github：[[https://github.com/JYli1]]
+我的github：https://github.com/JYli1
 
 ### 关于本站
-这是一个使用 **Obsidian** 和 **Quartz** 构建的数字花园。部署在cloudflare
-开源项目地址：[[https://github.com/jackyzha0/quartz]]
+这是一个使用 **Obsidian** 和 **Quartz** 构建的数字花园。部署在cloudflare。
+
+开源项目（Quartz）地址：https://github.com/jackyzha0/quartz
