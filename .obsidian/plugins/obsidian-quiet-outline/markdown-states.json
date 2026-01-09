@@ -1410,12 +1410,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 15,
-        "ch": 0
+        "line": 16,
+        "ch": 11
       },
       "to": {
-        "line": 15,
-        "ch": 0
+        "line": 16,
+        "ch": 11
       }
     },
     "expandedKeys": []
