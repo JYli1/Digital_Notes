@@ -1,0 +1,48 @@
+/* ========= 强层级标题（Editing + Reading 统一） ========= */
+
+.markdown-preview-view h1,
+.cm-header-1 {
+    font-size: 2.4em;
+    font-weight: 800;
+    color: #5a2d1a;
+    margin-top: 1.8em;
+}
+
+.markdown-preview-view h2,
+.cm-header-2 {
+    font-size: 1.9em;
+    font-weight: 720;
+    color: #6f3f26;
+    margin-top: 1.6em;
+}
+
+.markdown-preview-view h3,
+.cm-header-3 {
+    font-size: 1.45em;
+    font-weight: 640;
+    color: #815031;
+    margin-top: 1.4em;
+}
+
+.markdown-preview-view h4,
+.cm-header-4 {
+    font-size: 1.2em;
+    font-weight: 580;
+    color: #946448;
+    margin-top: 1.2em;
+}
+
+.markdown-preview-view h5,
+.cm-header-5 {
+    font-size: 1.05em;
+    font-weight: 520;
+    color: #a57a60;
+}
+
+.markdown-preview-view h6,
+.cm-header-6 {
+    font-size: 0.95em;
+    font-weight: 480;
+    color: #b6927d;
+    letter-spacing: 0.02em;
+}

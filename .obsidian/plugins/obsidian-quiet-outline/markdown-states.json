@@ -1390,24 +1390,24 @@
     "expandedKeys": []
   },
   "content/AI学习/Day 2：搭建一个简单的Agent.md": {
-    "scroll": 19.22175758332293,
+    "scroll": 0,
     "cursor": {
       "from": {
-        "line": 47,
-        "ch": 2
+        "line": 2,
+        "ch": 0
       },
       "to": {
-        "line": 47,
-        "ch": 2
+        "line": 2,
+        "ch": 0
       }
     },
     "expandedKeys": [
-      "item-2-3",
-      "item-2-0"
+      "item-2-0",
+      "item-2-3"
     ]
   },
   "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
-    "scroll": 71.90236733821408,
+    "scroll": 15.101801424382069,
     "cursor": {
       "from": {
         "line": 131,
@@ -1424,12 +1424,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 5,
-        "ch": 0
+        "line": 0,
+        "ch": 6
       },
       "to": {
-        "line": 5,
-        "ch": 0
+        "line": 0,
+        "ch": 6
       }
     },
     "expandedKeys": [
@@ -1438,5 +1438,33 @@
       "item-3-2",
       "item-4-3"
     ]
+  },
+  "content/数据安全管理论文.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 2,
+        "ch": 0
+      },
+      "to": {
+        "line": 2,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/index.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 16,
+        "ch": 0
+      },
+      "to": {
+        "line": 16,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
