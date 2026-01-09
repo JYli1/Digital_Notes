@@ -246,7 +246,7 @@ def respond(user_input):
     return random.choice(rules[r'.*'])
 ```
 ### 实现效果
-![[file-20260109205422814.png]]
+![[file-20260109210052911.png]]
 注意：
 这里`:memory`是自己加上了便于调试的代码(修改以注释形式给出)：
 ```python
