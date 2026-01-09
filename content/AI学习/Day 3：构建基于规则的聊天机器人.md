@@ -172,4 +172,34 @@ rules = {
 }
 ```
 无非就是写上`正则匹配规则:对应回复`的键值对
-2. 现在想一下怎么实现上下文记忆，我这里的想法就是
+2. 现在想一下怎么实现上下文记忆，我这里的想法就是：
+- 首先需要一个容器存储上下文记忆，我这里选择创建一个memory列表存储关键信息
+- 然后我要从用户的输入中提取关键信息（就是在一些特定的输入中提取），我这里实现了一个提取关键信息的函数：
+```python
+def extract_information(user_input):
+    """
+    从用户输入中抽取关键信息并更新上下文记忆
+    """
+    # 姓名
+    match = re.search(r'my name is (\w+)', user_input, re.IGNORECASE)
+    if match:
+        memory["name"] = match.group(1)
+
+    # 年龄
+    match = re.search(r'i am (\d{1,3}) years old', user_input, re.IGNORECASE)
+    if match:
+        memory["age"] = match.group(1)
+
+    # 身份 / 职业
+    match = re.search(r'i am a (student|teacher|developer|engineer)', user_input, re.IGNORECASE)
+    if match:
+        memory["role"] = match.group(1)
+
+    # 当前主题（非常粗糙，但够用）
+    if re.search(r'\b(work|job|career)\b', user_input, re.IGNORECASE):
+        memory["topic"] = "work"
+    elif re.search(r'\b(study|exam|school)\b', user_input, re.IGNORECASE):
+        memory["topic"] = "study"
+
+```
+同样和之前的，根据对应输入选择对应输出一样。使用正则匹配关键字来确定是否需要提取
