@@ -1415,18 +1415,21 @@
     ]
   },
   "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
-    "scroll": 170.16290182450044,
+    "scroll": 241.71138779485875,
     "cursor": {
       "from": {
-        "line": 205,
-        "ch": 0
+        "line": 259,
+        "ch": 21
       },
       "to": {
-        "line": 205,
-        "ch": 0
+        "line": 259,
+        "ch": 21
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-2-2",
+      "item-2-3"
+    ]
   },
   "标题测试.md": {
     "scroll": 0,

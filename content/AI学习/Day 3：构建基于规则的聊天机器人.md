@@ -173,7 +173,15 @@ rules = {
 ```
 无非就是写上`正则匹配规则:对应回复`的键值对
 2. 现在想一下怎么实现上下文记忆，我这里的想法就是：
-- 首先需要一个容器存储上下文记忆，我这里选择创建一个memory列表存储关键信息
+- 首先需要一个容器存储上下文记忆，我这里选择创建一个memory字典存储关键信息:
+```python
+memory = {
+    "name": None,
+    "age": None,
+    "role": None,
+    "topic": None
+}
+```
 - 然后我要从用户的输入中提取关键信息（就是在一些特定的输入中提取），我这里实现了一个提取关键信息的函数：
 ```python
 def extract_information(user_input):
@@ -203,3 +211,59 @@ def extract_information(user_input):
 
 ```
 同样和之前的，根据对应输入选择对应输出一样。使用正则匹配关键字来确定是否需要提取
+提取到之后会存入memory字典中的
+- 有了上下文记忆之后，还需要在输出的回复中有所体现，我这里的方法是（简单的）：对于名字，会在每一句回复前加上名字，其他就是在最后输出对应的预定义回复语句，这就是修改`respond`模块来实现（修改以注释形式给出）:
+```python
+def respond(user_input):
+    """
+    根据规则库生成响应
+    """
+    extract_information(user_input)
+
+    for pattern, responses in rules.items():
+        match = re.search(pattern, user_input, re.IGNORECASE)
+        if match:
+            # 捕获匹配到的部分
+            captured_group = match.group(1) if match.groups() else ''
+            # 进行代词转换
+            swapped_group = swap_pronouns(captured_group)
+            # 从模板中随机选择一个并格式化
+            response = random.choice(responses).format(swapped_group)
+
+         ##   if memory["name"]:
+         ##       response = f"{memory['name']}, {response}"
+
+                ## 根据身份或主题稍作调整
+         ##   if memory["role"] == "student" and memory["topic"] == "study":
+         ##       response += " How are your studies going lately?"
+
+         ##   if memory["topic"] == "work":
+         ##       response += " Work can have a big impact on our emotions."
+
+
+            return response
+    # 如果没有匹配任何特定规则，使用最后的通配符规则
+    return random.choice(rules[r'.*'])
+```
+### 实现效果
+![[file-20260109205422814.png]]
+注意：
+这里`:memory`是自己加上了便于调试的代码(修改以注释形式给出)：
+```python
+# 主聊天循环
+if __name__ == '__main__':
+    print("Therapist: Hello! How can I help you today?")
+    while True:
+        user_input = input("You: ")
+        #if user_input == ":memory":
+        #    print(memory)
+        #    continue
+        if user_input.lower() in ["quit", "exit", "bye"]:
+            print("Therapist: Goodbye. It was nice talking to you.")
+            break
+        response = respond(user_input)
+        print(f"Therapist: {response}")
+
+        
+       
+```
