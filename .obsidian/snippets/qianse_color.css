@@ -1,0 +1,17 @@
+/* 浅色主题下行内代码高亮 - 长时间阅读不刺眼 */
+.prose code,
+.cm-inline-code {
+    background: rgba(240, 244, 248, 0.9) !important;  /* 极浅蓝灰底 */
+    color: #2f4b6e !important;                       /* 深蓝灰文字 */
+    padding: 0.15em 0.35em !important;
+    border-radius: 4px !important;
+    font-size: 92% !important;
+    font-weight: 500 !important;
+}
+
+/* 针对部分主题兜底 */
+.theme-light .inline-code,
+.theme-light code {
+    background: #eef2f6 !important;
+    color: #344b63 !important;
+}

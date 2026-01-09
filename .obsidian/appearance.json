@@ -3,8 +3,10 @@
   "cssTheme": "Minimal",
   "accentColor": "#0beadb",
   "enabledCssSnippets": [
-    "color",
     "tight-body",
-    "comment-strong"
-  ]
+    "comment-strong",
+    "qianse_color",
+    "beijin_minimal"
+  ],
+  "baseFontSize": 17
 }

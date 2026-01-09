@@ -1,0 +1,5 @@
+/* Minimal 浅色主题整体背景暖化 */
+.theme-light {
+    --background-primary: #fcfaf6;   /* 主背景：暖纸白 */
+    --background-secondary: #f6f2ec; /* 次背景：略深 */
+}
