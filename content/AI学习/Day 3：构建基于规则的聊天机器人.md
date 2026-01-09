@@ -129,3 +129,60 @@ if __name__ == '__main__':
 
 ELIZA的实践清晰地揭示了符号主义方法的核心矛盾：系统看似智能的表现，完全依赖于设计者预先编码的规则。然而，面对真实世界语言的无限可能性，这种穷举式的方法注定不可扩展。系统没有真正的理解，只是在执行符号操作，这正是其脆弱性的根源。
 
+## 0x04 功能强化
+简单做一点提提升：
+- 为ELIZA添加3-5条新的规则，使其能够处理更多样化的对话场景（如谈论工作、学习、爱好等）
+- 实现一个简单的"上下文记忆"功能：让ELIZA能够记住用户在对话中提到的关键信息（如姓名、年龄、职业），并在后续对话中引用
+
+首先思考一下怎么添加规则，这个应该比较简单，直接在`rules`中按照上面的写法加上工作这些东西就好了
+例如：
+```python
+rules = {
+    r'I need (.*)': [
+        "Why do you need {0}?",
+        "Would it really help you to get {0}?",
+        "Are you sure you need {0}?"
+    ],
+    r'Why don\'t you (.*)\?': [
+        "Do you really think I don't {0}?",
+        "Perhaps eventually I will {0}.",
+        "Do you really want me to {0}?"
+    ],
+    r'Why can\'t I (.*)\?': [
+        "Do you think you should be able to {0}?",
+        "If you could {0}, what would you do?",
+        "I don't know -- why can't you {0}?"
+    ],
+    r'I am (.*)': [
+        "Did you come to me because you are {0}?",
+        "How long have you been {0}?",
+        "How do you feel about being {0}?"
+    ],
+    r'.* mother .*': [
+        "Tell me more about your mother.",
+        "What was your relationship with your mother like?",
+        "How do you feel about your mother?"
+    ],
+    r'.* father .*': [
+        "Tell me more about your father.",
+        "How did your father make you feel?",
+        "What has your father taught you?"
+    ],
+    r'.*\b(work|job|career|company)\b.*': [
+        "How do you feel about your work?",
+        "What part of your job affects you the most?",
+        "Does your work bring you satisfaction or stress?"
+    ],
+    r'I am (?:studying|learning) (.*)':[
+        "How do you feel about studying {0}?",
+        "What made you start learning {0}?",
+        "Do you find {0} challenging?"
+    ],
+    r'.*': [
+        "Please tell me more.",
+        "Let's change focus a bit... Tell me about your family.",
+        "Can you elaborate on that?"
+    ]
+
+}
+```
