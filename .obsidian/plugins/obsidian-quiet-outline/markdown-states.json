@@ -1179,22 +1179,24 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 35.76128814050685,
+    "scroll": 14.539254160458333,
     "cursor": {
       "from": {
-        "line": 39,
-        "ch": 2
+        "line": 13,
+        "ch": 11
       },
       "to": {
-        "line": 39,
-        "ch": 2
+        "line": 13,
+        "ch": 11
       }
     },
     "expandedKeys": [
       "item-2-0",
-      "item-2-4",
-      "item-2-9",
-      "item-3-11"
+      "item-2-6",
+      "item-2-11",
+      "item-3-13",
+      "item-3-1",
+      "item-3-3"
     ]
   },
   "docs/features/callouts.md": {
@@ -1321,18 +1323,20 @@
     "expandedKeys": []
   },
   "content/每日刷题记录/Day 1.md": {
-    "scroll": 5.209954832881662,
+    "scroll": 238.56822752082735,
     "cursor": {
       "from": {
-        "line": 8,
-        "ch": 31
+        "line": 255,
+        "ch": 0
       },
       "to": {
-        "line": 8,
-        "ch": 31
+        "line": 255,
+        "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-0"
+    ]
   },
   "docs/plugins/Favicon.md": {
     "scroll": 0,
