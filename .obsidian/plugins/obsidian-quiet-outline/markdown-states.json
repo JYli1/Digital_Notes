@@ -1182,11 +1182,11 @@
     "scroll": 58.13436647001849,
     "cursor": {
       "from": {
-        "line": 61,
+        "line": 68,
         "ch": 0
       },
       "to": {
-        "line": 61,
+        "line": 68,
         "ch": 0
       }
     },
@@ -1199,7 +1199,9 @@
       "item-3-3",
       "item-3-5",
       "item-3-15",
-      "item-3-23"
+      "item-3-23",
+      "item-2-28",
+      "item-3-29"
     ]
   },
   "docs/features/callouts.md": {
