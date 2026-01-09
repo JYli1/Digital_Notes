@@ -134,8 +134,8 @@ ELIZA的实践清晰地揭示了符号主义方法的核心矛盾：系统看似
 - 为ELIZA添加3-5条新的规则，使其能够处理更多样化的对话场景（如谈论工作、学习、爱好等）
 - 实现一个简单的"上下文记忆"功能：让ELIZA能够记住用户在对话中提到的关键信息（如姓名、年龄、职业），并在后续对话中引用
 
-首先思考一下怎么添加规则，这个应该比较简单，直接在`rules`中按照上面的写法加上工作这些东西就好了
-例如：
+1. 首先思考一下怎么添加规则，这个应该比较简单，直接在`rules`中按照上面的写法加上工作这些东西就好了
+例如（添加的以注释形式给出）：
 ```python
 rules = {
     r'I need (.*)': [
@@ -148,36 +148,21 @@ rules = {
         "Perhaps eventually I will {0}.",
         "Do you really want me to {0}?"
     ],
-    r'Why can\'t I (.*)\?': [
-        "Do you think you should be able to {0}?",
-        "If you could {0}, what would you do?",
-        "I don't know -- why can't you {0}?"
-    ],
-    r'I am (.*)': [
-        "Did you come to me because you are {0}?",
-        "How long have you been {0}?",
-        "How do you feel about being {0}?"
-    ],
-    r'.* mother .*': [
-        "Tell me more about your mother.",
-        "What was your relationship with your mother like?",
-        "How do you feel about your mother?"
-    ],
     r'.* father .*': [
         "Tell me more about your father.",
         "How did your father make you feel?",
         "What has your father taught you?"
     ],
-    r'.*\b(work|job|career|company)\b.*': [
-        "How do you feel about your work?",
-        "What part of your job affects you the most?",
-        "Does your work bring you satisfaction or stress?"
-    ],
-    r'I am (?:studying|learning) (.*)':[
-        "How do you feel about studying {0}?",
-        "What made you start learning {0}?",
-        "Do you find {0} challenging?"
-    ],
+    #r'.*\b(work|job|career|company)\b.*': [
+    #    "How do you feel about your work?",
+    #    "What part of your job affects you the most?",
+    #    "Does your work bring you satisfaction or stress?"
+    #],
+    #r'I am (?:studying|learning) (.*)':[
+    #    "How do you feel about studying {0}?",
+    #    "What made you start learning {0}?",
+    #    "Do you find {0} challenging?"
+    #],
     r'.*': [
         "Please tell me more.",
         "Let's change focus a bit... Tell me about your family.",
@@ -186,3 +171,5 @@ rules = {
 
 }
 ```
+无非就是写上`正则匹配规则:对应回复`的键值对
+2. 现在想一下怎么实现上下文记忆，我这里的想法就是
