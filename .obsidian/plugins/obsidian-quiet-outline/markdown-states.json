@@ -1179,15 +1179,15 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 32.984171524048826,
+    "scroll": 32.34093083172838,
     "cursor": {
       "from": {
-        "line": 30,
-        "ch": 10
+        "line": 35,
+        "ch": 2
       },
       "to": {
-        "line": 30,
-        "ch": 10
+        "line": 35,
+        "ch": 2
       }
     },
     "expandedKeys": [
@@ -1457,14 +1457,16 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 16,
-        "ch": 0
+        "line": 7,
+        "ch": 12
       },
       "to": {
-        "line": 16,
-        "ch": 0
+        "line": 7,
+        "ch": 12
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }

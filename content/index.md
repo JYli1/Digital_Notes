@@ -7,7 +7,7 @@ date: 2024-01-01
 
 这里是我存放笔记的地方。
 
-我的博客：[[https://jyli1.github.io]]
+我的博客：https://jyli1.github.io
 
 我的github：[[https://github.com/JYli1]]
 
