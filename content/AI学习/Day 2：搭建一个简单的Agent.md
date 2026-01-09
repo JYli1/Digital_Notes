@@ -15,9 +15,9 @@ pip install requests tavily-python openai
 使用 API 调用大模型需要 API 密钥，这里我们以Qwen为例，可以从[ModelScope](https://modelscope.cn/docs/model-service/API-Inference/intro)获取，它提供Qwen系列的免费（OpenAI）兼容格式的API，每天免费2000次调用。
 1. 进入官网登录
 2. 在 首页 -> 访问令牌 中
-![[file-20260107072401248.png]]
+![[assets/Day 2：搭建一个简单的Agent/file-20260109162546991.png]]
 3. 在 模型库 -> 支持体验 -> 推理API-inference -> DeepSeek-V3.2 里面有代码示范，后面需要的一些参数的写法里面有
-![[file-20260107074154756.png]]
+![[assets/Day 2：搭建一个简单的Agent/file-20260109162546987.png]]
 
 ## 0x02 代码编写
 ### 2.1 提示词部分
@@ -253,7 +253,7 @@ for i in range(5): # 设置最大循环次数
 
 ### 2.7 运行结果
 直接点击运行即可得到结果：
-![[file-20260107074720538.png]]
+![[assets/Day 2：搭建一个简单的Agent/file-20260109162546982.png]]
 ```ps
 C:\Users\15819\PycharmProjects\Agent_Project\.venv\Scripts\python.exe C:\Users\15819\PycharmProjects\Agent_Project\First_agent.py 
 用户输入: 你好，请帮我查询一下今天北京的天气，然后根据天气推荐一个合适的旅游景点。

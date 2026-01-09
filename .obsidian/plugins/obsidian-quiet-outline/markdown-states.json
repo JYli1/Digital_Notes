@@ -1071,7 +1071,7 @@
     ]
   },
   "content/AI学习/MCP简单使用.md": {
-    "scroll": 66.75084736344947,
+    "scroll": 0,
     "cursor": {
       "from": {
         "line": 44,
@@ -1148,14 +1148,14 @@
     "expandedKeys": []
   },
   "content/AI学习/搭建一个简单的Agent.md": {
-    "scroll": 471.4402700023326,
+    "scroll": 0,
     "cursor": {
       "from": {
-        "line": 503,
+        "line": 145,
         "ch": 0
       },
       "to": {
-        "line": 503,
+        "line": 145,
         "ch": 0
       }
     },
@@ -1179,7 +1179,7 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 31.42150603675389,
+    "scroll": 31.340822032939503,
     "cursor": {
       "from": {
         "line": 33,
@@ -1385,6 +1385,37 @@
       "to": {
         "line": 10733,
         "ch": 3
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/AI学习/Day 2：搭建一个简单的Agent.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 17,
+        "ch": 0
+      },
+      "to": {
+        "line": 17,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-3",
+      "item-2-0"
+    ]
+  },
+  "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 15,
+        "ch": 0
+      },
+      "to": {
+        "line": 15,
+        "ch": 0
       }
     },
     "expandedKeys": []
