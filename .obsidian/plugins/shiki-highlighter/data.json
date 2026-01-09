@@ -3,7 +3,7 @@
   "customThemeFolder": "",
   "customLanguageFolder": "",
   "darkTheme": "slack-dark",
-  "lightTheme": "catppuccin-latte",
+  "lightTheme": "gruvbox-light-soft",
   "preferThemeColors": true,
   "inlineHighlighting": true,
   "ecDefaultShowLineNumbers": false,
