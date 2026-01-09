@@ -798,12 +798,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 2,
-        "ch": 118
+        "line": 0,
+        "ch": 0
       },
       "to": {
-        "line": 2,
-        "ch": 118
+        "line": 0,
+        "ch": 0
       }
     },
     "expandedKeys": []
@@ -1179,7 +1179,7 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 25.517351046032037,
+    "scroll": 24.138033893470872,
     "cursor": {
       "from": {
         "line": 30,
@@ -1407,7 +1407,7 @@
     ]
   },
   "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
-    "scroll": 119.7561588200716,
+    "scroll": 71.90236733821408,
     "cursor": {
       "from": {
         "line": 131,
@@ -1419,5 +1419,24 @@
       }
     },
     "expandedKeys": []
+  },
+  "标题测试.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 5,
+        "ch": 0
+      },
+      "to": {
+        "line": 5,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0",
+      "item-2-1",
+      "item-3-2",
+      "item-4-3"
+    ]
   }
 }

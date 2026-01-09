@@ -4,9 +4,9 @@
   "accentColor": "#0b55ea",
   "enabledCssSnippets": [
     "tight-body",
-    "comment-strong",
     "qianse_color",
-    "beijin_minimal"
+    "beijin_minimal",
+    "comment-strong"
   ],
   "baseFontSize": 17
 }
