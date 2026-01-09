@@ -1,7 +1,7 @@
 {
   "theme": "moonstone",
   "cssTheme": "Minimal",
-  "accentColor": "#0beadb",
+  "accentColor": "#0b55ea",
   "enabledCssSnippets": [
     "tight-body",
     "comment-strong",
