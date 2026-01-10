@@ -1185,20 +1185,21 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 73.19801667628722,
+    "scroll": 76.30688758805023,
     "cursor": {
       "from": {
-        "line": 74,
+        "line": 79,
         "ch": 1
       },
       "to": {
-        "line": 74,
+        "line": 79,
         "ch": 1
       }
     },
     "expandedKeys": [
       "item-3-29",
-      "item-2-28"
+      "item-2-28",
+      "item-3-32"
     ]
   },
   "docs/features/callouts.md": {
