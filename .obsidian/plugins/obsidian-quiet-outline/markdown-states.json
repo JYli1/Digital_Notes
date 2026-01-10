@@ -1513,17 +1513,19 @@
     "expandedKeys": []
   },
   "content/期末考试/概率论.md": {
-    "scroll": 6.142718610829626,
+    "scroll": 7.636478118917458,
     "cursor": {
       "from": {
-        "line": 8,
+        "line": 10,
         "ch": 0
       },
       "to": {
-        "line": 8,
+        "line": 10,
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
