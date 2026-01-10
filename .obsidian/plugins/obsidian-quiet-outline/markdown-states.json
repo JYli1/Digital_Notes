@@ -1185,7 +1185,7 @@
     "expandedKeys": []
   },
   "content/期末考试/计算机组成原理.md": {
-    "scroll": 17.573590402661438,
+    "scroll": 9.381793846910746,
     "cursor": {
       "from": {
         "line": 11,
@@ -1494,6 +1494,20 @@
       "to": {
         "line": 24,
         "ch": 17
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/期末考试/未命名.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
       }
     },
     "expandedKeys": []
