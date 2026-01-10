@@ -1,7 +1,8 @@
 {
   "items": [
     {
-      "name": "Markdown"
+      "name": "Markdown",
+      "openExportedFile": true
     },
     {
       "name": "Markdown (Hugo)"
@@ -19,7 +20,8 @@
       "name": "PDF"
     },
     {
-      "name": "Word (.docx)"
+      "name": "Word (.docx)",
+      "openExportedFileLocation": true
     },
     {
       "name": "OpenOffice"
@@ -55,5 +57,10 @@
   "defaultExportDirectoryMode": "Auto",
   "openExportedFile": true,
   "env": {},
-  "showExportProgressBar": true
+  "showExportProgressBar": true,
+  "lastExportDirectory": {
+    "win32": "D:\\Downloads"
+  },
+  "lastExportType": "Word (.docx)",
+  "lastEditName": "Word (.docx)"
 }
