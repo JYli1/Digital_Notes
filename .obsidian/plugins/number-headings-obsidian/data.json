@@ -2,7 +2,7 @@
   "skipTopLevel": false,
   "firstLevel": 1,
   "maxLevel": 6,
-  "styleLevel1": "1",
+  "styleLevel1": "0x01",
   "styleLevelOther": "1",
   "auto": false,
   "separator": "",
