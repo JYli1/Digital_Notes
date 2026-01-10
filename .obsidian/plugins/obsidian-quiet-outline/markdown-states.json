@@ -795,7 +795,7 @@
     "expandedKeys": []
   },
   "未命名.md": {
-    "scroll": 0,
+    "scroll": 98.3454192411648,
     "cursor": {
       "from": {
         "line": 0,
@@ -806,7 +806,12 @@
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-0",
+      "item-2-1",
+      "item-2-16",
+      "item-2-6"
+    ]
   },
   "AI学习/未命名.md": {
     "scroll": 0,
