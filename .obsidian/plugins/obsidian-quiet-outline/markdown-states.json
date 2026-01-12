@@ -1535,15 +1535,15 @@
     ]
   },
   "content/期末考试/马克思主义基本原理.md": {
-    "scroll": 0,
+    "scroll": 9.322031225358776,
     "cursor": {
       "from": {
-        "line": 9,
-        "ch": 31
+        "line": 11,
+        "ch": 0
       },
       "to": {
-        "line": 9,
-        "ch": 31
+        "line": 11,
+        "ch": 0
       }
     },
     "expandedKeys": []
