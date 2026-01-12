@@ -1533,5 +1533,19 @@
       "item-1-1",
       "item-2-3"
     ]
+  },
+  "content/期末考试/马克思主义基本原理.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 9,
+        "ch": 0
+      },
+      "to": {
+        "line": 9,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
