@@ -32,7 +32,7 @@
   "font_weight": "",
   "line_height": "",
   "line_gap": "",
-  "custom_font_color": true,
+  "custom_font_color": false,
   "h1_color": "#2b0fff",
   "h2_color": "#19b0f0",
   "h3_color": "#0affad",
