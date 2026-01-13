@@ -1535,17 +1535,34 @@
     ]
   },
   "content/期末考试/马克思主义基本原理.md": {
-    "scroll": 0.07154335219730315,
+    "scroll": 10.481384584423425,
     "cursor": {
       "from": {
-        "line": 5,
-        "ch": 1
+        "line": 15,
+        "ch": 0
       },
       "to": {
-        "line": 5,
-        "ch": 1
+        "line": 15,
+        "ch": 0
       }
     },
     "expandedKeys": []
+  },
+  "content/期末考试/马原2.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 1,
+        "ch": 0
+      },
+      "to": {
+        "line": 1,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-3-0",
+      "item-3-7"
+    ]
   }
 }
