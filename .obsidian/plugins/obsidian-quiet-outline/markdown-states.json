@@ -1584,16 +1584,17 @@
     "scroll": 68.78196208591307,
     "cursor": {
       "from": {
-        "line": 86,
-        "ch": 55
+        "line": 92,
+        "ch": 0
       },
       "to": {
-        "line": 86,
-        "ch": 55
+        "line": 92,
+        "ch": 0
       }
     },
     "expandedKeys": [
-      "item-1-0"
+      "item-1-0",
+      "item-1-3"
     ]
   }
 }
