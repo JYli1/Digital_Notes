@@ -274,7 +274,7 @@ class ReActAgent:
 
         while current_step < self.max_steps:
             current_step += 1
-            print(f"---" 第 {current_step} 步 ---")
+            print(f"--- 第 {current_step} 步 ---")
 
             tools_desc = self.tool_executor.getAvailableTools()
             history_str = "\n".join(self.history)
