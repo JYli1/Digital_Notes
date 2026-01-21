@@ -96,7 +96,7 @@ if __name__ == "__main__":
 pip install google-search-results
 ```
 安装需要的库
-同时，需要前往 [SerpApi官网](https://serpapi.com/) 注册一个免费账户，获取你的API密钥，并将其添加到我们项目根目录下的 `.env` 文件中：
+同时，需要前往 [SerpApi官网](https://serpapi.com/) 注册一个免费账户，这是一个google搜索的api，获取你的API密钥，并将其添加到我们项目根目录下的 `.env` 文件中：
 ```bash
 # .env
 #... (保留之前的LLM配置)
