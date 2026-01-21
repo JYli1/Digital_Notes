@@ -1583,7 +1583,7 @@
     "expandedKeys": []
   },
   "content/AI学习/Day 4：agent经典范式构建.md": {
-    "scroll": 68.44582334114472,
+    "scroll": 84.79056980550565,
     "cursor": {
       "from": {
         "line": 155,
@@ -1617,20 +1617,22 @@
     ]
   },
   "content/AI学习/Day 5：agent经典范式构建.md": {
-    "scroll": 221.06004021832806,
+    "scroll": 169.5675121223424,
     "cursor": {
       "from": {
-        "line": 5,
-        "ch": 18
+        "line": 112,
+        "ch": 0
       },
       "to": {
-        "line": 5,
-        "ch": 18
+        "line": 112,
+        "ch": 0
       }
     },
     "expandedKeys": [
       "item-2-1",
-      "item-2-5"
+      "item-2-5",
+      "item-2-10",
+      "item-2-14"
     ]
   }
 }

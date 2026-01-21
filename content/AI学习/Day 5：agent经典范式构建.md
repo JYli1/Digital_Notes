@@ -705,9 +705,9 @@ class ReflectionAgent:
         return response_text
 ```
 
-## 0x06 本章小结
+## 0x06 小结
 
-本章从零开始编码实现了三种业界经典的智能体构建范式：ReAct、Plan-and-Solve 与 Reflection。
+从零开始编码实现了三种业界经典的智能体构建范式：ReAct、Plan-and-Solve 与 Reflection。
 
 **核心知识点回顾：**
 *   **ReAct：** 构建了一个能与外部世界交互的智能体，通过“思考-行动-观察”动态循环，利用搜索引擎回答自身知识库无法覆盖的实时性问题。其核心优势在于**环境适应性**和**动态纠错能力**，适合探索性、需要外部工具输入的任务。
