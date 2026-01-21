@@ -10,7 +10,7 @@ LLM_MODEL_ID="deepseek-ai/DeepSeek-V3.2"
 LLM_BASE_URL="https://api-inference.modelscope.cn/v1"
 
 ```
-## 客户端文件
+## 1.2 客户端文件
 ```python
 import os
 from openai import OpenAI
@@ -84,4 +84,8 @@ if __name__ == "__main__":
 
 ```
 
+
+# 2 ReAct 范式
+
+在准备好LLM客户端后，我们将构建第一个，也是最经典的一个智能体范式**ReAct (Reason + Act)**。ReAct由Shunyu Yao于2022年提出，其核心思想是模仿人类解决问题的方式，将**推理 (Reasoning)** 与**行动 (Acting)** 显式地结合起来，形成一个“思考-行动-观察”的循环。
 
