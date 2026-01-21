@@ -1423,7 +1423,7 @@
     ]
   },
   "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
-    "scroll": 130.17552832818174,
+    "scroll": 115.52111977158737,
     "cursor": {
       "from": {
         "line": 269,
@@ -1579,5 +1579,21 @@
       }
     },
     "expandedKeys": []
+  },
+  "content/AI学习/Day 4：agent经典范式构建.md": {
+    "scroll": 69.24415285996955,
+    "cursor": {
+      "from": {
+        "line": 85,
+        "ch": 0
+      },
+      "to": {
+        "line": 85,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
