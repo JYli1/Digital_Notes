@@ -91,4 +91,14 @@ if __name__ == "__main__":
 
 ## 2.1 实现
 
-
+这里我们实现一个agent，回答关于“华为最新手机”的问题，我们需要为智能体提供一个网页搜索工具。在这里我们选用 **SerpApi**，它通过API提供结构化的Google搜索结果，能直接返回“答案摘要框”或精确的知识图谱信息，
+```bash
+pip install google-search-results
+```
+安装需要的库
+同时，需要前往 [SerpApi官网](https://serpapi.com/) 注册一个免费账户，获取你的API密钥，并将其添加到我们项目根目录下的 `.env` 文件中：
+```bash
+# .env
+#... (保留之前的LLM配置)
+SERPAPI_API_KEY="YOUR_SERPAPI_API_KEY"
+```
