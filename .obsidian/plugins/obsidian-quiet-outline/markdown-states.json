@@ -1143,12 +1143,12 @@
     "scroll": 16.026627218934912,
     "cursor": {
       "from": {
-        "line": 1208,
-        "ch": 79
+        "line": 0,
+        "ch": 0
       },
       "to": {
-        "line": 1208,
-        "ch": 79
+        "line": 0,
+        "ch": 0
       }
     },
     "expandedKeys": [
@@ -1408,15 +1408,15 @@
     "expandedKeys": []
   },
   "content/AI学习/Day 2：搭建一个简单的Agent.md": {
-    "scroll": 0,
+    "scroll": 1.2471721826560536,
     "cursor": {
       "from": {
-        "line": 2,
-        "ch": 0
+        "line": 14,
+        "ch": 46
       },
       "to": {
-        "line": 2,
-        "ch": 0
+        "line": 14,
+        "ch": 46
       }
     },
     "expandedKeys": [
@@ -1425,7 +1425,7 @@
     ]
   },
   "content/AI学习/Day 3：构建基于规则的聊天机器人.md": {
-    "scroll": 115.52111977158737,
+    "scroll": 120.98152544831325,
     "cursor": {
       "from": {
         "line": 269,
@@ -1583,7 +1583,7 @@
     "expandedKeys": []
   },
   "content/AI学习/Day 4：agent经典范式构建.md": {
-    "scroll": 84.79056980550565,
+    "scroll": 0,
     "cursor": {
       "from": {
         "line": 155,
@@ -1617,14 +1617,14 @@
     ]
   },
   "content/AI学习/Day 5：agent经典范式构建.md": {
-    "scroll": 326.40690257167796,
+    "scroll": 483.1769497294997,
     "cursor": {
       "from": {
-        "line": 344,
+        "line": 520,
         "ch": 0
       },
       "to": {
-        "line": 344,
+        "line": 520,
         "ch": 0
       }
     },
@@ -1633,6 +1633,54 @@
       "item-2-5",
       "item-2-10",
       "item-2-14"
+    ]
+  },
+  "content/AI学习/Day 1：MCP简单使用.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-0"
+    ]
+  },
+  "content/AI学习/Day 6.md": {
+    "scroll": 16.026627218934912,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-0"
+    ]
+  },
+  "content/AI学习/Day 6 实现了一个简单的命令执行agent.md": {
+    "scroll": 135.66355968030922,
+    "cursor": {
+      "from": {
+        "line": 164,
+        "ch": 0
+      },
+      "to": {
+        "line": 164,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-0"
     ]
   }
 }
