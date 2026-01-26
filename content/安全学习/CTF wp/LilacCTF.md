@@ -17,4 +17,5 @@ Hello World!
 这里响应再结合访问不存在文件时的报错页面，推测是`php -S`起的临时服务器
 这里找到一个`PHP Development Server <= 7.4.21 - 远程源码泄露`的漏洞
 https://projectdiscovery.io/blog/php-http-server-source-disclosure
-可以把php文件作为静态文件输出，而不会执行，这样就能看到源码了
+可以把php文件作为静态文件输出，而不会执行，这样就能看到源码了。
+直接用文章的poc。
