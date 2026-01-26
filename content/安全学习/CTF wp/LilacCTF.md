@@ -31,4 +31,18 @@ GET /nihao.ph HTTP/1.1\r\n
 这里把\r\n标记出来了，实际就表示换行符
 下面的文件只要不是`php/PHP后缀`文件就好了
 返回
+```http
+HTTP/1.1 200 OK
+Host: 101.245.72.127:8888
+Date: Mon, 26 Jan 2026 07:21:07 +0000
+Connection: close
+Content-Length: 92
+
+<?php
+@error_reporting(~E_ALL);
+
+echo "Hello World!" . PHP_EOL;
+
+// s3Cr37_f1L3.php.bak
 ```
+访问`s3Cr37_f1L3.php.bak`
