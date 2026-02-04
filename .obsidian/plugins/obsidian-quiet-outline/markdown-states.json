@@ -1305,15 +1305,15 @@
     "expandedKeys": []
   },
   "content/安全学习/SSRF/SSRF打内网服务.md": {
-    "scroll": 84.40299479166667,
+    "scroll": 0,
     "cursor": {
       "from": {
         "line": 0,
-        "ch": 0
+        "ch": 2
       },
       "to": {
         "line": 0,
-        "ch": 0
+        "ch": 2
       }
     },
     "expandedKeys": [
@@ -1856,5 +1856,33 @@
     "expandedKeys": [
       "item-1-0"
     ]
+  },
+  "content/安全学习/SSRF/SSRF基础.md": {
+    "scroll": 92.98478828134266,
+    "cursor": {
+      "from": {
+        "line": 113,
+        "ch": 0
+      },
+      "to": {
+        "line": 113,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/基础漏洞总结/未命名.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
