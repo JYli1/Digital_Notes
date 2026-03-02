@@ -1917,14 +1917,17 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 30,
-        "ch": 8
+        "line": 1,
+        "ch": 0
       },
       "to": {
-        "line": 30,
-        "ch": 8
+        "line": 1,
+        "ch": 117
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-6",
+      "item-2-7"
+    ]
   }
 }
