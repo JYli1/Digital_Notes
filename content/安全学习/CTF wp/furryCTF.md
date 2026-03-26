@@ -190,3 +190,4 @@ if (isset($_POST['cmd'])) {
 </body>
 </html>
 ```
+看到源码知道是一个无字母数字RCE。
