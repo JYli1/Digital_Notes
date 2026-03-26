@@ -108,3 +108,85 @@ http://169.254.169.254/latest/meta-data/iam/security-credentials/admin-role
  'Expiration': '2099-01-01T00:00:00Z'
 }
 ```
+
+# 命令终端
+按照题目提示的账号密码进入终端，题目说可用dirsearch扫描，我们扫描一下：
+```ps
+D:\webtool\Dirsearch>python dirsearch.py -u http://challenge.furryctf.com:33115/main -t 10
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 10 | Wordlist size: 12289
+
+Target: http://challenge.furryctf.com:33115/
+
+[08:49:08] Scanning: main/
+[08:51:50] 200 -    1KB - /main/www.zip
+
+Task Completed
+```
+找到了一个备份文件地址，下载：
+```php
+<?php
+session_start();
+if (empty($_SESSION['user_id']) || !is_int($_SESSION['user_id'])) {
+    header('Location: ../index.php', true, 302);
+    exit;
+}
+$output = "";
+if (isset($_POST['cmd'])) {
+    $code = $_POST['cmd'];
+    if(strlen($code) > 200) {
+        $output = "略略略，这么长还想执行命令？";
+    } 
+    else if(preg_match('/[a-z0-9$_\."`\s]/i', $code)) {
+        $output = "啊哦，你的命令被防火墙吃了\n&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;来自waf的消息：杂鱼黑客，就这样还想执行命令？";
+    } 
+    else {
+        ob_start();
+        try {
+            eval($code);
+        } catch (Throwable $t) {
+            echo "Execution Error.";
+        }
+        $output = ob_get_clean();
+    }
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>命令执行</title>
+    <style>
+        body { background: #000; color: #0f0; font-family: monospace; padding: 50px; }
+        .console { border: 1px solid #333; padding: 20px; max-width: 800px; margin: 0 auto; }
+        textarea { width: 100%; height: 100px; background: #111; border: 1px solid #444; color: #0f0; }
+        input[type="submit"] { margin-top: 10px; background: #222; color: #fff; border: 1px solid #fff; padding: 5px 20px; cursor: pointer; }
+        .output { margin-top: 20px; border-top: 1px dashed #444; padding-top: 10px; color: #ccc; white-space: pre-wrap;}
+        .hint { font-size: 0.8em; color: #444; margin-top: 50px; text-align: center; }
+        a { color: #222; text-decoration: none; }
+        a:hover { color: #444; }
+    </style>
+</head>
+<body>
+    <div class="console">
+        <h1>命令执行工具</h1>
+        <p>欢迎您, <?php echo htmlspecialchars($_SESSION['user']); ?>. 命令执行系统准备完毕.</p>
+        <form method="POST">
+            <p>> 请输入您的命令:</p>
+            <textarea name="cmd" placeholder="输入你的命令"></textarea>
+            <br>
+            <input type="submit" value="执行">
+        </form>
+        <div class="output">
+            <strong>命令输出:</strong><br>
+            <?php echo $output; ?>
+        </div>
+        <!--当你迷茫的时候可以想想backup-->
+    </div>
+</body>
+</html>
+```
