@@ -798,12 +798,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 89,
-        "ch": 28
+        "line": 23,
+        "ch": 40
       },
       "to": {
-        "line": 89,
-        "ch": 28
+        "line": 23,
+        "ch": 40
       }
     },
     "expandedKeys": [
@@ -813,7 +813,10 @@
       "item-2-19",
       "item-2-23",
       "item-2-1",
-      "item-1-0"
+      "item-1-0",
+      "item-2-3",
+      "item-2-6",
+      "item-3-7"
     ]
   },
   "AI学习/未命名.md": {
