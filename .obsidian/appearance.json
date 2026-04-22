@@ -1,12 +1,12 @@
 {
-  "theme": "moonstone",
+  "theme": "obsidian",
   "cssTheme": "Minimal",
   "accentColor": "#0b55ea",
   "enabledCssSnippets": [
     "tight-body",
     "beijin_minimal",
     "comment-strong",
-    "qianse_color"
+    "color"
   ],
   "baseFontSize": 17
 }
