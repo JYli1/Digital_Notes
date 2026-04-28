@@ -68,3 +68,5 @@ Content-Type: text/plain
 改一下host发包
 ![](file-20260428172022367.png)
 果然得到路径
+![](file-20260428172223661.png)
+漏洞存在，接下来可以反弹shell了。
