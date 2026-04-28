@@ -288,4 +288,49 @@ int __cdecl main(int argc, const char **argv, const char **envp)
 大致分析一下就是：
 1. 经过一个复杂算法后得到v13
 2. 把v13传给`s0rand`函数
-3. 
+3. 我们输入一个v7，一个伪随机数v10。v13是种子
+4. 如果随机数和我们的输入相同就会得到root密码
+看起来很复杂，但是我们进入`s0rand`就会发现
+```c
+void s0rand()
+{
+  srand(0x539u);
+}
+```
+`s0rand`根本不接受参数，所以默认的种子就是0x539u。所以预测码很容易得到
+exp:
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    srand(0x539);
+    printf("固定的预测码是: %d\n", rand());
+    return 0;
+}
+
+//固定的预测码是: 292616681
+```
+我们按照一样的逻辑生成就好了。
+
+```bash
+l1qin9@Show:~$ ./auth_monitor
+--- MAZE-SEC ACCESS MONITOR ---
+SYSTEM_TICK: 1777378013
+CHALLENGE_STAMP: b77f8146
+ENTER ACCESS CODE: 292616681
+1NOjcN9b9uqUJ0VPYbgi
+
+
+l1qin9@Show:~$ su 
+Password: 
+root@Show:/home/l1qin9# ls
+auth_monitor
+root@Show:/home/l1qin9# cd /root
+root@Show:~# ls
+root.txt  show.txt
+root@Show:~# cat root.txt
+flag{root-64f26bcf00751fcbe2d03d5a7d7c93ef}
+
+```
+到这里就打穿了
