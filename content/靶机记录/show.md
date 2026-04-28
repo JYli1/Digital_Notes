@@ -41,4 +41,6 @@ Nmap done: 1 IP address (1 host up) scanned in 0.62 seconds
 ## 目录扫描
 发现了web就先访问了一下
 ![](file-20260428170713217.png)
-发现是一个`ShowDoc`的网站，应该是一套通用的源码。
+发现是一个`ShowDoc`的网站，应该是一套通用的源码。直接问ai了。
+![](file-20260428171350229.png)
+找到了cve直接去搜poc了。
