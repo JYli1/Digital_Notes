@@ -2141,12 +2141,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 3,
-        "ch": 25
+        "line": 16,
+        "ch": 0
       },
       "to": {
-        "line": 3,
-        "ch": 25
+        "line": 16,
+        "ch": 0
       }
     },
     "expandedKeys": []
