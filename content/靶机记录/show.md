@@ -83,7 +83,7 @@ listening on [any] 7777 ...
 ```
 
 上传后访问得到的url就可以看到shell反弹了
-## 提权
+## user提权
 我们现在只有最低的www权限
 所以先看一下用户，
 ```bash
@@ -201,3 +201,91 @@ mooi@Show:~$ cat user.txt
 flag{user-f5ce64ad520f46e2bcb1dc94dbb6dbd3}
 
 ```
+## root提权
+在`mooi`用户发现user_flag.后就没什么东西了。然后来到另外一个`l1qin9`用户,发现一个可执行程序
+第一想法是直接执行一下
+```bash
+l1qin9@Show:~$ ls
+auth_monitor
+l1qin9@Show:~$ ./auth_monitor 
+--- MAZE-SEC ACCESS MONITOR ---
+SYSTEM_TICK: 1777378524
+CHALLENGE_STAMP: ccc20fe7
+ENTER ACCESS CODE: 
+
+```
+要我填一个`ACCESS CODE`。这里要不就是爆破要不就是逆向。
+### 逆向
+依旧是启pythonweb，下载下来
+```bash
+l1qin9@Show:~$ python3 -m http.server 8081
+
+```
+
+```powershell
+PS D:\webtool\Dirsearch> curl http://10.241.108.8:8081/auth_monitor -O "auth_monitor"
+```
+拖入ida中f5反汇编:
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v3; // ebx
+  time_t v4; // rax
+  char s[256]; // [rsp+10h] [rbp-130h] BYREF
+  int v7; // [rsp+110h] [rbp-30h] BYREF
+  unsigned int buf; // [rsp+114h] [rbp-2Ch] BYREF
+  FILE *stream; // [rsp+118h] [rbp-28h]
+  int v10; // [rsp+120h] [rbp-20h]
+  int fd; // [rsp+124h] [rbp-1Ch]
+  int i; // [rsp+128h] [rbp-18h]
+  unsigned int v13; // [rsp+12Ch] [rbp-14h]
+
+  fd = open("/dev/urandom", 0, envp);
+  if ( fd < 0 )
+  {
+    v3 = time(0LL);
+    buf = v3 ^ getpid();
+  }
+  else
+  {
+    read(fd, &buf, 4uLL);
+    close(fd);
+  }
+  v13 = 0;
+  for ( i = 0; i <= 99; ++i )
+  {
+    v13 += buf % (i + 1);
+    v13 ^= **argv;
+  }
+  s0rand(v13);
+  v10 = rand();
+  puts("--- MAZE-SEC ACCESS MONITOR ---");
+  v4 = time(0LL);
+  printf("SYSTEM_TICK: %ld\n", v4);
+  printf("CHALLENGE_STAMP: %08x\n", buf);
+  printf("ENTER ACCESS CODE: ");
+  if ( (unsigned int)__isoc99_scanf("%d", &v7) != 1 )
+    return 1;
+  if ( v10 == v7 )
+  {
+    setuid(0);
+    setgid(0);
+    stream = fopen("/root/show.txt", "r");
+    if ( stream )
+    {
+      while ( fgets(s, 256, stream) )
+        printf("%s", s);
+      fclose(stream);
+    }
+  }
+  else
+  {
+    puts("ACCESS DENIED.");
+  }
+  return 0;
+}
+```
+大致分析一下就是：
+1. 经过一个复杂算法后得到v13
+2. 把v13传给`s0rand`函数
+3. 
