@@ -234,4 +234,31 @@ done.
 2026-04-29 14:43:27 INFO http://10.241.108.244/.git/ -> result\6ccb2befc73ddd0b28240fec20a21fcf
 ```
 z注意这里虽然控制台输出很多`error`，但核心的 Git 对象和引用已经被正确抓取并重组到了 `result\6ccb2befc73ddd0b28240fec20a21fcf` 目录中。只是一些安全策略。
-## 
+## git文件夹分析
+```bash
+PS D:\webtool\GitHacker\result\6ccb2befc73ddd0b28240fec20a21fcf> git log
+commit 1936b7f0b8bc34642423c19738fab503a9d967de (HEAD -> master, origin/master, origin/HEAD)
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:10:25 2026 -0400
+
+    4
+
+commit b8295d6c67f5f2df8a3649af13bf6867b221cd17
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:08:12 2026 -0400
+
+    3
+
+commit f7cc50a34b65f1c6cf3c8bd10e2b78271c348e35
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:07:59 2026 -0400
+
+    2
+
+commit f9f7d8ba3292488a6e7f9fa21d0968ca7bbd6637
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:07:17 2026 -0400
+
+    1
+```
+dedao
