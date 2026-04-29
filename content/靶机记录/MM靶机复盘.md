@@ -39,3 +39,5 @@ MAC Address: 08:00:27:FC:21:A8 (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
 Nmap done: 2 IP addresses (1 host up) scanned in 19.29 seconds
 ```
 除了22端口还发现了`80`、`5901`、`6001`
+
+## vnc了解
