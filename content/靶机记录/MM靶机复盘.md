@@ -350,3 +350,14 @@ index 673b221..0000000
 ```
 发现有删除了密码`sublarge`，但是后面试了一下不是这个密码。
 这里有一个技巧如果有密码的话可以更快：
+```bash
+PS D:\webtool\GitHacker\result\6ccb2befc73ddd0b28240fec20a21fcf> git log --diff-filter=D --summary
+commit b8295d6c67f5f2df8a3649af13bf6867b221cd17
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:08:12 2026 -0400
+
+    3
+
+ delete mode 100644 pass.txt
+```
+这个命令可以直接查看删除的文件
