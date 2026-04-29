@@ -396,6 +396,8 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-04-29 15:35:
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-04-29 15:35:11
 ```
+得到密码：`mingmingjiu`
+
 先尝试了ssh连接：
 ```bash
 ┌──(kali㉿kali)-[~]
@@ -437,3 +439,4 @@ Using default colormap which is TrueColor.  Pixel format:
 ```
 连上了。但是打开终端救闪退。这里在Application中找一个其他终端可以打开`Xtrem`
 ![](file-20260429154141136.png)
+## root提权
