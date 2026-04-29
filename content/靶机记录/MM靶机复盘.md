@@ -318,3 +318,34 @@ ff02::2 ip6-allrouters
 访问后是一个登录页面，不能输入和点击，尝试修改前端代码，但是最后发现完全没有用，就是一个壳子。那这条路就断了
 我们重新回到git文件夹。
 我们都看一下
+```bash
+PS D:\webtool\GitHacker\result\6ccb2befc73ddd0b28240fec20a21fcf> git show f7cc50a34b65f1c6cf3c8bd10e2b78271c348e35
+commit f7cc50a34b65f1c6cf3c8bd10e2b78271c348e35
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:07:59 2026 -0400
+
+    2
+
+diff --git a/pass.txt b/pass.txt
+new file mode 100644
+index 0000000..673b221
+--- /dev/null
++++ b/pass.txt
+@@ -0,0 +1 @@
++password:sublarge
+PS D:\webtool\GitHacker\result\6ccb2befc73ddd0b28240fec20a21fcf> git show b8295d6c67f5f2df8a3649af13bf6867b221cd17
+commit b8295d6c67f5f2df8a3649af13bf6867b221cd17
+Author: mingmingjiu <mingmingjiu@mm.dsz>
+Date:   Sun Apr 19 00:08:12 2026 -0400
+
+    3
+
+diff --git a/pass.txt b/pass.txt
+deleted file mode 100644
+index 673b221..0000000
+--- a/pass.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-password:sublarge
+```
+发现有删除了账号密码
