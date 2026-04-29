@@ -49,10 +49,33 @@ Nmap done: 2 IP addresses (1 host up) scanned in 19.29 seconds
 
 连接命令：
 ```zsh
-vncviewer 10.10.241.108:5901
+vncviewer 10.241.108.244:5901
 ```
 
 ## 渗透测试
 因为vnc连接需要密码，我们暂时没有，所以先去web端看一看。
 ![](file-20260429143428767.png)
 一个静态页面，什么也没有，所以就扫一下目录看看。
+```bash
+PS D:\webtool\Dirsearch> python dirsearch.py -u 10.241.108.244
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 12289
+
+Target: http://10.241.108.244/
+
+[14:36:09] Scanning:
+[14:36:10] 301 -   315B - /.git  ->  http://10.241.108.244/.git/
+[14:36:10] 200 -   762B - /.git/branches/
+[14:36:10] 200 -     2B - /.git/COMMIT_EDITMSG
+[14:36:10] 200 -    4KB - /.git/hooks/
+[14:36:10] 200 -    73B - /.git/description
+[14:36:10] 200 -    3KB - /.git/
+[14:36:10] 200 -    92B - /.git/config
+[14:36:10] 200 -   145B - /.git/index
+```
+泄露了很多git，就直接停了，用githacker拉下来看看
