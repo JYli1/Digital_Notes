@@ -2252,19 +2252,21 @@
     "expandedKeys": []
   },
   "content/常用命令/GitHacker.md": {
-    "scroll": 0,
+    "scroll": 0.5812897366030881,
     "cursor": {
       "from": {
-        "line": 4,
-        "ch": 6
+        "line": 9,
+        "ch": 0
       },
       "to": {
-        "line": 4,
-        "ch": 6
+        "line": 9,
+        "ch": 0
       }
     },
     "expandedKeys": [
-      "item-1-3"
+      "item-1-3",
+      "item-2-1",
+      "item-1-0"
     ]
   }
 }
