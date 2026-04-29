@@ -2241,12 +2241,12 @@
     "scroll": 321.0287765214077,
     "cursor": {
       "from": {
-        "line": 350,
-        "ch": 8
+        "line": 352,
+        "ch": 0
       },
       "to": {
-        "line": 350,
-        "ch": 8
+        "line": 352,
+        "ch": 0
       }
     },
     "expandedKeys": []
