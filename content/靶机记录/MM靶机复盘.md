@@ -416,6 +416,15 @@ This account is currently not available.
 Connection to 10.241.108.244 closed.
 ```
 但是连上马上就断开了，原因是这个用户没有shell权限。
+
+### ssh登录失败复盘
+获取shell之后看了一下`/etc/passwd`的内容
+![](file-20260429225141347.png)
+这里了解了一下，我们登录时：验证成功后，系统会尝试启动你在 /etc/passwd 中定义的 Shell（例如 /bin/bash）
+如果定义的是 `/usr/sbin/nologin`，系统就会运行这个程序，它会打印一段文字（通常是 "This account is currently not available."），然后直接断开连接。
+
+---
+
 那我们试一下vnc连接
 ```bash
 ┌──(kali㉿kali)-[~]
