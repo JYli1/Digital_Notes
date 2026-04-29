@@ -52,4 +52,5 @@ Nmap done: 2 IP addresses (1 host up) scanned in 19.29 seconds
 vncviewer 10.10.241.108:5901
 ```
 
-## 
+## 渗透测试
+因为vnc连接需要密码，我们暂时没有，所以先去web端看一看。
