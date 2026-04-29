@@ -261,4 +261,6 @@ Date:   Sun Apr 19 00:07:17 2026 -0400
 
     1
 ```
-dedao
+得到了用户名和域名
+`mingmingjiu@mm.dsz`
+既然有了域名那我们去添加一个host记录
