@@ -428,7 +428,7 @@ Connection to 10.241.108.244 closed.
 └─$ grep "kali" /etc/passwd
 kali:x:1000:1000:kali,,,:/home/kali:/usr/bin/zsh
 ```
-
+表示了家目录和默认终端
 
 ---
 
@@ -456,3 +456,4 @@ Using default colormap which is TrueColor.  Pixel format:
 连上了。但是打开终端救闪退。这里在Application中找一个其他终端可以打开`Xtrem`
 ![](file-20260429154141136.png)
 ## root提权
+
