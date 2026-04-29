@@ -263,4 +263,56 @@ Date:   Sun Apr 19 00:07:17 2026 -0400
 ```
 得到了用户名和域名
 `mingmingjiu@mm.dsz`
-既然有了域名那我们去添加一个host记录
+既然有了域名那我们去添加一个host记录后访问
+```bash
+#windows
+
+
+C:\Windows\System32\drivers\etc\host
+
+# Copyright (c) 1993-2009 Microsoft Corp.
+#
+# This is a sample HOSTS file used by Microsoft TCP/IP for Windows.
+#
+# This file contains the mappings of IP addresses to host names. Each
+# entry should be kept on an individual line. The IP address should
+# be placed in the first column followed by the corresponding host name.
+# The IP address and the host name should be separated by at least one
+# space.
+#
+# Additionally, comments (such as these) may be inserted on individual
+# lines or following the machine name denoted by a '#' symbol.
+#
+# For example:
+#
+#      102.54.94.97     rhino.acme.com          # source server
+#       38.25.63.10     x.acme.com              # x client host
+
+# localhost name resolution is handled within DNS itself.
+#	127.0.0.1       localhost
+#	::1             localhost
+127.0.0.1 localhost
+10.241.108.244 mm.dsz
+```
+
+```bash
+#linux
+
+/etc/hosts
+
+┌──(kali㉿kali)-[~]
+└─$ cat  /etc/hosts   
+127.0.0.1       localhost
+127.0.1.1       kali
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+10.241.108.226    acfun.dsz
+10.241.108.244    mm.dsz
+                         
+```
+![](file-20260429151526686.png)
+访问后是一个登录页面
