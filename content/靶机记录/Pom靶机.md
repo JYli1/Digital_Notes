@@ -760,3 +760,5 @@ ls: can't open '/root': Permission denied
 bash-5.2# id
 uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 ```
+先写好pom.xml然后用maven拉取，拉取的时候就执行了里面的命令加上了suid，看到加成功了，但是不知道为什么提权还是失败了。
+不能这样提权，那就尝试一下添加一个用户
