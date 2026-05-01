@@ -498,5 +498,8 @@ public class Exploit {
 }
 
 ```
-- `ProcessBuilder` 是 Java 用来创建操作系统进程的类
+- `ProcessBuilder` ：Java 用来创建操作系统进程的类
+- `pb.inheritIO()` ：连接终端
+- `pb.start()`：真正启动这个 bash 进程，返回 `Process` 对象
+- waitFor()`
  
