@@ -586,3 +586,4 @@ User terra536 may run the following commands on Pom:
 这里maven可以用来提权，因为Maven 允许在构建过程中**执行任意系统命令**
 ![700](file-20260501234444669.png)
 我们可以利用这个来执行任意命令
+这里开始本来是要尝试

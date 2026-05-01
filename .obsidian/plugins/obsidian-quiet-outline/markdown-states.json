@@ -2305,11 +2305,11 @@
     "cursor": {
       "from": {
         "line": 588,
-        "ch": 0
+        "ch": 10
       },
       "to": {
         "line": 588,
-        "ch": 0
+        "ch": 10
       }
     },
     "expandedKeys": []
