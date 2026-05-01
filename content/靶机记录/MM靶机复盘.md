@@ -534,3 +534,10 @@ a.sh
 gocr /tmp/go.png |bash
 ```
 * gocr:`一个开源的 OCR（光学字符识别）工具，能把图片里的文字提取出来`
+```bash
+mingmingjiu@MM:/opt$ ls -l a.sh
+ls -l a.sh
+-rwxr-xr-x 1 root root 36 Apr 19 00:26 a.sh
+```
+而且这个脚本还有root权限
+我们可用直接直接在`go.png`里面注入命令
