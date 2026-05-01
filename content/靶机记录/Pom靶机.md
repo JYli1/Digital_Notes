@@ -485,4 +485,4 @@ Runas and Command-specific defaults for mav1234:
 User mav1234 may run the following commands on Pom:
     (qc2000) PASSWD: /usr/bin/java
 ```
-看到当前用户可以以qc2000用户的权限运行/
+看到当前用户可以以`qc2000`用户的权限运行`java`命令，很明显这就是利用点了。
