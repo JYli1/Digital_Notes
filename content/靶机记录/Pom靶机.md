@@ -462,3 +462,27 @@ mav1234@Pom:~$ ls
 journel   user.txt
 ```
 ok,shell稳定了。
+# mav1234用户信息收集
+```bash
+mav1234@Pom:/home$ sudo -l
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+For security reasons, the password you type will not be visible.
+
+[sudo] password for mav1234:
+Matching Defaults entries for mav1234 on Pom:
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+Runas and Command-specific defaults for mav1234:
+    Defaults!/usr/sbin/visudo env_keep+="SUDO_EDITOR EDITOR VISUAL"
+
+User mav1234 may run the following commands on Pom:
+    (qc2000) PASSWD: /usr/bin/java
+```
+看到当前用户可以以qc2000用户的权限运行/
