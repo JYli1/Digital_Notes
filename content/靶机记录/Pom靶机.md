@@ -301,7 +301,7 @@ Nmap done: 1 IP address (1 host up) scanned in 166.39 seconds
            Raw packets sent: 26 (1.938KB) | Rcvd: 20 (1.538KB)
 
 ```
-# shengtouceshi
+# 渗透测试
 
 我们直接ssl登录上去
 ```bash
@@ -437,3 +437,10 @@ TgrwK04=
 ```
 果然发现了一个加密文件和一个私钥文件
 直接尝试用私钥解密
+```bash
+h-5.2$ openssl pkeyutl -decrypt -in maven.meta -inkey ssl.pem
+openssl pkeyutl -decrypt -in maven.meta -inkey ssl.pem
+MvxPf8yCB8lxXk5As
+
+```
+得到要密码，试了一下3个用户和root。（）
