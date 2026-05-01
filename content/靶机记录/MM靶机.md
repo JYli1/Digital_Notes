@@ -54,7 +54,7 @@ vncviewer 10.241.108.244:5901
 
 ## 渗透测试
 因为vnc连接需要密码，我们暂时没有，所以先去web端看一看。
-![](file-20260429143428767.png)
+![](assets/MM靶机/file-20260501180427860.png)
 一个静态页面，什么也没有，所以就扫一下目录看看。
 ```bash
 PS D:\webtool\Dirsearch> python dirsearch.py -u 10.241.108.244
@@ -314,7 +314,7 @@ ff02::2 ip6-allrouters
 10.241.108.244    mm.dsz
                          
 ```
-![](file-20260429151526686.png)
+![](assets/MM靶机/file-20260501180427853.png)
 访问后是一个登录页面，不能输入和点击，尝试修改前端代码，但是最后发现完全没有用，就是一个壳子。那这条路就断了
 我们重新回到git文件夹。
 我们都看一下
@@ -440,11 +440,11 @@ Using default colormap which is TrueColor.  Pixel format:
 
 ```
 连上了。但是打开终端就闪退。这里在Application中找一个其他终端可以打开`Xtrem`
-![](file-20260429154141136.png)
+![](assets/MM靶机/file-20260501180427847.png)
 ### Xtrem可用复盘
 
 获取shell之后看了一下`/etc/passwd`的内容
-![](file-20260429225141347.png)
+![](assets/MM靶机/file-20260501180427835.png)
 这里了解了一下，我们ssh登录时：验证成功后，系统会尝试启动你在 /etc/passwd 中定义的 Shell（例如 /bin/bash）
 如果定义的是 `/usr/sbin/nologin`，系统就会运行这个程序，它会打印一段文字（通常是 "This account is currently not available."），然后直接断开连接。
 以下是正常的情况：
@@ -545,4 +545,4 @@ ls -l a.sh
 
 有个发现定时任务的方法，pspy命令
 
-![](file-20260501174931470.png)
+![](assets/MM靶机/file-20260501180427332.png)
