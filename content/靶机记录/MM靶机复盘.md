@@ -464,4 +464,6 @@ kali:x:1000:1000:kali,,,:/home/kali:/usr/bin/zsh
 
 
 ## root提权
+得到xtrem后先反弹个shell，更方便一点
+然后简单的看看提权的一些信息收集：
 
