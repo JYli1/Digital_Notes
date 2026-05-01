@@ -318,6 +318,11 @@ mav1234   qc2000    terra536
 sh-5.2$ ls
 ls
 journel   user.txt
+sh-5.2$ cat journel
+cat journel
+I’ve encrypted my secret with my key. No one else can read it now. It’s safely hidden away:)
+
 
 ```
-这就直接拿到了user-shell
+这就直接拿到了user-shell，并且有提示说`用密钥加密了秘密`
+我们zhao'yi'zhao
