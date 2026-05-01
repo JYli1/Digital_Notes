@@ -461,4 +461,4 @@ __      _____| | ___ ___  _ __ ___   ___
 mav1234@Pom:~$ ls
 journel   user.txt
 ```
-ok,
+ok,shell稳定了。
