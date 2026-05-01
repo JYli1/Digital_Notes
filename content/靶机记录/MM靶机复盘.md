@@ -460,7 +460,7 @@ kali:x:1000:1000:kali,,,:/home/kali:/usr/bin/zsh
 1. GNOME Terminal, XFCE Terminal 等现代终端：
 	读取 `/etc/passwd` → 尝试执行用户的 Shell（`/usr/sbin/nologin`）→ nologin 立即退出 → 终端程序检测到子进程结束，自己也就关闭了
 2. xterm等古老的终端：
-	
+	也先尝试用户 Shell（`/usr/sbin/nologin`），但失败后会 **回退尝试 `/bin/sh`**（通常 `dash` 或 `bash` 的符号链接）。`/bin/sh` 一般没有被设置为 nologin，所以成功启动一个极简 Shell
 
 
 ## root提权
