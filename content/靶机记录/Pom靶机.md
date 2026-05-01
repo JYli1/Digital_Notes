@@ -585,4 +585,4 @@ User terra536 may run the following commands on Pom:
 可以直接运行`root`运行`/usr/bin/mvn`（这里真不太了解，问了下ai）
 这里maven可以用来提权，因为Maven 允许在构建过程中**执行任意系统命令**
 ![700](file-20260501234444669.png)
-我们可以利用这个来运行r'y
+我们可以利用这个来执行任意命令
