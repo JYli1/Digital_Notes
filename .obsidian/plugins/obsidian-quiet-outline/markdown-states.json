@@ -2304,12 +2304,12 @@
     "scroll": 507.1888864604961,
     "cursor": {
       "from": {
-        "line": 527,
-        "ch": 39
+        "line": 528,
+        "ch": 4
       },
       "to": {
-        "line": 527,
-        "ch": 39
+        "line": 528,
+        "ch": 4
       }
     },
     "expandedKeys": []
