@@ -325,4 +325,4 @@ I’ve encrypted my secret with my key. No one else can read it now. It’s safe
 
 ```
 这就直接拿到了user-shell，并且有提示说`用密钥加密了秘密`
-我们zhao'yi'zhao
+我们找一找有没有隐藏文件
