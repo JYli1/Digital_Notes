@@ -526,7 +526,7 @@ User qc2000 may run the following commands on Pom:
 ```
 可以以`terra536`的权限运行`/home/terra536/ln`，很明显就是用软件接去横向。
 因为在/tmp目录所以都可以访问，估计就是把公钥链接到用户目录里面，这样就可以用私钥直接登录了。
-但是最后居然失败了，原因是因为没有
+但是最后居然失败了，原因是因为没有/.ssh
 ```bash
 qc2000@Pom:/tmp$ ssh-keygen -t ed25519 -f /tmp/mykey -N ""
 Generating public/private ed25519 key pair.
