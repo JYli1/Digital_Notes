@@ -301,6 +301,8 @@ Nmap done: 1 IP address (1 host up) scanned in 166.39 seconds
            Raw packets sent: 26 (1.938KB) | Rcvd: 20 (1.538KB)
 
 ```
+# shengtouceshi
+
 我们直接ssl登录上去
 ```bash
 ┌──(root㉿kali)-[/home/kali/tmp]
