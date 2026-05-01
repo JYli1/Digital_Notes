@@ -457,8 +457,9 @@ kali:x:1000:1000:kali,,,:/home/kali:/usr/bin/zsh
 
 在我们vnc登录之后尝试打开`Terminal`，但是会闪退。这是因为
 
-1. GNOME Terminal, XFCE Terminal 等现代终端：读取 `/etc/passwd` → 尝试执行用户的 Shell（`/usr/sbin/nologin`）→ nologin 立即退出 → 终端程序检测到子进程结束，自己也就关闭了
-
+1. GNOME Terminal, XFCE Terminal 等现代终端：
+	读取 `/etc/passwd` → 尝试执行用户的 Shell（`/usr/sbin/nologin`）→ nologin 立即退出 → 终端程序检测到子进程结束，自己也就关闭了
+2. 
 
 
 ## root提权
