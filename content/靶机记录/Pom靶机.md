@@ -525,4 +525,4 @@ User qc2000 may run the following commands on Pom:
     (terra536) NOPASSWD: /home/terra536/ln
 ```
 可以以`terra536`的权限运行`/home/terra536/ln`，很明显就是用软件接去横向。
-因为在/tmp目录所以都可以访问，估计就是
+因为在/tmp目录所以都可以访问，估计就是把
