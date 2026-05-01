@@ -325,4 +325,113 @@ I’ve encrypted my secret with my key. No one else can read it now. It’s safe
 
 ```
 这就直接拿到了user-shell，并且有提示说`用密钥加密了秘密`
-我们找一找有没有隐藏文件
+我们找一找有没有隐藏文件：
+```bash
+sh-5.2$ ls -a
+ls -a
+.              .bash_history  .ssh           user.txt
+..             .local         journel
+sh-5.2$ cd .local
+cd .local
+sh-5.2$ ls
+ls
+maven.meta  ssl.pem
+sh-5.2$ cat maven.meta
+cat maven.meta
+�F�s�
+��p��aWa�L2�'lmss��*�0�C$���1��q։�4�(����$[��#V��N�e���G�I�     D�0f4��/�.
+                                                           ��.�6�Ǻ�ІT�RX���vSm���1r3��@K`����kx۰FO�_��L_��F�C��
+                                                                                                               p5��ҫ�=�����P�o��/)�-K�K���)�d���q!�;�!&�S�t�Zu_s����k��Y;ӹ�+a�����[�e-���t�J��L)h�|����?4��N��_k',�B;6=��kPs��:��[\�f�����3g��TĎ��h�Y©w��#�"B��g���Twd�������,��>/c1u���.�N-�b ��
+                                         �9���]�"�m���4�[#��[N~wV�mN�����mnsh-5.2$ 
+
+sh-5.2$ cat ssl.pem
+cat ssl.pem
+-----BEGIN PRIVATE KEY-----
+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
+THu1nOeMB4vEAtMz7uFtRkDCDCOPiw==
+-----END PRIVATE KEY-----
+-----BEGIN CERTIFICATE-----
+MIIFoTCCA4mgAwIBAgIUVLyuh/l5EdN2c47Y0L//ePAO7GYwDQYJKoZIhvcNAQEL
+BQAwYDELMAkGA1UEBhMCVVMxDjAMBgNVBAgMBVN0YXRlMQ0wCwYDVQQHDARDaXR5
+MQ4wDAYDVQQKDAVNYXZlbjEOMAwGA1UECwwFUHJveHkxEjAQBgNVBAMMCWxvY2Fs
+aG9zdDAeFw0yNjAyMjYwNzIwNDhaFw0zNjAyMjQwNzIwNDhaMGAxCzAJBgNVBAYT
+AlVTMQ4wDAYDVQQIDAVTdGF0ZTENMAsGA1UEBwwEQ2l0eTEOMAwGA1UECgwFTWF2
+ZW4xDjAMBgNVBAsMBVByb3h5MRIwEAYDVQQDDAlsb2NhbGhvc3QwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDylEQQUsAPSo6YTElEnKXxIQ6utctm6EVM
+7AZKMb8FpkRymjIwHXnchsIClpzxVnone92ZP8APFhkXGTU9JQhc4Zk5KPYgRQMw
+pLvZj8vqM5b3Vr8/3K7pAeUW9b2cB6deg28AQBviUEMJM1ZhMfIlnZh7reBx5GI+
+6HvRVlD5Xg73zFdvj+JLX9QRLEaUWKIEs35wwEyNp99aXQVoTGmPfvUOP8IejpBa
+DA/YD/1JMqiUOyxlVg48pNaNcItvPDJ63PuueXHXReTF47E+ly0uC1GPZJiVfmQR
+Y6M+Rawsl0gc12xEpbybU+ZKwXdXLbOESHf1HEFYaSLt/AsvhuS+U6A1S8OWzcJD
+PMaa+Na4lks40ThhIbL5gpNNvLAVnGqSrN/XdQxXEqMnrGu6nju0260eWvcyl7qZ
+Z/YEbguuNMs643fkxaDG9P323ZE4BmKevLA3b062Vmjd0AmvPTKFw2GY6AY1XdIP
+9EHSePaTA1KgXaowUBybK+gnOFUWWjI6ngWLUQjO+nCinMjlgG/URYHPIybdYTBv
+PS2aQ18tYPKlCdoQNvWEhIYYKroKpfr3WHANuAySJfp5OmcGz9p5EOTU0oOl0LSq
+C42zck1eWT/qLDppvJrrqxCS/x1k2SplkQx50ohnkwr0MtaNDFqm1HJDfnSGliHM
+GYSliYwgDwIDAQABo1MwUTAdBgNVHQ4EFgQU9/xnvtfBkD4TGxnNgjoDSQXG1tAw
+HwYDVR0jBBgwFoAU9/xnvtfBkD4TGxnNgjoDSQXG1tAwDwYDVR0TAQH/BAUwAwEB
+/zANBgkqhkiG9w0BAQsFAAOCAgEAuOVYZ8E3uOVBdnMrUQuGDFP6ZNGvyAmNMp84
+2QxL8g8r8K5SNo/JHhBf8CkY2BJG15l01/Ic6g56DqzTsQjfmwQAjfnqVWyHwcp9
+KSj9XdE3V39QO1ZGgICStAW0n3TXAa1jRn+GHcz7SZyTB9jGOqh1aAOrAH6/Rsdf
+XBsBpesbeMAHhD2oJdMl45Bkl3dW8FruNP/CAde8vpPR0AQmsHy/2a5m7dcsCK39
+JgroLyhPJGFdHi698agrn5d1vNwzpfQRmu9Iw6Bk/0W5U8jlFYMZu+fK2rzA06o6
+96GZumbchDHhsi7Ajoa+RYTEXqbyU9a2KDnm3OZC5R5WQY/d+BVnjRmefPWv8kqa
+5gJ0FGoYCMiR8PY0dpH9wKm4IwxsQAIOe3S2VuEaI6ceRO7Yq/FS31addb+B3UjV
+pWm7+WDDjsEKXY7jxjqWk7Lq3Rh1bTMDR4fxFVhXLish3vQfDA8xSZrGCRaqurwM
+AzjwR2b2GkKVaUVgMJ/8W1kupoJAjr63JIhzmCz3Ciq9/uwgpLFqHhMn1ooBKToU
+rWXPT5PXKEFHODfP+uj9NP8aTxrevJ1SCX7e0S6UO61J0Zjmk7jY+L6ke5blKGiV
+9NYsvoozjwwRKzAxR95V8TVCy4gNa5ViLG6FcXQ1hLDdfMfRTfuMrYvTtiqhWVvd
+TgrwK04=
+-----END CERTIFICATE-----
+
+```
+果然发现了一个加密文件和一个私钥文件
+直接尝试用私钥解密
