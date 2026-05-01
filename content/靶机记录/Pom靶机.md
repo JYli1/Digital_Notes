@@ -444,4 +444,21 @@ MvxPf8yCB8lxXk5As
 
 ```
 得到要密码，试了一下3个用户和root。最后发现就是当前用户的密码，不过也好可以ssh登录（我真受够了那个ssl的shell了，复制粘贴都不行。。。）
+```bash
+PS D:\Downloads> ssh mav1234@10.241.108.62 -p 22
+The authenticity of host '10.241.108.62 (10.241.108.62)' can't be established.
+ED25519 key fingerprint is SHA256:xJ90oWmr5sPR2afHz9etzSdtxINmLI+JvbwgV/iCsWY.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.241.108.62' (ED25519) to the list of known hosts.
+mav1234@10.241.108.62's password:
+              _
+__      _____| | ___ ___  _ __ ___   ___
+\ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
+ \ V  V /  __/ | (_| (_) | | | | | |  __/
+  \_/\_/ \___|_|\___\___/|_| |_| |_|\___|
 
+mav1234@Pom:~$ ls
+journel   user.txt
+```
+ok,
