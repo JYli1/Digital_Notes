@@ -467,3 +467,70 @@ kali:x:1000:1000:kali,,,:/home/kali:/usr/bin/zsh
 得到xtrem后先反弹个shell，更方便一点
 然后简单的看看提权的一些信息收集：
 
+```sh
+mingmingjiu@MM:~$ sudo -l
+sudo -l
+Sorry, user mingmingjiu may not run sudo on MM.
+mingmingjiu@MM:~$ ls /home
+ls /home
+ll104567
+mingmingjiu
+mingmingjiu@MM:~$ cat /etc/passwd
+cat /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:100:65534::/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:101:102:systemd Time Synchronization,,,:/run/systemd:/usr/sbin/nologin
+systemd-network:x:102:103:systemd Network Management,,,:/run/systemd:/usr/sbin/nologin
+systemd-resolve:x:103:104:systemd Resolver,,,:/run/systemd:/usr/sbin/nologin
+systemd-coredump:x:999:999:systemd Core Dumper:/:/usr/sbin/nologin
+messagebus:x:104:110::/nonexistent:/usr/sbin/nologin
+sshd:x:105:65534::/run/sshd:/usr/sbin/nologin
+mingmingjiu:x:1000:1000:,,,:/home/mingmingjiu:/usr/sbin/nologin
+rtkit:x:106:113:RealtimeKit,,,:/proc:/usr/sbin/nologin
+usbmux:x:107:46:usbmux daemon,,,:/var/lib/usbmux:/usr/sbin/nologin
+avahi:x:108:115:Avahi mDNS daemon,,,:/run/avahi-daemon:/usr/sbin/nologin
+saned:x:109:116::/var/lib/saned:/usr/sbin/nologin
+colord:x:110:117:colord colour management daemon,,,:/var/lib/colord:/usr/sbin/nologin
+pulse:x:111:118:PulseAudio daemon,,,:/run/pulse:/usr/sbin/nologin
+lightdm:x:112:120:Light Display Manager:/var/lib/lightdm:/bin/false
+ll104567:x:1001:1001:,,,:/home/ll104567:/bin/bash
+mingmingjiu@MM:~$ ls
+ls
+Desktop
+Documents
+Downloads
+Music
+Pictures
+Public
+Templates
+Videos
+mingmingjiu@MM:~$ ls /opt
+ls /opt
+a.sh
+```
+在`/opt`下面发现一个`a.sh`文件
+```bash 
+# a.sh
+
+#!/bin/bash
+
+gocr /tmp/go.png |bash
+```
+* gocr:`一个开源的 OCR（光学字符识别）工具，能把图片里的文字提取出来`
