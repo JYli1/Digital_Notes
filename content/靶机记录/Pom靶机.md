@@ -511,4 +511,17 @@ mav1234@Pom:/tmp$ sudo -u qc2000 /usr/bin/java -cp /tmp Exploit
 qc2000@Pom:/tmp$
 ```
  因为是以`qc2000`用户权限运行的，所以的到了该用户的权限。横向移动成功
-# qc2000 ---> 
+# qc2000 ---> terra536
+依旧先信息收集一手
+```bash
+qc2000@Pom:~$ sudo -l
+Matching Defaults entries for qc2000 on Pom:
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+Runas and Command-specific defaults for qc2000:
+    Defaults!/usr/sbin/visudo env_keep+="SUDO_EDITOR EDITOR VISUAL"
+
+User qc2000 may run the following commands on Pom:
+    (terra536) NOPASSWD: /home/terra536/ln
+```
+可以以
