@@ -524,4 +524,4 @@ Runas and Command-specific defaults for qc2000:
 User qc2000 may run the following commands on Pom:
     (terra536) NOPASSWD: /home/terra536/ln
 ```
-可以以
+可以以`terra536`的权限运行`/home/terra536/ln`，很明显就是用软件接去横向。
