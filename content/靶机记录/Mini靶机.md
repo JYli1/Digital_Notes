@@ -23,5 +23,26 @@ Nmap done: 257 IP addresses (5 hosts up) scanned in 5.85 seconds
 * ip : `10.216.75.108`
 # 端口扫描
 ```bash
+┌──(kali㉿kali)-[~]
+└─$ rustscan -a 10.216.75.108 --greppable
+10.216.75.108 -> [22,80,9000,9001]
+
+┌──(kali㉿kali)-[~]
+└─$ nmap 10.216.75.212 -p 22,80,9000,9001
+Starting Nmap 7.95 ( https://nmap.org ) at 2026-05-03 17:44 CST
+Nmap scan report for 10.216.75.212
+Host is up (0.00054s latency).
+
+PORT     STATE  SERVICE
+22/tcp   closed ssh
+80/tcp   closed http
+9000/tcp closed cslistener
+9001/tcp closed tor-orport
+MAC Address: 30:E3:A4:48:AC:29 (Unknown)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.28 seconds
 
 ```
+发现四个端口，我们先看看web端
+
+# 目录扫描
