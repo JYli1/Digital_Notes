@@ -89,3 +89,24 @@ $ rustscan -a 10.216.75.72  (exit: 0)
  2 文件限制过小严重影响扫描速度：提示当前 ulimit 值太小，推荐使用 Docker 镜像或运行 --ulimit 5000 提升速度。
 ```
 发现只开了80端口。我们先去web看看。
+就一个登录页面，扫一下目录
+```bash
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 11946
+
+Target: http://10.216.75.72/
+
+[00:01:44] Scanning:
+[00:01:47] 403 -   277B - /.php
+[00:02:06] 200 -    2KB - /index.php
+[00:02:06] 200 -    2KB - /index.php/login/
+[00:02:17] 403 -   277B - /server-status
+[00:02:17] 403 -   277B - /server-status/
+[00:02:25] 400 -   304B - /.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+```
+好像也没扫到啥有用的，莫非要去爆破了吗？暂时没思路。。。
