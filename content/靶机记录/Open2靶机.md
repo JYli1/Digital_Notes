@@ -203,11 +203,12 @@ Target: http://10.216.75.72/
 ![](file-20260506025211666.png)
 传参成功
 传`1001‘`发现报错，存在sql注入，然后就是测一下sql注入，发现可以打布尔盲注（不回显查询结果，但是回显是否查询成功）
-测一下有没有waf：
+简单跑一下字典，测一下有没有waf：
 * union
 * sleep
 * floor
 * regexp
 * updatexml
 * benchmark
-* 
+* extractvalue
+过滤了这些关键字，而且应该是正则匹配，大小写
