@@ -68,7 +68,7 @@ Read data files from: /usr/share/nmap
 Nmap done: 1 IP address (1 host up) scanned in 0.39 seconds
            Raw packets sent: 2 (72B) | Rcvd: 2 (72B)
 ```
-工具不太熟悉，这么多结果。用工具总结一手：
+工具不太熟悉，这么多结果。用工具总结一手（就是懒得看）：
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ what 总结一下结果并且解释一下两个感叹号是什么 --md
