@@ -129,7 +129,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-05-06 01:58:
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-05-06 02:08:49
 ```
-`[22][ssh] host: 10.216.75.72   login: root   password: zacefron`
+	`[22][ssh] host: 10.216.75.72   login: root   password: zacefron`
 这告诉我们啥也做不出来的时候，还是可以试试被爆破的。
 直接爆破出来root密码了，还能说什么呢。虽然知道这肯定不是预期解，但是我实在想不出来了，就登上root去看了一下`/var/www/html`，发现居然是我字典里没有`secret.php`（看来需要换字典了）
 ```bash
