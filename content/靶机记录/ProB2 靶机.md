@@ -73,3 +73,4 @@ Nmap done: 1 IP address (1 host up) scanned in 0.35 seconds
            Raw packets sent: 4 (160B) | Rcvd: 4 (160B)
 ```
 开放`22`、`80`、`8080`端口
+扫一下web端的目录：
