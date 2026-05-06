@@ -504,7 +504,7 @@ Shellcodes: No Results
 
 ```
 
-```
+```c
 # Exploit Title: PolicyKit-1 0.105-31 - Privilege Escalation
 # Exploit Author: Lance Biggerstaff
 # Original Author: ryaagard (https://github.com/ryaagard)
@@ -576,3 +576,4 @@ int main()
 
 ################# 
 ```
+按照上面的步骤打一遍
