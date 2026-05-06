@@ -409,3 +409,60 @@ User bingren may run the following commands on Open:
     (ALL) NOPASSWD: /usr/bin/uptime
 
 ```
+发现一个uptime命令可以root权限执行，但是不知道能怎么利用，上pspy扫一下：
+```bash
+bingren@Open:/tmp$ ./pspy64
+pspy - version: v1.2.1 - Commit SHA: f9e6a1590a4312b9faa093d8dc84e19567977a6d
+
+
+     ██▓███    ██████  ██▓███ ▓██   ██▓
+    ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
+    ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
+    ▒██▄█▓▒ ▒  ▒   ██▒▒██▄█▓▒ ▒ ░ ▐██▓░
+    ▒██▒ ░  ░▒██████▒▒▒██▒ ░  ░ ░ ██▒▓░
+    ▒▓▒░ ░  ░▒ ▒▓▒ ▒ ░▒▓▒░ ░  ░  ██▒▒▒
+    ░▒ ░     ░ ░▒  ░ ░░▒ ░     ▓██ ░▒░
+    ░░       ░  ░  ░  ░░       ▒ ▒ ░░
+                   ░           ░ ░
+                               ░ ░
+
+Config: Printing events (colored=true): processes=true | file-system-events=false ||| Scanning for processes every 100ms and on inotify events ||| Watching directories: [/usr /tmp /etc /home /var /opt] (recursive) | [] (non-recursive)
+Draining file system events due to startup...
+done
+2026/05/05 22:24:52 CMD: UID=1000  PID=2694   | ./pspy64
+2026/05/05 22:24:52 CMD: UID=0     PID=2692   |
+2026/05/05 22:24:52 CMD: UID=0     PID=2683   |
+2026/05/05 22:24:52 CMD: UID=0     PID=2682   |
+2026/05/05 22:24:52 CMD: UID=0     PID=2677   |
+2026/05/05 22:24:52 CMD: UID=33    PID=2619   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=2618   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=0     PID=2616   |
+2026/05/05 22:24:52 CMD: UID=1000  PID=2444   | -bash
+2026/05/05 22:24:52 CMD: UID=1000  PID=2443   | sshd: bingren@pts/0
+2026/05/05 22:24:52 CMD: UID=1000  PID=2424   | (sd-pam)
+2026/05/05 22:24:52 CMD: UID=1000  PID=2423   | /lib/systemd/systemd --user
+2026/05/05 22:24:52 CMD: UID=0     PID=2420   | sshd: bingren [priv]
+2026/05/05 22:24:52 CMD: UID=33    PID=1728   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1727   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1726   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1721   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1720   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1718   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1717   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=33    PID=1716   | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=0     PID=498    | /usr/sbin/knockd -i enp0s3
+2026/05/05 22:24:52 CMD: UID=106   PID=487    | /usr/sbin/mariadbd
+2026/05/05 22:24:52 CMD: UID=0     PID=481    | /usr/sbin/apache2 -k start
+2026/05/05 22:24:52 CMD: UID=0     PID=429    | /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+2026/05/05 22:24:52 CMD: UID=0     PID=427    | sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+2026/05/05 22:24:52 CMD: UID=0     PID=401    | /sbin/agetty -o -p -- \u --noclear tty1 linux
+2026/05/05 22:24:52 CMD: UID=0     PID=384    | /lib/systemd/systemd-logind
+2026/05/05 22:24:52 CMD: UID=0     PID=374    | /usr/sbin/rsyslogd -n -iNONE
+2026/05/05 22:24:52 CMD: UID=104   PID=368    | /usr/bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+2026/05/05 22:24:52 CMD: UID=0     PID=365    | /usr/sbin/cron -f
+2026/05/05 22:24:52 CMD: UID=0     PID=344    | /sbin/dhclient -4 -v -i -pf /run/dhclient.enp0s3.pid -lf /var/lib/dhcp/dhclient.enp0s3.leases -I -df /var/lib/dhcp/dhclient6.enp0s3.leases enp0s3
+2026/05/05 22:24:52 CMD: UID=101   PID=321    | /lib/systemd/systemd-timesyncd
+```
+发现一个`026/05/05 22:24:52 CMD: UID=0     PID=498    | /usr/sbin/knockd -i enp0s3`
+我们注意到前面sql盲注也是发现了一个knocked的
+内容是：`I have three loves: 7777, 8888, 9999`
