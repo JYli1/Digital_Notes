@@ -277,3 +277,16 @@ $ curl http://10.216.75.115:8080/wp-content/debug.log  (exit: 0)
 /wp-json/b2/v1/ 等）。建议立即删除或禁止访问 debug.log，修复 PHP 代码错误并补齐缺失数据库表。
 
 ```
+经过很长时间的尝试都没找到漏洞
+首先从debug页面发现了一行奇怪的报错
+```http
+[07-Apr-2026 09:43:01 UTC] FHF Warning:  Undefined variable $data in "????b" in /var/www/html/??-active.php on line 39
+```
+PHP 变成了 FHF。还有一个通配符样的东西，`????b`我没想出来是什么，
+但是我多试一试，试出来了`??-active.php`是`b2-active.php`
+我去访问：
+![](file-20260507022936628.png)
+然后注意到了报错中说有一个什么`$data`参数，我就又开始乱试
+吧`data`放到get/post都试一试 id、phpinfo()等都试过了，永远都是一样的回显。
+但是发现一处不寻常的。
+那就是
