@@ -591,3 +591,4 @@ policykit-1:
         500 http://mirrors.aliyun.com/debian-security bullseye-security/main amd64 Packages
         100 /var/lib/dpkg/status
 ```
+![500](file-20260506110402258.png)
