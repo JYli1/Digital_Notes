@@ -466,4 +466,26 @@ done
 发现一个`026/05/05 22:24:52 CMD: UID=0     PID=498    | /usr/sbin/knockd -i enp0s3`
 我们注意到前面sql盲注也是发现了一个knock的
 内容是：`I have three loves: 7777, 8888, 9999`
-	
+好像并没有什么用。
+我们继续，找一下suid文件,看看能不能suid提权：
+```bash
+ingren@Open:/tmp$ find / -perm -4000 -type f 2>/dev/null | xargs ls -la
+-rwsr-xr-x 1 root root        54096 Jul 27  2018 /usr/bin/chfn
+-rwsr-xr-x 1 root root        44528 Jul 27  2018 /usr/bin/chsh
+-rwsr-xr-x 1 root root        84016 Jul 27  2018 /usr/bin/gpasswd
+-rwsr-xr-x 1 root root        47184 Apr  6  2024 /usr/bin/mount
+-rwsr-xr-x 1 root root        44440 Jul 27  2018 /usr/bin/newgrp
+-rwsr-xr-x 1 root root        63736 Jul 27  2018 /usr/bin/passwd
+-rwsr-xr-x 1 root root        23448 Jan 13  2022 /usr/bin/pkexec
+-rwsr-xr-x 1 root root        63568 Apr  6  2024 /usr/bin/su
+-rwsr-xr-x 1 root root       182600 Jan 14  2023 /usr/bin/sudo
+-rwsr-xr-x 1 root root        34888 Apr  6  2024 /usr/bin/umount
+-rwsr-xr-- 1 root messagebus  51336 Jun  6  2023 /usr/lib/dbus-1.0/dbus-daemon-launch-helper
+-rwsr-xr-x 1 root root        10232 Mar 28  2017 /usr/lib/eject/dmcrypt-get-device
+-rwsr-xr-x 1 root root        19040 Jan 13  2022 /usr/libexec/polkit-agent-helper-1
+-rwsr-xr-x 1 root root       481608 Dec 21  2023 /usr/lib/openssh/ssh-keysign
+bingren@Open:/tmp$ pkexec --version
+GLib: Cannot convert message: Could not open converter from “UTF-8” to “AAA”
+pkexec version 0.105
+```
+发现一个pkexec有suid权限，并且版本是`0.105`
