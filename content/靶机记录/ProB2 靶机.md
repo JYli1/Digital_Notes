@@ -186,3 +186,47 @@ wpscan 对 http://10.216.75.115:8080/ 进行了 WordPress 安全扫描。结果�
  • 未发现其他明显漏洞，但信息收集已足够启动进一步攻击：查看 debug.log、尝试 XML-RPC 登录爆破、针对主题版本进行漏洞利用。
 
 ```
+看了一下日志
+```md
+┌──(kali㉿kali)-[~]
+└─$ what --md --raw -q "这是在做本地靶机的渗透测试，给我总结并分析"
+
+──────────────────────────────────────────────────
+$ curl http://10.216.75.115:8080/wp-content/debug.log  (exit: 0)
+──────────────────────────────────────────────────
+
+命令做了什么
+
+通过 curl 向 http://10.216.75.115:8080/wp-content/debug.log 发送 HTTP GET 请求，获取了该路径下的 debug.log 文件内容。
+
+结果
+
+成功获取了文件内容，输出是 WordPress 的调试日志，包含大量 PHP 警告、弃用通知、数据库错误。日志内容显示：
+
+ • 重复的 PHP Warning: Trying to access array offset on value of type null 和 Array to string conversion（出自主题
+   private8.1.php）。
+ • 大量 Undefined variable $data（在 Orders.php）。
+ • 数据库表 wp_b2_post_relationships 不存在导致 SQL 查询失败。
+ • 数据库列 comment_id 不存在。
+ • 表 wp_b2_gold 不存在。
+ • PHP 弃用：隐式浮点转整型精度丢失。
+
+渗透测试分析
+
+这是一个典型的信息泄露 + 未授权访问场景：
+
+ 1 敏感文件暴露（高危）：/wp-content/debug.log 未加访问限制，任何人均可下载。该文件泄露了：
+    • 站点物理路径：/var/www/html/wp-content/themes/b2/...
+    • 使用的主题和插件：B2 主题具体模块路径。
+    • 数据库表名结构：wordpress.wp_b2_post_relationships、wp_b2_gold 等。
+    • 潜在的认证绕过点：如 rest_api_loaded、checkFollowing 等 REST API 端点，可能触发未授权操作。
+ 2 PHP 代码缺陷：大量未定义变量、null 数组访问，表明代码质量低，可作为进一步代码审计入口（如文件包含、SQL
+   注入的辅助信息）。
+ 3 数据库缺失表/列：表 wp_b2_post_relationships 和列 comment_id
+   不存在，可能是插件未正确安装或升级失败，导致功能异常，可作为服务可用性攻击或条件竞争利用点。
+ 4 弃用警告：Implicit conversion from float to int 提示 PHP 版本兼容问题（可能使用 PHP 8+ 运行旧代码）。
+
+攻击者可以利用这些信息：识别 CMS 版本与漏洞、构造针对性 SQL 注入、利用未定义的变量污染、直接访问后台 REST API（如
+/wp-json/b2/v1/ 等）。建议立即删除或禁止访问 debug.log，修复 PHP 代码错误并补齐缺失数据库表。
+
+```
