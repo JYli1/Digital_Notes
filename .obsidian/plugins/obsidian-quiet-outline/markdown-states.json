@@ -2406,20 +2406,34 @@
     "expandedKeys": []
   },
   "content/靶机记录/Open2靶机.md": {
-    "scroll": 108.98889180586093,
+    "scroll": 49.79637262984336,
     "cursor": {
       "from": {
-        "line": 132,
-        "ch": 0
+        "line": 27,
+        "ch": 6
       },
       "to": {
-        "line": 132,
-        "ch": 0
+        "line": 27,
+        "ch": 6
       }
     },
     "expandedKeys": [
       "item-1-3",
       "item-1-6"
     ]
+  },
+  "content/靶机记录/ProB2 靶机.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 4,
+        "ch": 0
+      },
+      "to": {
+        "line": 4,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
