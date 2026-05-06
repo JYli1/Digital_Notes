@@ -577,3 +577,17 @@ int main()
 ################# 
 ```
 按照上面的步骤打一遍
+
+结果服务器不在受影响的版本，爆炸
+```bash
+bingren@Open:~/tmp$ apt policy policykit-1
+ERROR: ld.so: object '/tmp/uid.so' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+policykit-1:
+  Installed: 0.105-31+deb11u1
+  Candidate: 0.105-31+deb11u1
+  Version table:
+ *** 0.105-31+deb11u1 500
+        500 http://mirrors.aliyun.com/debian bullseye/main amd64 Packages
+        500 http://mirrors.aliyun.com/debian-security bullseye-security/main amd64 Packages
+        100 /var/lib/dpkg/status
+```
