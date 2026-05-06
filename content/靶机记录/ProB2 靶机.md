@@ -74,3 +74,30 @@ Nmap done: 1 IP address (1 host up) scanned in 0.35 seconds
 ```
 开放`22`、`80`、`8080`端口
 扫一下web端的目录：
+```bash
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u http://10.216.75.115 -w /usr/share/wordlists/dirb/common.txt
+===============================================================
+Gobuster v3.8.2
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.216.75.115
+[+] Method:                  GET
+[+] Threads:                 10
+[+] Wordlist:                /usr/share/wordlists/dirb/common.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.8.2
+[+] Timeout:                 10s
+===============================================================
+Starting gobuster in directory enumeration mode
+===============================================================
+.htaccess            (Status: 403) [Size: 278]
+.hta                 (Status: 403) [Size: 278]
+.htpasswd            (Status: 403) [Size: 278]
+index.html           (Status: 200) [Size: 6]
+server-status        (Status: 403) [Size: 278]
+Progress: 4613 / 4613 (100.00%)
+===============================================================
+Finished
+```
+没有什么有用的东西
