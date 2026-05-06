@@ -464,5 +464,5 @@ done
 2026/05/05 22:24:52 CMD: UID=101   PID=321    | /lib/systemd/systemd-timesyncd
 ```
 发现一个`026/05/05 22:24:52 CMD: UID=0     PID=498    | /usr/sbin/knockd -i enp0s3`
-我们注意到前面sql盲注也是发现了一个knocked的
+我们注意到前面sql盲注也是发现了一个knock的
 内容是：`I have three loves: 7777, 8888, 9999`
