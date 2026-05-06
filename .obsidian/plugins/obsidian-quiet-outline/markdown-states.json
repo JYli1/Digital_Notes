@@ -2426,11 +2426,11 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 4,
+        "line": 6,
         "ch": 0
       },
       "to": {
-        "line": 4,
+        "line": 6,
         "ch": 0
       }
     },
