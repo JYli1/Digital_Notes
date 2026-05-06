@@ -488,4 +488,6 @@ bingren@Open:/tmp$ pkexec --version
 GLib: Cannot convert message: Could not open converter from “UTF-8” to “AAA”
 pkexec version 0.105
 ```
-发现一个pkexec有suid权限，并且版本是`0.105`
+发现一个pkexec有suid权限，并且版本是`0.105`，这里可以让ai帮我们看一下：
+![](file-20260506104038223.png)
+发现刚好就是`0.105`版本，但是我们不能完全相信ai
