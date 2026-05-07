@@ -162,8 +162,8 @@ Target: http://10.216.75.72/
 # 渗透测试
 ## secret.php
 虽然没有什么有用的文件，但是我们注意到同样是`403`，`/secret.php`文件的403页面的大小要小很多，我们去web看一下。
-![](file-20260506022715811.png)
-![](file-20260506022737023.png)
+![](assets/Open2靶机(todo)/file-20260507174120082%201.png)
+![](assets/Open2靶机(todo)/file-20260507174120084.png)
 很明显`/secret.php`的403页面不一样，不是标准的apache-403。
 我们去看看源码，发现最下方有隐藏的脚本（打印了很多空行）
 ```js
@@ -200,7 +200,7 @@ Target: http://10.216.75.72/
 我们可以试一下刷新一下页面，发现居然也404了。
 这里可以想到请求必须来自`secret.php`
 所以我们尝试带上`Refer`请求头。
-![](file-20260506025211666.png)
+![](assets/Open2靶机(todo)/file-20260507174120082.png)
 传参成功
 传`1001‘`发现报错，存在sql注入，然后就是测一下sql注入，发现可以打布尔盲注（不回显查询结果，但是回显是否查询成功）
 简单跑一下字典，测一下有没有waf：
@@ -489,7 +489,7 @@ GLib: Cannot convert message: Could not open converter from “UTF-8” to “AA
 pkexec version 0.105
 ```
 发现一个pkexec有suid权限，并且版本是`0.105`，这里可以让ai帮我们看一下：
-![](file-20260506104038223.png)
+![](assets/Open2靶机(todo)/file-20260507174120083.png)
 发现刚好就是`0.105`版本。（但是我们不能完全相信ai，ai分析之后还是得去网上找文章看的，，这里只是为了缩小范围）
 ```bash
 ┌──(kali㉿kali)-[~/tmp]
@@ -591,4 +591,4 @@ policykit-1:
         500 http://mirrors.aliyun.com/debian-security bullseye-security/main amd64 Packages
         100 /var/lib/dpkg/status
 ```
-![500](file-20260506110402258.png)
+![500](assets/Open2靶机(todo)/file-20260507174120080.png)
