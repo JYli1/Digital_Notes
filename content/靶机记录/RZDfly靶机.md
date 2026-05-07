@@ -57,3 +57,27 @@ $ rustscan -a 10.216.75.26 --ulimit 5000 -- -A -sC -sV  (exit: 0)
 ```
 开放` 22` \ `80` 端口，直接去web看看
 
+## 目录扫描
+```bash
+PS D:\webtool\Dirsearch> python dirsearch.py -u http://10.216.75.26/ -w dicc2.txt
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 13136
+
+Target: http://10.216.75.26/
+
+[17:59:37] Scanning:
+[17:59:37] 400 -   344B - /.%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+[17:59:40] 403 -   317B - /.php
+[17:59:49] 302 -     0B - /dashboard.php  ->  index.html
+[17:59:53] 200 -   936B - /index.html
+[17:59:54] 302 -     0B - /login.php  ->  index.html
+[17:59:55] 302 -     0B - /logout.php  ->  index.html
+[18:00:01] 200 -   981B - /register.php
+[18:00:02] 403 -   317B - /server-status
+[18:00:02] 403 -   317B - /server-status/
+```

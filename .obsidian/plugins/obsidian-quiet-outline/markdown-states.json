@@ -2439,17 +2439,19 @@
     "expandedKeys": []
   },
   "content/靶机记录/RZDfly靶机.md": {
-    "scroll": 38.42624770730765,
+    "scroll": 65.70990017776562,
     "cursor": {
       "from": {
-        "line": 59,
+        "line": 83,
         "ch": 0
       },
       "to": {
-        "line": 59,
+        "line": 83,
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-1"
+    ]
   }
 }
