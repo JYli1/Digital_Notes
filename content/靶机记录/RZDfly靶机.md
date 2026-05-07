@@ -20,7 +20,7 @@ Nmap done: 256 IP addresses (4 hosts up) scanned in 5.89 seconds
 
 # 信息收集
 `rustscan`扫一下
-```bash
+```ps
 ┌──(kali㉿kali)-[~]
 └─$ what --md --raw -q "从渗透测试方面命令执行结果总结，注意分点"
 
