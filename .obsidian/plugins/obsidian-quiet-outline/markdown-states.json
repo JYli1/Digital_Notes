@@ -2472,12 +2472,12 @@
     "scroll": 408.336536698089,
     "cursor": {
       "from": {
-        "line": 433,
-        "ch": 2
+        "line": 436,
+        "ch": 0
       },
       "to": {
-        "line": 433,
-        "ch": 2
+        "line": 436,
+        "ch": 0
       }
     },
     "expandedKeys": [
