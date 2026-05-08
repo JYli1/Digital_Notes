@@ -17,3 +17,8 @@ Host is up.
 Nmap done: 256 IP addresses (4 hosts up) scanned in 10.80 seconds
 ```
 靶机IP：`10.216.75.251`
+
+# 信息收集
+```md
+
+```
