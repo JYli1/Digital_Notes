@@ -533,3 +533,10 @@ pass2：the
 Hint: pass4:爆密码是爆不出的，看看文件有多大
 ```
 我们看一看pass4的大小
+```bash
+-rw-rw-r-- 1 kali kali  168  5月 8日 13:43 pass4.zip
+-rw-rw-r-- 1 kali kali  151  5月 8日 13:11 pass5.hash
+-rw-rw-r-- 1 kali kali  172  4月10日 15:54 pass5.zip
+-rw-rw-r-- 1 root root 3.0M 2023年 1月18日 pspy64
+```
+非常小，那也就是说内容应该就是一个txt文件里面几个字母，就像`pass1：forget`一样
