@@ -819,6 +819,3 @@ r/r 36-128-5:   flag:flag
 mooi:mooi3811350908  
 ```
 得到ssh账号密码
-```bash
-
-```
