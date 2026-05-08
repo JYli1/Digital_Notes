@@ -707,3 +707,118 @@ int main() {
 意识到有隐藏的文件了。
 # flag.vhd解密
 `7z`直接查看磁盘分区
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ 7z l flag.vhd
+
+7-Zip 24.09 (x64) : Copyright (c) 1999-2024 Igor Pavlov : 2024-11-29
+ 64-bit locale=zh_CN.UTF-8 Threads:128 OPEN_MAX:1024, ASM
+
+Scanning the drive for archives:
+1 file, 10486272 bytes (11 MiB)
+
+Listing archive: flag.vhd
+
+--
+Path = flag.vhd
+Type = VHD
+Physical Size = 10486272
+Offset = 0
+Created = 2026-04-09 09:06:22.0000000
+Method = Fixed
+Total Physical Size = 10486272
+Creator Application = win 10.0
+Host OS = Windows
+Saved State = -
+ID = FDF27C7B28565942A307B3CC3135D450
+----
+Size = 10485760
+Packed Size = 10485760
+Created = 2026-04-09 09:06:22.0000000
+--
+Path = flag.mbr
+Type = MBR
+Physical Size = 10485760
+Sector Size = 512
+ID = 3036261972
+----
+Path = 0.ntfs
+Size = 7340032
+File System = NTFS
+Offset = 65536
+Primary = +
+Begin CHS = 0-2-3
+End CHS = 0-229-37
+--
+Path = 0.ntfs
+Type = NTFS
+Physical Size = 7340032
+Label = 新加卷
+File System = NTFS 3.1
+Cluster Size = 4096
+Sector Size = 512
+MFT Record Size = 1024
+Created = 2026-04-10 10:11:21.7734735
+ID = 2799078985555988069
+
+   Date      Time    Attr         Size   Compressed  Name
+------------------- ----- ------------ ------------  ------------------------
+2026-04-10 10:11:21 ..HS.       262144       262144  [SYSTEM]/$MFT
+2026-04-10 10:11:21 ..HS.         4096         4096  [SYSTEM]/$MFTMirr
+2026-04-10 10:11:21 ..HS.      2097152      2097152  [SYSTEM]/$LogFile
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Volume
+2026-04-10 10:11:21 ..HS.         2560         4096  [SYSTEM]/$AttrDef
+2026-04-10 10:15:17 D.HS.                            [SYSTEM]/.
+2026-04-10 10:11:21 ..HS.          224         4096  [SYSTEM]/$Bitmap
+2026-04-10 10:11:21 ..HS.         8192         8192  [SYSTEM]/$Boot
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$BadClus
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Secure
+2026-04-10 10:11:21 ..HS.       131072       131072  [SYSTEM]/$UpCase
+2026-04-10 10:11:21 D.HS.                            [SYSTEM]/$Extend
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Extend/$Quota
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Extend/$ObjId
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Extend/$Reparse
+2026-04-10 10:11:21 D.HS.                            [SYSTEM]/$Extend/$RmMetadata
+2026-04-10 10:11:21 ..HS.            0            0  [SYSTEM]/$Extend/$RmMetadata/$Repair
+2026-04-10 10:11:21 D.HS.                            [SYSTEM]/$Extend/$Deleted
+2026-04-10 10:11:21 D.HS.                            [SYSTEM]/$Extend/$RmMetadata/$TxfLog
+2026-04-10 10:11:21 D.HS.                            [SYSTEM]/$Extend/$RmMetadata/$Txf
+2026-04-10 10:11:21 ..HS.          100          100  [SYSTEM]/$Extend/$RmMetadata/$TxfLog/$Tops
+2026-04-11 17:41:02 D....                            System Volume Information/ClientRecoveryPasswordRotation
+2026-04-11 17:41:03 D.HS.                            System Volume Information
+2026-04-10 10:11:21 ....A           12           12  System Volume Information/WPSettings.dat
+2026-04-11 17:44:56 ....A           60           60  flag
+2026-04-10 10:13:16 D.HS.                            $RECYCLE.BIN
+2026-04-10 10:13:16 D.HS.                            $RECYCLE.BIN/S-1-5-21-3820227629-3880388360-2971437200-1001
+2026-04-10 10:13:16 ..HSA          129          129  $RECYCLE.BIN/S-1-5-21-3820227629-3880388360-2971437200-1001/desktop.ini
+2026-04-11 17:41:02 D....                            System Volume Information/AadRecoveryPasswordDelete
+2026-04-11 17:41:02 D....                            System Volume Information/FveDecryptedVolumeFolder
+2026-04-11 17:41:03 ....A           76           76  System Volume Information/IndexerVolumeGuid
+2026-05-08 18:09:51 ..HS.            0            0  [SYSTEM]/$Extend/$UsnJrnl
+------------------- ----- ------------ ------------  ------------------------
+2026-05-08 18:09:51            2505817      2511225  20 files, 12 folders
+2026-05-08 18:09:51            1312687      1314907  7 alternate streams
+2026-05-08 18:09:51            3818504      3826132  27 streams
+```
+![](file-20260509002513105.png)
+按照ai的话试试：
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ fls -r -o 128 flag.vhd | grep -i "flag"
+r/r 36-128-1:   flag
+r/r 36-128-5:   flag:flag
+```
+发现了隐藏flag文件
+```md
+这个输出的意思是，在 flag 这个文件上，挂载了一个名字也叫 flag 的 Alternate Data Stream (ADS)。你之前直接打开文件看到的是主数据流（36-128-1），而真正的秘密藏在编号为 36-128-5 的流里。
+```
+直接查看隐藏流：
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ icat -o 128 flag.vhd 36-128-5
+mooi:mooi3811350908  
+```
+得到ssh账号密码
+```bash
+
+```
