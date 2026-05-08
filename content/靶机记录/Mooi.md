@@ -236,4 +236,187 @@ pass1：forget
 pass2.zip有密码，并且没爆破出来。我们先去做`LEVEL 03`
 
 ## LEVEL 03
-依旧
+依旧ai搓个脚本，这次还得考虑到有不可预测的情况，ai还改了两次代码，改成计算+预测概率的版本。
+```js
+(async function() {
+    const _alert = window.alert;
+    window.alert = function(){};
+
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    const STEP_DELAY = 150;
+    const RETRY_DELAY = 500;
+
+    function clickSafe(r, c) {
+        if (revealed[r][c] || flagged[r][c]) return;
+        revealed[r][c] = true;
+        if (board[r][c] === 0) expandZeros(r, c);
+        renderBoard();
+    }
+
+    function flagCell(r, c) {
+        if (revealed[r][c] || flagged[r][c]) return;
+        flagged[r][c] = true;
+        minesLeft--;
+        renderBoard();
+    }
+
+    function checkVictory() {
+        for (let r = 0; r < ROWS; r++)
+            for (let c = 0; c < COLS; c++)
+                if (!revealed[r][c] && board[r][c] !== -1) return false;
+        return true;
+    }
+
+    function isDead() {
+        for (let r = 0; r < ROWS; r++)
+            for (let c = 0; c < COLS; c++)
+                if (revealed[r][c] && board[r][c] === -1) return true;
+        return false;
+    }
+
+    // 获取某个格子周围的已翻开数字列表
+    function getNeighborNumbers(r, c) {
+        const nums = [];
+        for (let dr = -1; dr <= 1; dr++) {
+            for (let dc = -1; dc <= 1; dc++) {
+                if (dr === 0 && dc === 0) continue;
+                const nr = r + dr, nc = c + dc;
+                if (nr>=0 && nr<ROWS && nc>=0 && nc<COLS && revealed[nr][nc] && board[nr][nc] > 0) {
+                    nums.push({r: nr, c: nc, val: board[nr][nc]});
+                }
+            }
+        }
+        return nums;
+    }
+
+    // 计算某个未知格是雷的概率（基于相邻数字约束）
+    function calcMineProb(r, c) {
+        const neighbors = getNeighborNumbers(r, c);
+        if (neighbors.length === 0) {
+            // 孤立格子，使用全局剩余雷密度
+            let totalUnknown = 0;
+            for (let r = 0; r < ROWS; r++)
+                for (let c = 0; c < COLS; c++)
+                    if (!revealed[r][c] && !flagged[r][c]) totalUnknown++;
+            return totalUnknown > 0 ? minesLeft / totalUnknown : 1;
+        }
+
+        let minProb = 1;
+        for (const nb of neighbors) {
+            let unknownCount = 0;
+            let flagCount = 0;
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    const nr = nb.r + dr, nc = nb.c + dc;
+                    if (nr>=0 && nr<ROWS && nc>=0 && nc<COLS) {
+                        if (!revealed[nr][nc]) {
+                            if (flagged[nr][nc]) flagCount++;
+                            else unknownCount++;
+                        }
+                    }
+                }
+            }
+            const needMines = nb.val - flagCount;
+            if (needMines < 0) return 1; // 不可能，但作为保护
+            const prob = unknownCount > 0 ? needMines / unknownCount : 1;
+            if (prob < minProb) minProb = prob;
+        }
+        return minProb;
+    }
+
+    // 智能猜测：选择概率最小的格子
+    function smartGuess() {
+        const cands = [];
+        let minProb = Infinity;
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (!revealed[r][c] && !flagged[r][c]) {
+                    const prob = calcMineProb(r, c);
+                    if (prob < minProb) {
+                        minProb = prob;
+                        cands.length = 0;
+                        cands.push({r, c, prob});
+                    } else if (Math.abs(prob - minProb) < 1e-9) {
+                        cands.push({r, c, prob});
+                    }
+                }
+            }
+        }
+        if (cands.length === 0) return false;
+        // 在最低概率的格子中随机选一个
+        const pick = cands[Math.floor(Math.random() * cands.length)];
+        console.log(`🧩 猜测格子 (${pick.r},${pick.c})，雷概率 ≈ ${(pick.prob*100).toFixed(1)}%`);
+        clickSafe(pick.r, pick.c);
+        return true;
+    }
+
+    // 标准推理一步（同前）
+    function safeStep() {
+        for (let r = 0; r < ROWS; r++) {
+            for (let c = 0; c < COLS; c++) {
+                if (!revealed[r][c] || board[r][c] <= 0) continue;
+                const val = board[r][c];
+                let unknown = [];
+                let flags = 0;
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        if (dr === 0 && dc === 0) continue;
+                        const nr = r + dr, nc = c + dc;
+                        if (nr>=0 && nr<ROWS && nc>=0 && nc<COLS && !revealed[nr][nc]) {
+                            if (flagged[nr][nc]) flags++;
+                            else unknown.push({r: nr, c: nc});
+                        }
+                    }
+                }
+                if (val === flags && unknown.length > 0) {
+                    unknown.forEach(p => clickSafe(p.r, p.c));
+                    return true;
+                }
+                if (val - flags === unknown.length && unknown.length > 0) {
+                    unknown.forEach(p => flagCell(p.r, p.c));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    async function solve() {
+        while (true) {
+            if (isDead()) {
+                console.log('💥 踩雷，重新开始...');
+                initGame();
+                await delay(RETRY_DELAY);
+                continue;
+            }
+            if (checkVictory()) {
+                gameOver = true;
+                try {
+                    const resp = await fetch('set_completion.php?level=3');
+                    const data = await resp.json();
+                    showWinModal(data.success ? data.hint : '');
+                } catch (e) { showWinModal(''); }
+                console.log('🎉 通关成功！');
+                break;
+            }
+            let moved = safeStep();
+            if (!moved) {
+                console.log('🤔 无推理步，计算概率...');
+                smartGuess();
+            }
+            await delay(STEP_DELAY);
+        }
+    }
+
+    await solve();
+    window.alert = _alert;
+    if (document.getElementById('winModal').classList.contains('active')) {
+        console.log('⬇️ 正在下载 pass4.zip ...');
+        downloadKeyLegit();
+    }
+})();
+```
+这个考虑到太卡了，给改慢了一点，会看到它一个个去做，但是也挺快的，几分钟就好了
+得到`pass4.zip`
+还有
