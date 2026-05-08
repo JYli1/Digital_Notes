@@ -610,3 +610,82 @@ print("\n\n[-] 爆破结束，未找到匹配项。可能包含特殊字符？")
 <h1>[ 内部备份服务器 - 仅限授权人员 ][a-z]</h1>
 ```
 `8080`端口这里有一个【a-z】,是不是按时我们内容只包括小写字母，这里缩减了很多范围，加速爆破。我们试试。
+```c
+#include <stdio.h>
+#include <string.h>
+#include <zlib.h>
+
+int main() {
+    // 目标 CRC32
+    unsigned long target = 0xea86a014;
+    // 包含大小写和数字
+    char chars[] = "abcdefghijklmnopqrstuvwxyz";
+    int len = strlen(chars);
+    char buf[7] = {0}; // 6个字符 + 1个结束符
+
+    printf("[*] 开始 C 语言极限爆破...\n");
+
+    for(int i=0; i<len; i++) {
+        buf[0] = chars[i];
+        printf("[~] 正在运算以 %c 开头的组合...\n", chars[i]);
+        for(int j=0; j<len; j++) {
+            buf[1] = chars[j];
+            for(int k=0; k<len; k++) {
+                buf[2] = chars[k];
+                for(int l=0; l<len; l++) {
+                    buf[3] = chars[l];
+                    for(int m=0; m<len; m++) {
+                        buf[4] = chars[m];
+                        for(int n=0; n<len; n++) {
+                            buf[5] = chars[n];
+
+                            // 核心 CRC 计算
+                            if (crc32(0L, (const unsigned char*)buf, 6) == target) {
+                                printf("\n[+] ============================\n");
+                                printf("[+] 成功找到内容: %s\n", buf);
+                                printf("[+] ============================\n");
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    printf("[-] 未找到匹配项。\n");
+    return 0;
+}
+```
+编译运行
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ gcc zip.c -O3 -lz -o zip
+
+┌──(kali㉿kali)-[~/tmp]
+└─$ ./zip
+[*] 开始 C 语言极限爆破...
+[~] 正在运算以 a 开头的组合...
+[~] 正在运算以 b 开头的组合...
+[~] 正在运算以 c 开头的组合...
+[~] 正在运算以 d 开头的组合...
+[~] 正在运算以 e 开头的组合...
+[~] 正在运算以 f 开头的组合...
+[~] 正在运算以 g 开头的组合...
+[~] 正在运算以 h 开头的组合...
+[~] 正在运算以 i 开头的组合...
+[~] 正在运算以 j 开头的组合...
+[~] 正在运算以 k 开头的组合...
+[~] 正在运算以 l 开头的组合...
+[~] 正在运算以 m 开头的组合...
+[~] 正在运算以 n 开头的组合...
+[~] 正在运算以 o 开头的组合...
+[~] 正在运算以 p 开头的组合...
+[~] 正在运算以 q 开头的组合...
+[~] 正在运算以 r 开头的组合...
+[~] 正在运算以 s 开头的组合...
+[~] 正在运算以 t 开头的组合...
+
+[+] ============================
+[+] 成功找到内容: thenow
+[+] ============================
+```
