@@ -700,4 +700,9 @@ int main() {
 密码就是`forgetthepastLiVethenow`
 我们去打开`宝箱.zip`
 里面有一个`flag`文件
-打开是
+打开是：
+```md
+这里啥都没有，但是这个目录里不只一个文件
+```
+意识到有隐藏的文件了。
+# flag.vhd解密
