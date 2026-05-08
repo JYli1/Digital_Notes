@@ -541,3 +541,67 @@ Hint: pass4:爆密码是爆不出的，看看文件有多大
 ```
 非常小，那也就是说内容应该就是一个txt文件里面几个字母，就像`pass1：forget`一样
 那么这里有一个方法，也是爆破，但是不是爆破密码。
+而是进行CRC碰撞
+```python
+import binascii
+import itertools
+import string
+import time
+
+target_crc = 0x66b9a733
+length = 4
+
+# 假设内容是字母和数字 (如果跑不出来，可以加上 string.punctuation 包含符号)
+chars = string.ascii_letters + string.digits
+
+# 计算总可能组合数
+total_combinations = len(chars) ** length
+
+print(f"[*] 目标 CRC32: {hex(target_crc)}")
+print(f"[*] 字符集大小: {len(chars)} 个字符")
+print(f"[*] 猜测长度: {length}")
+print(f"[*] 总计需尝试: {total_combinations} 次")
+print("[*] 开始爆破，请稍候...\n")
+
+start_time = time.time()
+count = 0
+
+for p in itertools.product(chars, repeat=length):
+    count += 1
+    
+    # 每 10 万次刷新一次屏幕，防止 IO 拖慢速度
+    if count % 100000 == 0:
+        percent = (count / total_combinations) * 100
+        # \r 表示回到行首，end="" 表示不换行
+        print(f"\r[~] 进度: {percent:>5.2f}% | 当前尝试: {''.join(p)} | 已跑: {count}/{total_combinations}", end="")
+
+    text = ''.join(p).encode('ascii')
+    
+    if binascii.crc32(text) == target_crc:
+        end_time = time.time()
+        print(f"\n\n[+] ===========================================")
+        print(f"[+] 成功！找到原文内容了: {text.decode('ascii')}")
+        print(f"[+] 耗时: {end_time - start_time:.2f} 秒")
+        print(f"[+] ===========================================\n")
+        exit(0)
+
+print("\n\n[-] 爆破结束，未找到匹配项。可能包含特殊字符？")
+```
+
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ python3 zip.py
+[*] 目标 CRC32: 0x66b9a733
+[*] 字符集大小: 62 个字符
+[*] 猜测长度: 4
+[*] 总计需尝试: 14776336 次
+[*] 开始爆破，请稍候...
+
+[~] 进度: 59.55% | 当前尝试: K5rD | 已跑: 8800000/14776336
+
+[+] ===========================================
+[+] 成功！找到原文内容了: LiVe
+[+] 耗时: 5.69 秒
+[+] ===========================================
+```
+直接爆破到了，同时我们注意到pass5的长度也只有6字节，同样
