@@ -660,6 +660,7 @@ int main() {
 ```bash
 ┌──(kali㉿kali)-[~/tmp]
 └─$ gcc zip.c -O3 -lz -o zip
+#-O3 开启最高性能优化，-lz 链接 zlib 库
 
 ┌──(kali㉿kali)-[~/tmp]
 └─$ ./zip
@@ -689,3 +690,9 @@ int main() {
 [+] 成功找到内容: thenow
 [+] ============================
 ```
+`这里如果没注意到小写字母的话是会爆破出另外的结果：eYOMhu 的`
+，现在我们就有了`forget the LiVe thenow`，这里差一个pass3，但是没找到这个压缩包，但是可以知道应该是这样：
+```md
+`forget the {unkown}  LiVe thenow`
+```
+英文不太好，依旧ai
