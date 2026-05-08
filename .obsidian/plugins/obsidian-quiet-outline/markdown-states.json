@@ -2472,16 +2472,17 @@
     "scroll": 408.336536698089,
     "cursor": {
       "from": {
-        "line": 436,
+        "line": 441,
         "ch": 0
       },
       "to": {
-        "line": 436,
+        "line": 441,
         "ch": 0
       }
     },
     "expandedKeys": [
-      "item-1-2"
+      "item-1-2",
+      "item-1-7"
     ]
   }
 }
