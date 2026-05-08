@@ -696,3 +696,8 @@ int main() {
 `forget the {unkown}  LiVe thenow`
 ```
 英文不太好，依旧ai
+![](file-20260509001538673.png)
+密码就是`forgetthepastLiVethenow`
+我们去打开`宝箱.zip`
+里面有一个`flag`文件
+打开是
