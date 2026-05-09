@@ -219,8 +219,25 @@ Target: http://baker.dsz/
 ```
 爆出来密码，但是去后台登录不了，说不正确
 
+找到一个注册的地方，可能存在邮箱的用户名爆破，我们用脚本：
+
+```bash
+┌──(kali㉿kali)-[~/tmp/tmp]
+└─$ python3 111.py
+[*] loaded 4950 names
+[*] target: http://baker.dsz/admin/login/forgot/index.php
+[*] domains: baker.dsz, baker.local
+[*] wait: 0s/request
+[1792/9900] checking carol@baker.dsz
+[?] carol@baker.dsz: captcha_or_asp
+[1878/9900] checking martina@baker.dsz
+[?] martina@baker.dsz: captcha_or_asp
+[9900/9900] checking speaker@baker.local
+[-] no matching email found
+```
+
 
 爆出来用户名：carol。martina
-
+我试了一下，一个管理员，一个地权限用户，我创建了一个用户，用cve的poc打了一下
 ![](file-20260509234920801.png)
 确定有时间盲注
