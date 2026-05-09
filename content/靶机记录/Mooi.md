@@ -818,4 +818,4 @@ r/r 36-128-5:   flag:flag
 └─$ icat -o 128 flag.vhd 36-128-5
 mooi:mooi3811350908  
 ```
-得到ssh账号密码
+得到ssh账号密码。
