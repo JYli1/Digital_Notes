@@ -205,3 +205,16 @@ Target: http://baker.dsz/
 都看了一下，有用的不多，就知道了用的`WBCE CMS`还有一个`admin后台`
 试一下弱密码，发现错误几次居然就封了。
 ![](file-20260509141640939.png)
+# 渗透测试
+尝试root root登录数据库，居然成功进来了。
+连上navicat看看，虽然是root账号都是我们只有很小的权限
+	能看`wbce_test`库，我们看到了`wbce_user`表，里面有admin账户和一段密码哈希
+我们john爆破一下
+```bash
+┌──(kali㉿kali)-[~/tmp/tmp]
+└─$ john --show hash.txt
+?:33333333
+
+1 password hash cracked, 0 left
+```
+爆出来密码，但是去后台登录不了，说不正确
