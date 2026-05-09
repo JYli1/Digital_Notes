@@ -118,3 +118,13 @@ Web 应用（80端口）
 ▌ 当前阶段，Website Baker CMS 是最佳突破口，集中精力挖掘 Web 漏洞（尤其是历史RCE）和数据库弱口令。
 
 ```
+我们到web端看了一下，搜索会跳转
+```html
+http://baker.dsz/search/index.php?referrer=2&string=1&wb_search=%EE%82%90
+```
+所以我们去添加一个host记录
+```md
+10.216.75.104 baker.dsz
+```
+这才成功加载出完整网页
+![](file-20260509140652318.png)
