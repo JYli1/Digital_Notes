@@ -218,3 +218,6 @@ Target: http://baker.dsz/
 1 password hash cracked, 0 left
 ```
 爆出来密码，但是去后台登录不了，说不正确
+
+
+爆出来用户名：carol。martina
