@@ -128,3 +128,78 @@ http://baker.dsz/search/index.php?referrer=2&string=1&wb_search=%EE%82%90
 ```
 这才成功加载出完整网页
 ![](file-20260509140652318.png)
+## 目录扫描
+```bash
+PS D:\webtool\Dirsearch> python dirsearch.py -u http://baker.dsz -e *
+D:\webtool\Dirsearch\lib\core\installation.py:24: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, jsp, asp, aspx, do, action, cgi, html, htm, js, tar.gz | HTTP method: GET | Threads: 25 | Wordlist size: 15042
+
+Target: http://baker.dsz/
+
+[14:07:39] Scanning:
+[14:07:41] 200 -    25B - /.gitignore
+[14:07:47] 301 -   346B - /account  ->  http://baker.dsz/account/
+[14:07:47] 301 -     0B - /account/  ->  login.php
+[14:07:47] 302 -     0B - /account/login.php  ->  http://baker.dsz/index.php
+[14:07:48] 301 -   344B - /admin  ->  http://baker.dsz/admin/
+[14:07:49] 403 -   312B - /admin/.htaccess
+[14:07:49] 302 -     0B - /admin/  ->  http://baker.dsz/admin/start/index.php
+[14:07:49] 301 -   350B - /admin/login  ->  http://baker.dsz/admin/login/
+[14:07:49] 302 -     0B - /admin/index.php  ->  http://baker.dsz/admin/start/index.php
+[14:08:05] 403 -   312B - /cgi-bin/
+[14:08:05] 403 -   312B - /cgi-bin/a1stats/a1disp.cgi
+[14:08:05] 403 -   312B - /cgi-bin/awstats/
+[14:08:05] 403 -   312B - /cgi-bin/awstats.pl
+[14:08:05] 403 -   312B - /cgi-bin/htimage.exe?2,2
+[14:08:05] 403 -   312B - /cgi-bin/imagemap.exe?2,2
+[14:08:05] 403 -   312B - /cgi-bin/htmlscript
+[14:08:05] 403 -   312B - /cgi-bin/index.html
+[14:08:05] 403 -   312B - /cgi-bin/login.cgi
+[14:08:05] 403 -   312B - /cgi-bin/login.php
+[14:08:05] 403 -   312B - /cgi-bin/mt-xmlrpc.cgi
+[14:08:05] 403 -   312B - /cgi-bin/login
+[14:08:05] 403 -   312B - /cgi-bin/mt/mt.cgi
+[14:08:05] 403 -   312B - /cgi-bin/mt/mt-xmlrpc.cgi
+[14:08:05] 403 -   312B - /cgi-bin/mt7/mt-xmlrpc.cgi
+[14:08:05] 403 -   312B - /cgi-bin/mt7/mt.cgi
+[14:08:05] 403 -   312B - /cgi-bin/printenv
+[14:08:05] 403 -   312B - /cgi-bin/printenv.pl
+[14:08:05] 403 -   312B - /cgi-bin/test.cgi
+[14:08:05] 403 -   312B - /cgi-bin/test-cgi
+[14:08:05] 403 -   312B - /cgi-bin/mt.cgi
+[14:08:05] 403 -   312B - /cgi-bin/ViewLog.asp
+[14:08:05] 403 -   312B - /cgi-bin/php.ini
+[14:08:06] 200 -   136B - /CHANGELOG.md
+[14:08:09] 200 -     0B - /config.php
+[14:08:16] 200 -   34KB - /favicon.ico
+[14:08:22] 301 -   346B - /include  ->  http://baker.dsz/include/
+[14:08:22] 301 -     0B - /include/  ->  ../index.php
+[14:08:23] 200 -    6KB - /index.php
+[14:08:23] 200 -    6KB - /index.php/login/
+[14:08:23] 200 -    1KB - /INSTALL.md
+[14:08:27] 301 -   348B - /languages  ->  http://baker.dsz/languages/
+[14:08:29] 200 -   15KB - /LICENSE.md
+[14:08:35] 301 -   344B - /media  ->  http://baker.dsz/media/
+[14:08:35] 200 -   401B - /media/
+[14:08:37] 301 -   346B - /modules  ->  http://baker.dsz/modules/
+[14:08:37] 301 -     0B - /modules/  ->  ../index.php
+[14:08:41] 301 -   344B - /pages  ->  http://baker.dsz/pages/
+[14:08:41] 301 -     0B - /pages/  ->  ../index.php
+[14:08:47] 200 -    35B - /README.md
+[14:08:50] 301 -   345B - /search  ->  http://baker.dsz/search/
+[14:08:51] 403 -   312B - /server-status/
+[14:08:51] 403 -   312B - /server-status
+[14:08:59] 301 -   343B - /temp  ->  http://baker.dsz/temp/
+[14:08:59] 301 -     0B - /temp/  ->  ../index.php
+[14:08:59] 301 -   348B - /templates  ->  http://baker.dsz/templates/
+[14:08:59] 301 -     0B - /templates/  ->  ../index.php
+[14:09:03] 301 -   342B - /var  ->  http://baker.dsz/var/
+[14:09:03] 301 -     0B - /var/  ->  ../index.php
+[14:09:04] 200 -   387B - /var/logs/
+```
+都看了一下，有用的不多，就知道了用的`WBCE CMS`还有一个`admin后台`
