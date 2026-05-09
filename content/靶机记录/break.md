@@ -240,4 +240,19 @@ Target: http://baker.dsz/
 爆出来用户名：carol。martina
 我试了一下，一个管理员，一个地权限用户，我创建了一个用户，用cve的poc打了一下
 ![](file-20260509234920801.png)
-确定有时间盲注
+确定有时间盲注，这里好像不需要这个盲注，直接可以打`CVE-2024-10331：Droplets 模块远程代码执行 (RCE)`
+我们首先用管理员用户
+	`Admin-tools`->`Droplets`
+在这个页面我们可以写php代码，相当于写一个php函数一样，然后我们之后就可以在page里面使用`[[函数名]]`调用
+![](file-20260510002458176.png)
+这样写一个webshell。
+然后来到`pages`。新建一个文章
+![](file-20260510002610904.png)
+这里test是我写的，我们看一下。
+![](file-20260510002635112.png)
+page的内容随便写什么，只要里面用了`[[shell]]`(这里shell是因为我创建的`Droplets`的name是shell)，就可以了。
+![](file-20260510002813925.png)
+然后我们点击这个`view`或者直接访问`http://baker.dsz/pages/test.php`(这里test是你创建的page的名字)
+然后就拿到webshell了。
+![](file-20260510002936514.png)
+`flag{user-548b5242171e085fc64be9252a132ad5}`
