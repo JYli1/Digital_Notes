@@ -221,3 +221,6 @@ Target: http://baker.dsz/
 
 
 爆出来用户名：carol。martina
+
+![](file-20260509234920801.png)
+确定有时间盲注
