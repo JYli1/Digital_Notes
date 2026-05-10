@@ -623,3 +623,6 @@ objcopy: /tmp/monitor_signed: warning: allocated section `.note.sig' not in segm
 carol@Baker:~$ cp /tmp/monitor_signed /opt/scripts/monitor
 carol@Baker:~$ chmod +x /opt/scripts/monitor
 ```
+然后shell就弹过来了：
+```
+```
