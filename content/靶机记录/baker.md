@@ -127,7 +127,7 @@ http://baker.dsz/search/index.php?referrer=2&string=1&wb_search=%EE%82%90
 10.216.75.104 baker.dsz
 ```
 这才成功加载出完整网页
-![](file-20260509140652318.png)
+![](assets/baker/file-20260510144608588.png)
 ## 目录扫描
 ```bash
 PS D:\webtool\Dirsearch> python dirsearch.py -u http://baker.dsz -e *
@@ -204,7 +204,7 @@ Target: http://baker.dsz/
 ```
 都看了一下，有用的不多，就知道了用的`WBCE CMS`还有一个`admin后台`
 试一下弱密码，发现错误几次居然就封了。
-![](file-20260509141640939.png)
+![](assets/baker/file-20260510144608582.png)
 # 渗透测试
 尝试root root登录数据库，居然成功进来了。
 连上navicat看看，虽然是root账号都是我们只有很小的权限
@@ -239,22 +239,22 @@ Target: http://baker.dsz/
 
 爆出来用户名：carol。martina
 我试了一下，一个管理员，一个地权限用户，我创建了一个用户，用cve的poc打了一下
-![](file-20260509234920801.png)
+![](assets/baker/file-20260510144608571.png)
 确定有时间盲注，这里好像不需要这个盲注，直接可以打`CVE-2024-10331：Droplets 模块远程代码执行 (RCE)`
 我们首先用管理员用户
 	`Admin-tools`->`Droplets`
 在这个页面我们可以写php代码，相当于写一个php函数一样，然后我们之后就可以在page里面使用`[[函数名]]`调用
-![](file-20260510002458176.png)
+![](assets/baker/file-20260510144608561.png)
 这样写一个webshell。
 然后来到`pages`。新建一个文章
-![](file-20260510002610904.png)
+![](assets/baker/file-20260510144608557.png)
 这里test是我写的，我们看一下。
-![](file-20260510002635112.png)
+![](assets/baker/file-20260510144608551.png)
 page的内容随便写什么，只要里面用了`[[shell]]`(这里shell是因为我创建的`Droplets`的name是shell)，就可以了。
-![](file-20260510002813925.png)
+![](assets/baker/file-20260510144608546.png)
 然后我们点击这个`view`或者直接访问`http://baker.dsz/pages/test.php`(这里test是你创建的page的名字)
 然后就拿到webshell了。
-![](file-20260510002936514.png)
+![](assets/baker/file-20260510144608542.png)
 `flag{user-548b5242171e085fc64be9252a132ad5}`
 # 提权
 这里用php弹一个shell过来
@@ -494,7 +494,7 @@ User apache may run the following commands on Baker:
 ```
 能以`carol`用户权限执行ip，这有啥用呀。
 找到CTFOBins里面有ip命令的文件读取，我们试一下读ssh密钥。
-![](file-20260510144234572.png)
+![](assets/baker/file-20260510144608540.png)
 记得加速用户
 ```bash
 /var/www/localhost/htdocs/pages $ sudo -u carol ip -force -batch /home/carol/.ssh/id_rsa 2>&1
@@ -576,7 +576,7 @@ Object "-----END" is unknown, try "ip help".
 Command failed /home/carol/.ssh/id_rsa:38
 ```
 这里可以直接给ai帮我们提取一下。
-![](file-20260510144346560.png)
+![](assets/baker/file-20260510144608533.png)
 
 读到ssh密钥，登录成功
 ```bash
