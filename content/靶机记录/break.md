@@ -491,4 +491,7 @@ User apache may run the following commands on Baker:
     (carol) NOPASSWD: /sbin/ip
 ```
 能以`carol`用户权限执行ip，这有啥用呀。
-zhao
+找到CTFOBins里面有ip命令的文件读取，我们试一下读ssh密钥。
+```bash
+
+```
