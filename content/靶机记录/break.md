@@ -428,3 +428,67 @@ rm -f $TEMP_SIG
 -rwxr-xr-x    1 root     root           465 Apr  7 22:19 /usr/local/bin/check-monitor.sh
 ```
 而且这个脚本是root权限运行的，我们能不能想办法劫持一下呢
+```bash
+/var/www/localhost/htdocs/pages $ ls -ld /opt/scripts/
+drwxrwxr-x    2 root     devs          4096 May 10 14:14 /opt/scripts/
+```
+如果我们是devs组用户，那么我们就可以自己写一个monitor文件让定时任务执行，但是我们不是
+```bash
+/var/www/localhost/htdocs/pages $ cat /etc/group
+root:x:0:root
+bin:x:1:root,bin,daemon
+daemon:x:2:root,bin,daemon
+sys:x:3:root,bin
+adm:x:4:root,daemon
+tty:x:5:
+disk:x:6:root
+lp:x:7:lp
+kmem:x:9:
+wheel:x:10:root
+floppy:x:11:root
+mail:x:12:mail
+news:x:13:news
+uucp:x:14:uucp
+cron:x:16:cron
+audio:x:18:
+cdrom:x:19:
+dialout:x:20:root
+ftp:x:21:
+sshd:x:22:
+input:x:23:
+tape:x:26:root
+video:x:27:root
+netdev:x:28:
+kvm:x:34:kvm
+games:x:35:
+shadow:x:42:
+users:x:100:games
+ntp:x:123:
+abuild:x:300:
+utmp:x:406:
+ping:x:999:
+nogroup:x:65533:
+nobody:x:65534:
+klogd:x:101:klogd
+apache:x:106:apache
+www-data:x:82:www-data,apache
+mysql:x:102:mysql
+carol:x:1000:
+devs:x:1001:carol
+```
+看到`carol`用户是属于`devs`组，那我们可能得横向到`carol`用户了
+我们看一下sudo权限：
+```bash
+/var/www/localhost/htdocs/pages $ sudo -l
+Matching Defaults entries for apache on Baker:
+
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+Runas and Command-specific defaults for apache:
+    Defaults!/usr/sbin/visudo env_keep+="SUDO_EDITOR EDITOR VISUAL"
+
+User apache may run the following commands on Baker:
+    (carol) NOPASSWD: /sbin/ip
+```
+能以`carol`用户权限执行ip，这有啥用呀。
+zhao
