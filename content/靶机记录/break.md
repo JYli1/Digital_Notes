@@ -427,7 +427,7 @@ rm -f $TEMP_SIG
 /var/www/localhost/htdocs/pages $ ls -l /usr/local/bin/check-monitor.sh
 -rwxr-xr-x    1 root     root           465 Apr  7 22:19 /usr/local/bin/check-monitor.sh
 ```
-这里sh脚本就是会用·`objcopy --dump-section $SIG_SECTION=$TEMP_SIG $TARGET 2>/dev/null`
+这里sh脚本就是会用·`objcopy `命令去检查`/opt/scripts/monitor`有没有特定的签名字段，如果有就会执行程序
 
 而且这个脚本是root权限运行的，我们能不能想办法劫持一下呢
 ```bash
