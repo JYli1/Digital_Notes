@@ -603,3 +603,4 @@ user.txt
 └─$ nc -lvp 9999
 listening on [any] 9999 ...
 ```
+然后就直接重新写一个monitor文件，添加特定的签名进去，里面写上我们的恶意dai'm
