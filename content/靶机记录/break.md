@@ -596,4 +596,10 @@ __      _____| | ___ ___  _ __ ___   ___
 carol@Baker:~$ ls
 user.txt
 ```
-终于成功了，现在我们可以想办法去
+终于成功了，现在我们可以想办法去替换掉monitor程序了。
+先监听起一个端口等弹shell:
+```bash
+┌──(kali㉿kali)-[~/tmp]
+└─$ nc -lvp 9999
+listening on [any] 9999 ...
+```
