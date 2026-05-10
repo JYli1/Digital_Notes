@@ -399,3 +399,31 @@ done
 2026/05/10 13:52:01 CMD: UID=0     PID=2675   | rm -f /tmp/sig_verify.bin
 ```
 发现最后这里重复执行，是定时任务。
+我们看一下：
+```bash
+/var/www/localhost/htdocs/pages $ cat /usr/local/bin/check-monitor.sh
+#!/bin/sh
+
+TARGET="/opt/scripts/monitor"
+SIG_SECTION=".note.sig"
+TEMP_SIG="/tmp/sig_verify.bin"
+VENDOR_STR="Maze-Sec-Internal-Only"
+
+objcopy --dump-section $SIG_SECTION=$TEMP_SIG $TARGET 2>/dev/null
+
+if [ $? -ne 0 ]; then
+    echo "[!] Error: Binary not signed."
+    exit 1
+fi
+
+if grep -q "$VENDOR_STR" $TEMP_SIG; then
+    echo "[+] Signature verified. Executing..."
+    $TARGET
+else
+    echo "[!] Security Alert: Unauthorized binary detected!"
+fi
+
+rm -f $TEMP_SIG
+/var/www/localhost/htdocs/pages $ ls -l /usr/local/bin/check-monitor.sh
+-rwxr-xr-x    1 root     root           465 Apr  7 22:19 /usr/local/bin/check-monitor.sh
+```
