@@ -427,6 +427,8 @@ rm -f $TEMP_SIG
 /var/www/localhost/htdocs/pages $ ls -l /usr/local/bin/check-monitor.sh
 -rwxr-xr-x    1 root     root           465 Apr  7 22:19 /usr/local/bin/check-monitor.sh
 ```
+这里sh脚本就是会用·`objcopy --dump-section $SIG_SECTION=$TEMP_SIG $TARGET 2>/dev/null`
+
 而且这个脚本是root权限运行的，我们能不能想办法劫持一下呢
 ```bash
 /var/www/localhost/htdocs/pages $ ls -ld /opt/scripts/
@@ -574,6 +576,7 @@ Object "-----END" is unknown, try "ip help".
 Command failed /home/carol/.ssh/id_rsa:38
 ```
 这里可以直接给ai帮我们提取一下。
+![](file-20260510144346560.png)
 
 读到ssh密钥，登录成功
 ```bash
