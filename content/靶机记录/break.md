@@ -427,3 +427,4 @@ rm -f $TEMP_SIG
 /var/www/localhost/htdocs/pages $ ls -l /usr/local/bin/check-monitor.sh
 -rwxr-xr-x    1 root     root           465 Apr  7 22:19 /usr/local/bin/check-monitor.sh
 ```
+而且这个脚本是root权限运行的，我们能不能想办法劫持一下呢
