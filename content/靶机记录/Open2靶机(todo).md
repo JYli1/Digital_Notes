@@ -4,7 +4,7 @@
 系统: Linux
 难度: Easy
 ---
-# 主机发现
+x# 主机发现
 ```bash
 ┌──(kali㉿kali)-[~]
 └─$ nmap 10.216.75.0/24 -sn
