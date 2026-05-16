@@ -369,9 +369,9 @@ res = patch(base.replace(".",add(sql2)),sql).replace(" ","/**/").replace("'.'",'
 
 print(res)
 ```
-![[file-20251217195614491.png]]
+![[../安全学习/SQL注入/assets/Quine注入/file-20251217195614491.png]]
 就帮我们构造好了（-1后面有个`'`我忘记了）
-![[file-20251217200038962.png]]
+![[../安全学习/SQL注入/assets/Quine注入/file-20251217200038962.png]]
 输入就出了
 
 # 0x03 第五空间 2021【yet_another_mysql_injection】（sql盲注）
@@ -412,7 +412,7 @@ print("[+] password =", password)
 原理就是查询成功的话，就算密码错了也会回显`wrong password`，而如果我们or后面的为假导致查询失败的话，会回显`something wrong`，
 我们利用回显是不是`something wron`判断是否成功。
 这里`=`号被禁用的话就用`strcmp()`比较，相等会返回0不相等返回非0，所以这里取！
-![[file-20251217201303468.png]]
+![[assets/Day 1/file-20251217201303468.png]]
 最后成功盲注到密码，输入进去也可以得到flag
 # 0x04 VNCTF2023【电子木鱼】
 给了源码，是Rust语言写的一个功德计算的程序，功德大于十亿得到flag
@@ -514,9 +514,9 @@ payload:
 `post传：name=Cost&quantity=214748365`.
 # 0x05 VNCTF2023【象棋王子】
 翻一下js文件，发现fuckjs代码：
-![[file-20251203193025605.png]]
+![[../安全学习/CTF wp/assets/VNCTF  2023 web 复现/file-20251203193025605.png]]
 到控制台执行
-![[file-20251203193025617.png]]
+![[../安全学习/CTF wp/assets/VNCTF  2023 web 复现/file-20251203193025617.png]]
 #  0x06 VNCTF2023【BabyGo】
 给了附件，是go语言源码，看不太懂就叫ai分析了。
 ```go
@@ -850,5 +850,5 @@ var(a="1
 ```http
 ?pkg=%22os%2Fexec%22%0A%20fmt%22%0A%29%0A%0Afunc%09init()%7B%0Acmd%3A%3Dexec.Command(%22cat%22%2C%22%2Fffflllaaaggg%22)%0Aout%2C_%3A%3Dcmd.CombinedOutput()%0Afmt.Println(string(out))%0A%7D%0A%0Avar(a%3D%221
 ```
-![[file-20251205163820848.png]]
+![[../安全学习/CTF wp/assets/VNCTF  2023 web 复现/file-20251205163820848.png]]
 

