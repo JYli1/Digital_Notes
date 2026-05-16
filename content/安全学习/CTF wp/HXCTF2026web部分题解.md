@@ -29,3 +29,6 @@ X-Forwarded-For: 127.0.0.1
 ## 开始注入
 因为这里的sql查询时insert语句，插入，所以肯定不是union注入之类的，加上有报错回显。我们考虑报错注入。
 我们试试常规的
+```sql
+1' AND extractvalue(1,concat('~',(select database())))#
+```
