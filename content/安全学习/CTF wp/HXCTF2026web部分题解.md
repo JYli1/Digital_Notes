@@ -30,5 +30,14 @@ X-Forwarded-For: 127.0.0.1
 因为这里的sql查询时insert语句，插入，所以肯定不是union注入之类的，加上有报错回显。我们考虑报错注入。
 我们试试常规的
 ```sql
-1' AND extractvalue(1,concat('~',(select database())))#
+1' AND extractvalue(1,concat('~',(select database()))) and '1'='1
 ```
+![](file-20260516140347574.png)
+并没有产生报错，奇怪了。难道是被waf了？
+再试试，updatexml。
+![](file-20260516140449109.png)
+估计是被ban了，只要出现关键字就直接return掉。
+这时候我们就要试试floor了。
+![](file-20260516140546633.png)
+成功报错，那么方向很明确了，就是打floor报错。
+## floor报错
