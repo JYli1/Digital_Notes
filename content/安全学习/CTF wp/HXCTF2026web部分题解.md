@@ -45,12 +45,17 @@ X-Forwarded-For: 127.0.0.1
 
 payload：
 ```http
-
+X-Forwarded-For: 1' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT((SELECT flag FROM secret_flag LIMIT 0,1),FLOOR(RAND(0)*2))x FROM information_schema.tables GROUP BY x)a) AND '1'='1
 ```
 
+![](file-20260516142236321.png)
 floor报错其实本质应该算是groupby报错，利用的是groupby的性质
 >**mysql官方注明，在执行group by语句的时候，group by语句后面的字段会被运算两次。**
 >**第一次是group by后面的字段和虚拟表进行对比，第二次是插入时会进行运算。**
 **由于rand()函数的随机性，导致第二次运算可能和第一运算结果不一致，运算的结果存在，这时插入就会出错。**
 
-`FLOOR(RAND(0)*2)`这段语句只是为了产生一段可以造成报错的01序列。
+`FLOOR(RAND(0)*2)`这段语句只是为了产生一段可以造成报错的01序列。（详细的floor报错原理可以搜索一下橙子科技的sql注入视频，讲的很详细）
+大概就是groupby分组的时候要有一个计算并且把结果插入临时表的过程，中间产生了key的冲突导致报错。
+
+# HardShop
+
