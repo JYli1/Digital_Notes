@@ -2302,7 +2302,7 @@
     "expandedKeys": []
   },
   "content/靶机记录/Pom靶机.md": {
-    "scroll": 575.2479170766909,
+    "scroll": 669.9593023255813,
     "cursor": {
       "from": {
         "line": 662,
@@ -2316,7 +2316,7 @@
     "expandedKeys": []
   },
   "content/靶机记录/MM靶机.md": {
-    "scroll": 529.8037915730645,
+    "scroll": 317.8797385620915,
     "cursor": {
       "from": {
         "line": 544,
@@ -2515,7 +2515,7 @@
     "expandedKeys": []
   },
   "content/靶机记录/Mini靶机(todo).md": {
-    "scroll": 29.384559585492227,
+    "scroll": 802.46303131577,
     "cursor": {
       "from": {
         "line": 4,
@@ -2526,7 +2526,9 @@
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-1"
+    ]
   },
   "content/python爬虫学习/爬虫基础.md": {
     "scroll": 0,
@@ -2573,7 +2575,7 @@
     "expandedKeys": []
   },
   "content/靶机记录/baker.md": {
-    "scroll": 0,
+    "scroll": 239.55052517203913,
     "cursor": {
       "from": {
         "line": 129,
@@ -2641,14 +2643,14 @@
     ]
   },
   "content/安全学习/CTF wp/HXCTF2026web部分题解.md": {
-    "scroll": 40.48410079103149,
+    "scroll": 0,
     "cursor": {
       "from": {
-        "line": 60,
+        "line": 61,
         "ch": 0
       },
       "to": {
-        "line": 60,
+        "line": 61,
         "ch": 0
       }
     },
@@ -2688,5 +2690,61 @@
     "expandedKeys": [
       "item-1-0"
     ]
+  },
+  "content/安全学习/CTF wp/HXCTF2026（初赛）web部分题解.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/安全学习/CTF wp/CTFSHOW-2026元旦跨年欢乐赛.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/安全学习/CTF wp/未命名 1.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/安全学习/CTF wp/HXCTF2026（决赛）web部分题解.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 13,
+        "ch": 74
+      },
+      "to": {
+        "line": 13,
+        "ch": 74
+      }
+    },
+    "expandedKeys": []
   }
 }
