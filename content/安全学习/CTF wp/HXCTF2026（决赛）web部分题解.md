@@ -73,4 +73,5 @@ INSERT INTO `wb_users` (`user_id`,`group_id`,`groups_id`,`username`,`display_nam
 ![](file-20260529171154662.png)
 讲的相当清楚了。
 ![](file-20260529171235952.png)
-找到水滴模块
+找到水滴模块添加（add droplet）
+

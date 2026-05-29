@@ -2737,12 +2737,12 @@
     "scroll": 72.6383333933869,
     "cursor": {
       "from": {
-        "line": 75,
-        "ch": 6
+        "line": 76,
+        "ch": 0
       },
       "to": {
-        "line": 75,
-        "ch": 6
+        "line": 76,
+        "ch": 0
       }
     },
     "expandedKeys": [
