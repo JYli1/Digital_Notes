@@ -2737,11 +2737,11 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 6,
-        "ch": 0
+        "line": 76,
+        "ch": 184
       },
       "to": {
-        "line": 6,
+        "line": 76,
         "ch": 0
       }
     },

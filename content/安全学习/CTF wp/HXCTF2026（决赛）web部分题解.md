@@ -27,16 +27,16 @@ https://www.exploit-db.com/exploits/52489
 
 首先我们起码要先进入后台才有机会漏洞利用。
 拿到一个web
-![](file-20260529165526929.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529165526929.png)
 首先要注意到这是一个`WBCE CMS`，此时你就应该要想到可能网上会有现存cve。
 然后第二你会去试试这个搜索款是不是有sql注入之类的。
 然后试了半天没有结果，这个时候以及90%确定是cve题了。
 但是你上网搜会发现基本都是要登录后台的，那你现在什么都没有，那怎么办？
 扫目录。这是真实环境对一个web页面基本的信息收集。
-![](file-20260529165852978.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529165852978.png)
 注意到`robots.txt`、`backup目录`，config文件也可以去看一下但是这里是没有东西的。
 我们去看看。
-![](file-20260529170022261.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529170022261.png)
 很明显一个备份文件，一个admin后台。先去下载备份文件看看
 可以得到一份sql文件
 ```sql
@@ -61,30 +61,30 @@ INSERT INTO `wb_users` (`user_id`,`group_id`,`groups_id`,`username`,`display_nam
 
 ```
 重点是其中有完整的账号和MD5(密码)，[cmd5](https://www.cmd5.com/)网站弱密码直接解密。（强一点点也可以试试john等工具爆破，原本是没设这么简单的密码的，考虑到你们可能没接触过爆破工具）
-![](file-20260529170348294.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529170348294.png)
 然后可以成功登录后台
-![](file-20260529170523667.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529170523667.png)
 ## 方法一： CVE-2022-25099
 
 在`Add-ons-->Language`页面存在一个没有任何限制的文件上传。（所以说你不知道cve。但凡你多点点，看到文件上传就试一试就做出来了）
-![](file-20260529170730996.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529170730996.png)
 超级简单好吧。
 ## 方法二：Droplets（水滴）模块存在任意php代码执行
 我题目描述也提到了水滴。
 这个后面再网上搜没有搜到比较完整的复现文章了，不知道为什么。但是还是有描述的呀
-![](file-20260529171009080.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529171009080.png)
 别看是英文就没用呀，翻译一下。
-![](file-20260529171154662.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529171154662.png)
 讲的相当清楚了。
-![](file-20260529171235952.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529171235952.png)
 找到水滴模块添加（add droplet）
 
-![](file-20260529171648540.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529171648540.png)
 
 然后来到page页面添加文章，在里面引用我们刚刚创建的文件脚本（shell.php），这里随便什么名字，后缀也不需要
-![](file-20260529171828746.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529171828746.png)
 然后查看我们刚刚写的文章就好
-![](file-20260529172008042.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529172008042.png)
 后门利用
-![](file-20260529172039626.png)
+![](https://raw.githubusercontent.com/JYli1/my-blog-images2/main/images/HXCTF2026%EF%BC%88%E5%86%B3%E8%B5%9B%EF%BC%89web%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/file-20260529172039626.png)
 所以说真的非常非常简单一道题了，各位没做出来好好复现总结一下吧
