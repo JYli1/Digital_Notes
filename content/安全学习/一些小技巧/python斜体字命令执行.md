@@ -1,1 +1,17 @@
-[ISCTF 2025](../CTF%20wp/ISCTF%202025.md)（难过的bottle）
+# python斜体字命令执行
+
+关联题目：[[../CTF wp/ISCTF 2025|ISCTF 2025]]。
+
+这篇先作为技巧卡片保留。后续补充时建议写清楚：输入点、字符限制、Python 解析差异、最终如何走到命令执行。
+
+## 关联知识
+
+- [[../Python安全/Python安全总览|Python安全]]
+- [[../ssti注入/bottle模板注入|bottle模板注入]]
+- [[技巧总览]]
+
+## 待补充
+
+- 原题过滤规则。
+- 绕过 payload。
+- 为什么 Python 会按预期解析。
