@@ -26,3 +26,4 @@ payload中存在`username`
 密钥是`maze`
 ![](file-20260602082617195.png)
 直接到官网来，把username字段修改为admin。然后抓包改包试试。
+偶看错了，上面s
