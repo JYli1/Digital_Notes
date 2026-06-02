@@ -52,7 +52,9 @@ jyli normal 退出登录
 SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table'
 ```
 ![](file-20260602084947700.png)
-应该是在secret表中我们看看
+应该是在secret表中我们看看表结构
 ```sql
+SELECT sql FROM sqlite_master WHERE type='table' AND name='secret')
 
 ```
+![](file-20260602085408245.png)
