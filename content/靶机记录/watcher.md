@@ -18,4 +18,7 @@ Nmap done: 1 IP address (1 host up) scanned in 24.02 seconds
 抓包看看：
 ![](file-20260602081517737.png)
 发现cookie存在jwt验证。解密看看：
-
+![](file-20260602081914574.png)
+payload中存在`username`
+那也就是说可能可以把`username`换成`admin`。
+并且是HS256加密，那我们尝试爆破一手密钥。
