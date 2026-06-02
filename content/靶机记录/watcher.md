@@ -75,5 +75,15 @@ select secret from secret
 但是我们没有权限看
 ![](file-20260602093026969.png)
 
-
-
+pspy里还有一句这个
+```bash
+inotifywait -m -e create /home/watcher/uploads
+```
+问了一下ai：
+实时监控 `/home/watcher/uploads` 目录，当有新文件或子目录创建时，立即输出事件信息。
+说明如果uploads文件夹发生变化会触发一些东西。那这个uploads文件夹我们去看看。
+开始里面什么也没有，我们随便创建一个文件
+![](file-20260602093418722.png)
+然后我们在注意一下pspy监控
+![](file-20260602093550364.png)
+检测到变化时会调用另外一个脚本，参数是我们写的文件，但是这个脚本我们看不到呀
