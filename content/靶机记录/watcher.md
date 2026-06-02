@@ -69,5 +69,7 @@ select secret from secret
 ![](file-20260602085749773.png)
 `flag{user-c3949567202847f1ad8664095f0a94e4}`
 # 提权
+话不多说先传一个pspy监控
+![](file-20260602090046511.png)
 
 
