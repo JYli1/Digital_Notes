@@ -1,3 +1,4 @@
+> 关联：[[SQL注入总览]]、[[常见bypass]]、[[禁用information_schema]]
 
 # 0x01 数据库权限
 

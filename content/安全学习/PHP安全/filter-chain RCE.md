@@ -1,3 +1,5 @@
+> 关联：[[PHP安全总览]]、[[PHP命令执行/命令执行基础|命令执行基础]]、[[pearcmd文件包含getshell]]
+
 php://filter是php伪协议中常用的，一般我们用来读取源代码
 ```php
 include(php://filter/read=convert.base64-encode/resource=【文件名】);
