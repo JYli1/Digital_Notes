@@ -1,3 +1,5 @@
+> 关联：[[index|CTF wp]]、[[../index|安全学习]]
+
 # Keep
 进来就单纯一个hello world
 dirsearch也没扫出来什么，抓包看一下

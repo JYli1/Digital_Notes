@@ -1,3 +1,5 @@
+> 关联：[[Python安全总览]]、[[../index|安全学习]]
+
 https://www.cnblogs.com/GTL-JU/p/16960460.html
 ## 0x01 session的作用
 

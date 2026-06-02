@@ -1,3 +1,5 @@
+> 关联：[[index|CTF wp]]、[[../index|安全学习]]
+
 # PromptPivot
 作者：JYli
 

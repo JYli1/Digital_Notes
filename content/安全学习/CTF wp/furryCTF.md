@@ -1,3 +1,5 @@
+> 关联：[[index|CTF wp]]、[[../index|安全学习]]
+
 ```python
 # 声明我们要覆盖全局作用域的函数
 global exit, open

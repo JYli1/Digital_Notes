@@ -1,3 +1,5 @@
+> 关联：[[SSTI总览]]、[[../Python安全/Python安全总览|Python安全]]
+
 [Python|基于Bottle的SSTI注入 | TGlu'blog](https://tg1u.top/2025/04/17/Python-%E5%9F%BA%E4%BA%8EBottle%E7%9A%84SSTI%E6%B3%A8%E5%85%A5/)
 [Bottle框架的模板引擎安全问题分析-先知社区](https://xz.aliyun.com/news/17430)
 https://www.tremse.cn/2025/04/12/bottle%E6%A1%86%E6%9E%B6%E7%9A%84%E4%B8%80%E4%BA%9B%E7%89%B9%E6%80%A7/#cookie%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6

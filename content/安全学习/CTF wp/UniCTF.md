@@ -1,3 +1,5 @@
+> 关联：[[index|CTF wp]]、[[../index|安全学习]]
+
 # SecureDoc
 进去是文件上传的题，先fuzz了一下允许上传的文件，发现好像只有pdf，那应该不是传统文件上传rce。
 随便上传一个pdf看到题目提示`No XFA content found in PDF. This parser specializes in XFA forms.`

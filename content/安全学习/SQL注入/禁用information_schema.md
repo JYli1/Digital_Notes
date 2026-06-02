@@ -1,3 +1,5 @@
+> 关联：[[SQL注入总览]]、[[../index|安全学习]]
+
 [Mysql元数据获取方法(information_schema绕过方法)](http://www.lryc.cn/news/9088.html)
 ## 替换绕过 information_schema.tables
 

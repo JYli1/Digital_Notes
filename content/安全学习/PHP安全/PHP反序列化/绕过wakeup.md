@@ -1,3 +1,5 @@
+> 关联：[[../PHP安全总览|PHP安全总览]]、[[反序列化基础]]
+
 详细看[PHP反序列化中wakeup()绕过总结 – fushulingのblog](https://fushuling.com/index.php/2023/03/11/php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%ADwakeup%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/)
 
 ## 1. cve-2016-7124

@@ -1,3 +1,5 @@
+> 关联：[[index|CTF wp]]、[[../index|安全学习]]
+
 # 【电子木鱼】
 给了源码，是Rust语言写的一个功德计算的程序，功德大于十亿得到flag
 `/upgrade`路由通过传入的`body.name`变量对`GONGDE`进行各种操作，`PAYLOADS`数组变量包含五个不同的Payload结构体，`name`分别对应不同的操作

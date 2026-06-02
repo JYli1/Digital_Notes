@@ -1,3 +1,5 @@
+> 关联：[[PHP安全总览]]、[[../index|安全学习]]
+
 # 文章
 
 https://blog.csdn.net/Mrs_H/article/details/122386511

@@ -1,3 +1,5 @@
+> 关联：[[SSTI总览]]、[[../Python安全/Python安全总览|Python安全]]
+
 https://forum.butian.net/share/2262
 http://freebuf.com/articles/web/264615.html
 ##  漏洞原原因

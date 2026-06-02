@@ -1,3 +1,5 @@
+> 关联：[[SSTI总览]]、[[../Python安全/Python安全总览|Python安全]]
+
 # Tornado模板注入
 
 Tornado 模板注入属于 [[SSTI总览|SSTI]] 的一个分支。排查时先确认用户输入是否进入模板语法，再判断能否访问 Python 对象、模块或危险函数。

@@ -1,3 +1,5 @@
+> 关联：[[../index|安全学习]]、[[../CTF wp/index|CTF wp]]
+
 jwt包括三个部分，**header payload** **Signature（签名）**
 # 0x01 JWT组成
 ## 1.1 header

@@ -2,6 +2,8 @@
 title: Python安全总览
 ---
 
+> 关联：[[Python安全总览]]、[[../index|安全学习]]
+
 # Python安全总览
 
 Python 安全方向主要围绕反序列化、Web 框架签名、沙箱逃逸和运行时对象模型。

@@ -1,3 +1,5 @@
+> 关联：[[../PHP安全总览|PHP安全总览]]、[[反序列化基础]]
+
 [Phar的文件包含与反序列化 · GitBook](https://j7ur8.github.io/WebBook/PHP/Phar%E7%9A%84%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96.html)
 [利用 phar 伪协议进行文件包含_phar文件包含-CSDN博客](https://blog.csdn.net/m0_73612768/article/details/134209155)
 https://paper.seebug.org/680/

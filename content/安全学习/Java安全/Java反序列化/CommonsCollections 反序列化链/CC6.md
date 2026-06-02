@@ -1,3 +1,5 @@
+> 关联：[[../../Java安全总览|Java安全总览]]、[[CC1]]
+
 # CommonsCollections CC6
 
 CC6 是 CommonsCollections 反序列化链里常见的一条链，适合和 [[CC1]] 对照学习。整理时重点关注触发入口、`LazyMap` / `TiedMapEntry` 的触发方式，以及最终如何走到 `ChainedTransformer`。

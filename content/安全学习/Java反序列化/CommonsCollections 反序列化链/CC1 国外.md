@@ -1,3 +1,5 @@
+> 关联：[[../Java安全/Java安全总览|Java安全总览]]、[[CC1]]
+
 ## ChainedTransformer实现rce
 前面还是一样的通过`ChainedTransformer的transform`方法递归调用`InvokerTransformer的transform`方法从而实现命令执行。
 

@@ -1,3 +1,5 @@
+> 关联：[[../index|安全学习]]、[[../CTF wp/index|CTF wp]]
+
 # 		.htaccess
 
 在利用htaccess之前先了解一下htaccess文件
