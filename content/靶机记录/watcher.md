@@ -102,3 +102,5 @@ zip /path/to/temp-file /path/to/input-file
 unzip -p /path/to/temp-file
 ```
 这里想构造命令执行的参数，但是构造不了，于是问了ai，发现有一个--out参数。
+可以指定压缩包名，这样我们就可以指定把压缩包放入当前文件夹了，然后zip命令默认会跟随软连接。所以：
+![](file-20260602103753421.png)` flag{root-6661e4dc99e9408984d16d30b0c0730c}`
