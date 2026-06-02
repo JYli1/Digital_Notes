@@ -47,3 +47,12 @@ jyli normal 退出登录
 
 ![](file-20260602084754174.png)
 成功回显sqlite版本。
+下一步获取表明
+```sql
+SELECT group_concat(tbl_name) FROM sqlite_master WHERE type='table'
+```
+![](file-20260602084947700.png)
+应该是在secret表中我们看看
+```sql
+
+```
