@@ -58,3 +58,16 @@ SELECT sql FROM sqlite_master WHERE type='table' AND name='secret')
 
 ```
 ![](file-20260602085408245.png)
+存在secret字段的呢，直接查询
+```sql
+select secret from secret
+```
+![](file-20260602085538225.png)
+得到账号密码。
+`watcher:mazesec123q1231w!@#!@@#$`
+
+![](file-20260602085749773.png)
+`flag{user-c3949567202847f1ad8664095f0a94e4}`
+# 提权
+
+
