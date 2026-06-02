@@ -4,7 +4,7 @@ title: JWT攻击
 
 # JWT攻击
 
-这个索引用来汇总 $relDir 目录下的笔记，方便在 Obsidian 和 Quartz 图谱中导航。
+这个索引用来汇总 `安全学习/JWT攻击` 目录下的笔记，方便在 Obsidian 和 Quartz 图谱中导航。
 
 ## 笔记列表
 

@@ -4,7 +4,7 @@ title: rce提权
 
 # rce提权
 
-这个索引用来汇总 $relDir 目录下的笔记，方便在 Obsidian 和 Quartz 图谱中导航。
+这个索引用来汇总 `安全学习/rce提权` 目录下的笔记，方便在 Obsidian 和 Quartz 图谱中导航。
 
 ## 笔记列表
 
