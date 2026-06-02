@@ -2,8 +2,6 @@
 
 # Java Web
 
-> 关联：[[Java基础]]、[[../Java安全/Java安全总览|Java安全总览]]
-
 ## Maven
 
 Maven 用于管理 Java 项目的依赖、构建生命周期和打包流程。
