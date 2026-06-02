@@ -1,3 +1,5 @@
+> 关联：[[index|常用命令]]、[[nmap]]、[[../靶机记录/index|靶机记录]]
+
 ```markdown
 # RustScan 命令速查表
 

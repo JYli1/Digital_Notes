@@ -1,3 +1,5 @@
+> 关联：[[index|CTF刷题记录]]、[[../安全学习/index|安全学习]]、[[../安全学习/CTF wp/index|CTF wp]]
+
 # [XYCTF] 2025  Signin
 源码：
 ```python

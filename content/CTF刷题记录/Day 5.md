@@ -1,3 +1,5 @@
+> 关联：[[index|CTF刷题记录]]、[[../安全学习/index|安全学习]]、[[../安全学习/CTF wp/index|CTF wp]]
+
 #  [GXYCTF2019]BabySQli
 sql注入，先随便输一个，返回密码错误，但是发现源码中有一段加密字符
 ![[assets/Day 5/file-20251223124539623.png]]

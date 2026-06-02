@@ -1,3 +1,5 @@
+> 关联：[[index|AI学习]]、[[Day 1：MCP简单使用]]、[[../常用命令/反弹shell|反弹shell]]
+
 ```python
 import os
 import json

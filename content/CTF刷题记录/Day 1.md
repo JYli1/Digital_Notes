@@ -1,3 +1,5 @@
+> 关联：[[index|CTF刷题记录]]、[[../安全学习/index|安全学习]]、[[../安全学习/CTF wp/index|CTF wp]]
+
 # 0x01 Mini V&N CTF【chatrobot】
 给了源码，主要文件有两个：
 1. `target/chatrobot-1.0-SNAPSHOT.jar!\com\ctf\chatrobot\App.class`

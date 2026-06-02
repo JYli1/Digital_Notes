@@ -1,3 +1,5 @@
+> 关联：[[index|常用命令]]、[[nmap]]、[[../靶机记录/index|靶机记录]]
+
 
 * hydra -l mingmingjiu -P /usr/share/wordlists/rockyou.txt ssh://10.241.108.244 -t 4 -e nsr
 

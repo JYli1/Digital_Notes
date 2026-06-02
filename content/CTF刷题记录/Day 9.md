@@ -1,3 +1,5 @@
+> 关联：[[index|CTF刷题记录]]、[[../安全学习/index|安全学习]]、[[../安全学习/CTF wp/index|CTF wp]]
+
 # [XYCTF 2025] Now you see me 2
 这是`Now you see me 1`的续作，环境更加苛刻，没有任何直接回显。我们需要找到一种方法来外带执行结果。
 
