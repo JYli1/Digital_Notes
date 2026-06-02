@@ -90,3 +90,6 @@ inotifywait -m -e create /home/watcher/uploads
 我们不知道对这些文件做了什么，那我们用pspy的-f参数看一下文件系统。
 ![](file-20260602094501405.png)
 能感觉到是调用了zip命令，猜测是调用zip命令去打包这些文件。
+去GTFObins找一下
+存在命令执行和文件读取。[https://gtfobins.org/gtfobins/zip/#file-read]
+
