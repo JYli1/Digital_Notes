@@ -12,3 +12,10 @@ PORT     STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 24.02 seconds
 ```
 发现22，5000
+## web渗透
+注册了一个账号进来，点了一下系统管理，发现要admin权限，我们看看是不是有办法登录admin账号的
+![](file-20260602081353039.png)
+抓包看看：
+![](file-20260602081517737.png)
+发现cookie存在jwt验证。解密看看：
+
