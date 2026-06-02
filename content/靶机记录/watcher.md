@@ -22,3 +22,5 @@ Nmap done: 1 IP address (1 host up) scanned in 24.02 seconds
 payload中存在`username`
 那也就是说可能可以把`username`换成`admin`。
 并且是HS256加密，那我们尝试爆破一手密钥。
+![](file-20260602082449229.png)
+密钥是`maze`
