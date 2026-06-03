@@ -227,8 +227,8 @@ chaojibaolong@longshao:/opt/internal$ cat /usr/local/bin/check_parser
 ![](file-20260603201427886.png)
 依旧ai分析一手
 ![](file-20260603201538351.png)
-
-也就是说我们可以通过 sudo 让 `parser_core` 以 root 上下文执行，然后触发 `--debug` 分支切到 `chaojiwudilong`。
+意思是我们虽然不能sudo执行`parser_core`，但是可以执行`check_parser`
+然后会间接调用 `parser_core` 以 root 上下文执行，然后触发 `--debug` 分支切到 `chaojiwudilong`。
 
 ```bash
 sudo /usr/local/bin/check_parser /tmp/no_such_file.log --debug
