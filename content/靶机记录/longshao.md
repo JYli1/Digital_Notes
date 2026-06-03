@@ -239,7 +239,7 @@ chaojibaolong@longshao:/opt/internal$ cat /usr/local/bin/check_parser
 查看脚本：
 
 ```bash
-cat /usr/local/bin/a.sh
+chaojiwudilong@longshao:~$ cat /usr/local/bin/a.sh
 ```
 
 ```sh
