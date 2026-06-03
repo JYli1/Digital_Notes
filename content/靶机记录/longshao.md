@@ -7,7 +7,7 @@
 
 > 关联：[[index|靶机记录]]、[[../常用命令/index|常用命令]]、[[../安全学习/rce提权/提权总览|提权总览]]
 
-# 主机发现
+# 信息收集
 
 靶机是本地 VirtualBox 网段里的机器，IP 是 `192.168.56.108`。
 
@@ -24,36 +24,42 @@ PORT   STATE SERVICE
 ```
 
 开放端口很少，就 SSH 和 HTTP。
-
-# 信息收集
-
-扫一下服务版本：
-
-```bash
-nmap -sV -sC -p22,80 192.168.56.108
-```
-
-结果：
-
-```text
-22/tcp open  ssh     OpenSSH 10.3 (protocol 2.0)
-80/tcp open  http    Apache httpd 2.4.67 ((Unix))
-|_http-server-header: Apache/2.4.67 (Unix)
-|_http-title: Maze 内部管理系统 - 登录
-```
-
 # Web 渗透
 
-先随便看目录，发现 `dashboard.php` 可以直接访问：
+## 目录扫描
+```bash
+  ~    dirsearch -u  192.168.56.108
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 12289
+
+Target: http://192.168.56.108/
+
+[19:57:59] Scanning:
+[19:58:10] 200 -   820B - /cgi-bin/printenv
+[19:58:10] 200 -    1KB - /cgi-bin/test-cgi
+[19:58:11] 200 -    2KB - /dashboard.php
+[19:58:15] 200 -    3KB - /index.php
+[19:58:15] 200 -    3KB - /index.php/login/
+[19:58:26] 403 -   317B - /server-status
+[19:58:26] 403 -   317B - /server-status/
+
+Task Completed
+```
+
+发现 `dashboard.php` 可以直接访问：
 
 ```bash
 curl http://192.168.56.108/dashboard.php
 ```
 
+![](file-20260603200020113.png)
 页面里直接给了 SSH 凭据：
 
 ```html
-SSH 凭据：baolong:jinhua
+baolong:jinhua
 ```
 
 这一步比较白给，登录 SSH：
@@ -71,12 +77,9 @@ uid=1000(baolong) gid=1000(baolong) groups=1000(baolong)
 
 baolong@longshao:~$ ls
 user.txt
-```
 
-第一个 flag：
-
-```text
-flag{user-...}
+baolong@longshao:~$ cat user.txt
+flag{user-3408c2a9ca636da4a40f054eea401fd9}
 ```
 
 # 提权
@@ -88,16 +91,6 @@ uname -a
 cat /etc/os-release
 find / -perm -4000 -type f 2>/dev/null
 sudo -l
-```
-
-系统是 Alpine：
-
-```text
-Linux longshao 7.0.10-0-stable #1-Alpine SMP PREEMPT_DYNAMIC 2026-05-23 11:50:19 x86_64 Linux
-
-NAME="Alpine Linux"
-VERSION_ID=3.24.0_alpha20260127
-PRETTY_NAME="Alpine Linux edge"
 ```
 
 用户有三个：
@@ -112,7 +105,7 @@ chaojibaolong:x:1001:1001::/home/chaojibaolong:/bin/bash
 chaojiwudilong:x:1002:1002::/home/chaojiwudilong:/bin/bash
 ```
 
-这里很明显不是直接 root，应该要横向。
+这里很明显不是直接到 root，应该要横向。
 
 ## 横向到 chaojibaolong
 
@@ -128,11 +121,8 @@ drwxr-xr-x    3 root     root              4096 May 26 15:33 ..
 
 这个就是提示我们要先横向到 `chaojibaolong`。
 
-弱口令试出来：
-
-```text
-chaojibaolong:love123
-```
+弱口令爆破出来出来：
+![](file-20260603200358659.png)
 
 登录：
 

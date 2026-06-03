@@ -2808,17 +2808,20 @@
     ]
   },
   "content/靶机记录/longshao.md": {
-    "scroll": 20.205241750311618,
+    "scroll": 124.70882797323549,
     "cursor": {
       "from": {
-        "line": 43,
+        "line": 143,
         "ch": 0
       },
       "to": {
-        "line": 43,
+        "line": 143,
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-1",
+      "item-1-3"
+    ]
   }
 }
