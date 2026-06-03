@@ -140,70 +140,93 @@ chaojibaolong@longshao:/opt/internal$ ./parser_core
 [!] Security Violation: Core parser must retain eUID 0.
 ```
 
-拉回本地简单分析：
+拉回本地放汇编一下：
+
 
 ```bash
 scp chaojibaolong@192.168.56.108:/opt/internal/parser_core /tmp/parser_core
-file /tmp/parser_core
-strings /tmp/parser_core
-checksec --file=/tmp/parser_core
-objdump -d -M intel /tmp/parser_core
 ```
 
-strings 里有几个关键内容：
+```c
+__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  const char *v3; // rbp
+  _BOOL8 v4; // r14
+  int v5; // eax
+  unsigned int v6; // ebx
 
-```text
-[!] Security Violation: Core parser must retain eUID 0.
-[!] Compliance Error: Only *.log files are authorized.
-[!] Path Restriction: Access denied.
-[*] DevSecOps Emergency Notice: Switching context...
---debug
-.log
-/tmp/
-chaojiwudilong
-/bin/su
+  if ( getuid() )
+  {
+    fwrite("[!] Security Violation: Core parser must retain eUID 0.\n", 1uLL, 0x38uLL, (FILE *)&dword_0);
+    return 1;
+  }
+  if ( (unsigned int)(a1 - 2) > 1 )
+  {
+    puts("[!] Parameter Error: Invalid cluster argument count.");
+    return 1;
+  }
+  v3 = a2[1];
+  LODWORD(v4) = 0;
+  if ( a1 == 3 )
+    v4 = strcmp(a2[2], "--debug") == 0;
+  v5 = strlen(v3);
+  if ( v5 <= 3 || strcmp(&v3[v5 - 4], ".log") )
+  {
+    puts("[!] Compliance Error: Only *.log files are authorized.");
+    return 1;
+  }
+  if ( strncmp(v3, "/tmp/", 5uLL) )
+  {
+    puts("[!] Path Restriction: Access denied.");
+    return 1;
+  }
+  puts("=================================================");
+  puts("  ChaoJiBaoLong Log Analyser - Security Core v3  ");
+  puts("=================================================");
+  v6 = access(v3, 0);
+  if ( v6 )
+  {
+    puts("[!] Error: Target log file not found.");
+    if ( v4 )
+    {
+      puts("[*] DevSecOps Emergency Notice: Switching context...");
+      execl("/bin/su", "su", "-", "chaojiwudilong", 0LL);
+    }
+    return 1;
+  }
+  puts("[*] Reading log file...");
+  puts("[+] Analysis completed successfully.");
+  return v6;
+}
 ```
 
-大概逻辑：
+看不懂，这里ai帮忙分析一下：
+![](file-20260603201136828.png)
+很明显这就是一个横向的点
+横向到`chaojiwudilong`
 
-```text
-1. 检查 uid 必须是 0
-2. 只允许 /tmp/ 开头的 .log 文件
-3. 如果文件不存在，并且带 --debug，就执行 /bin/su 切到 chaojiwudilong
-```
-
-一开始我绕远了，后来重新看 `sudo -l` 才发现关键点。
+重新看 `sudo -l` :
 
 ```bash
 chaojibaolong@longshao:/opt/internal$ sudo -l
 Matching Defaults entries for chaojibaolong on longshao:
     secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
 
+Runas and Command-specific defaults for chaojibaolong:
+    Defaults!/usr/sbin/visudo env_keep+="SUDO_EDITOR EDITOR VISUAL"
+
 User chaojibaolong may run the following commands on longshao:
     (ALL : ALL) NOPASSWD: /usr/local/bin/check_parser
 ```
-
+可以root执行这个程序
 看一下 `check_parser`：
 
 ```bash
-cat /usr/local/bin/check_parser
+chaojibaolong@longshao:/opt/internal$ cat /usr/local/bin/check_parser
 ```
-
-```sh
-#!/bin/sh
-
-if [ "$(id -u)" -ne 0 ]; then
-  echo "syslog-rotate: general protection fault: permission denied." >&2
-  exit 1
-fi
-
-if [ -z "$1" -a ! -f "$1" ]; then
-    echo "Usage: $(basename $0) <target_spool_path> [--force-cron]"
-    exit 1
-fi
-
-exec /opt/internal/parser_core "$@"
-```
+![](file-20260603201427886.png)
+依旧ai分析一手
+![](file-20260603201538351.png)
 
 也就是说我们可以通过 sudo 让 `parser_core` 以 root 上下文执行，然后触发 `--debug` 分支切到 `chaojiwudilong`。
 
