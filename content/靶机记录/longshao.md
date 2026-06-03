@@ -229,31 +229,13 @@ chaojibaolong@longshao:/opt/internal$ cat /usr/local/bin/check_parser
 ![](file-20260603201538351.png)
 意思是我们虽然不能sudo执行`parser_core`，但是可以执行`check_parser`
 然后会间接调用 `parser_core` ，然后触发 `--debug` 分支切到 `chaojiwudilong`。
-
-```bash
-sudo /usr/local/bin/check_parser /tmp/no_such_file.log --debug
-```
+![](file-20260603201857925.png)
 
 拿到 `chaojiwudilong`：
-
-```bash
-id
-uid=1002(chaojiwudilong) gid=1002(chaojiwudilong) groups=1002(chaojiwudilong)
-```
-
 ## chaojiwudilong 到 root
 
 继续看 sudo：
-
-```bash
-sudo -l
-```
-
-```text
-User chaojiwudilong may run the following commands on longshao:
-    (root) NOPASSWD: /usr/local/bin/a.sh
-```
-
+![](file-20260603201927295.png)
 查看脚本：
 
 ```bash
