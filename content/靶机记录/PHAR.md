@@ -71,3 +71,4 @@ githacker --url http://192.168.56.109/.git/ --output-folder result
 ![](file-20260605165803742.png)
 2. `repair task`：输入上面得到的32位id，回显以id命名的一个.bin文件名
 ![](file-20260605165734773.png)
+3. `check archive`：
