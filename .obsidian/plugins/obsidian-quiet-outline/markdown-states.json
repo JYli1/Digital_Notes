@@ -2839,17 +2839,49 @@
     ]
   },
   "content/靶机记录/PHAR.md": {
-    "scroll": 55.080776504790634,
+    "scroll": 66.35327452754322,
     "cursor": {
       "from": {
-        "line": 68,
+        "line": 70,
+        "ch": 30
+      },
+      "to": {
+        "line": 70,
+        "ch": 30
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
+  },
+  "content/安全学习/PHP安全/PHP反序列化/反序列化基础.md": {
+    "scroll": 4.7429699396537135,
+    "cursor": {
+      "from": {
+        "line": 0,
         "ch": 0
       },
       "to": {
-        "line": 68,
+        "line": 0,
         "ch": 0
       }
     },
     "expandedKeys": []
+  },
+  "content/安全学习/PHP安全/PHP反序列化/phar的文件包含与反序列化.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
