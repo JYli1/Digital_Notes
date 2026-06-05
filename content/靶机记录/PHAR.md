@@ -14,4 +14,5 @@ Nmap done: 1 IP address (1 host up) scanned in 32.75 seconds
 ```
 去web端看看
 # web渗透
-一个登录页面，shi'l
+一个登录页面，试了试弱口令试出来`admin`/`admin`
+进来一个输入框也不知道是什么
