@@ -2261,20 +2261,21 @@
     ]
   },
   "content/常用命令/GitHacker.md": {
-    "scroll": 16.24632015501241,
+    "scroll": 111.84242688782192,
     "cursor": {
       "from": {
-        "line": 79,
-        "ch": 11
+        "line": 73,
+        "ch": 0
       },
       "to": {
-        "line": 79,
-        "ch": 11
+        "line": 73,
+        "ch": 0
       }
     },
     "expandedKeys": [
       "item-1-0",
-      "item-2-1"
+      "item-2-1",
+      "item-2-5"
     ]
   },
   "content/常用命令/pspy.md": {
@@ -2596,7 +2597,7 @@
     ]
   },
   "content/靶机记录/Aldape.md": {
-    "scroll": 350.3040678372865,
+    "scroll": 340.00804366561334,
     "cursor": {
       "from": {
         "line": 352,
@@ -2609,8 +2610,7 @@
     },
     "expandedKeys": [
       "item-1-0",
-      "item-1-1",
-      "item-1-2",
+      "item-2-1",
       "item-2-5",
       "item-1-11"
     ]
@@ -2837,5 +2837,19 @@
     "expandedKeys": [
       "item-1-0"
     ]
+  },
+  "content/靶机记录/PHAR.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
