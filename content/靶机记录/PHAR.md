@@ -64,3 +64,5 @@ Canceled by the user
 ```bash
 githacker --url http://192.168.56.109/.git/ --output-folder result
 ```
+![](file-20260605160010481.png)
+获取到php源码。开始代码审计：
