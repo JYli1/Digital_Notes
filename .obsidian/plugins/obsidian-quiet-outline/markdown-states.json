@@ -2842,12 +2842,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 0,
-        "ch": 0
+        "line": 16,
+        "ch": 12
       },
       "to": {
-        "line": 0,
-        "ch": 0
+        "line": 16,
+        "ch": 12
       }
     },
     "expandedKeys": []
