@@ -62,5 +62,5 @@ Canceled by the user
 ```
 很多git文件，Githacker拉下来
 ```bash
-
+githacker --url http://192.168.56.109/.git/ --output-folder result
 ```
