@@ -560,6 +560,10 @@ python baji_rce.py "find / -xdev -perm -4000 -type f -printf '%M %u %g %p\n' 2>/
 
 # /opt/vaultd 逆向分析
 
+
+把文件拉下来，IDA打开
+
+
 先看文件信息和字符串：
 
 ```bash
