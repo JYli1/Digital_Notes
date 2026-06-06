@@ -77,38 +77,6 @@ githacker --url http://192.168.56.109/.git/ --output-folder result
 
 # 源码审计
 
-源码量不大，先把关键文件过一遍。`README.md` 里面直接给了登录账号：
-
-```md
-## Login
-
-- `admin / admin`
-```
-
-所以前面弱口令能登录不是巧合，题目本来就是让我们登录进去走后面的业务逻辑。
-
-再看 `config.php`，这里定义了服务端的文件存储路径：
-
-```php
-const STORAGE = '/var/labdata';
-const QUARANTINE = STORAGE . '/quarantine';
-const ARCHIVE = STORAGE . '/archive';
-```
-
-这里要注意一个坑：`QUARANTINE` 是 PHP 常量名，不是 URL 路径。也就是说提交内容后，文件是在服务器本地：
-
-```text
-/var/labdata/quarantine/<id>.txt
-```
-
-不是：
-
-```text
-http://192.168.56.109/QUARANTINE/<id>.txt
-```
-
-所以直接访问 `/QUARANTINE/...` 404 是正常的。Web 根目录一般是 `/var/www/html`，而 `/var/labdata` 不在 Web 根目录下。后面要通过业务接口去处理这些文件。
-
 ## submit 和 repair 逻辑
 
 `Task.class.php` 里有两个核心方法：
@@ -132,7 +100,7 @@ public function submit(): void
 这里会把我们提交的 `blob` 原样写入：
 
 ```text
-/var/labdata/quarantine/<id>.txt
+/var/labdata/quarantine/<id>.txt  #config.php中定义的QUARANTINE
 ```
 
 `id` 是 16 字节随机数转 16 进制，所以长度是 32。
