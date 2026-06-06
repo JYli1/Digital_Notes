@@ -76,10 +76,11 @@ githacker --url http://192.168.56.109/.git/ --output-folder result
 然后我们再去看具体源码。看哪里有利用点
 
 # 源码审计
-
+我们先看页面上的几个功能点
 ## submit 和 repair 逻辑
 
 `Task.class.php` 里有两个核心方法：
+1. 先看`submit()`
 
 ```php
 public function submit(): void
@@ -103,9 +104,9 @@ public function submit(): void
 /var/labdata/quarantine/<id>.txt  #config.php中定义的QUARANTINE
 ```
 
-`id` 是 16 字节随机数转 16 进制，所以长度是 32。（）
+`id` 是 16 字节随机数转 16 进制，所以长度是 32。（一个字节会转化成2个16进制数）
 
-再看 `repair()`：
+2. 再看 `repair()`：
 
 ```php
 public function repair(): void
@@ -128,17 +129,19 @@ public function repair(): void
 }
 ```
 
-这个功能会读取刚刚的 quarantine 文件，对内容做一次 `rawurldecode()`，然后写到：
+这个功能会读取刚刚的 quarantine 文件，对内容做一次 `rawurldecode()`
+![](file-20260606112351389.png)
+也就是URL解码一次
+然后写到：
 
 ```text
 /var/labdata/archive/<id>.bin
 ```
 
-也就是说我们可以控制 `.bin` 文件的真实二进制内容。因为中间有一次 `rawurldecode()`，所以如果要写二进制 Phar，比较稳的办法是：先在本地生成 Phar 二进制，再 `rawurlencode()` 成文本，提交到 `blob`。repair 后服务端就会把它还原成真正的 Phar 文件。
-
+也就是说我们可以控制 `.bin` 文件的真实二进制内容。因为中间有一次 `rawurldecode()`，我们只要把二进制内容URL加密然后用`submit`写入，再触发`repair`，它会对我们的输入URL解码，此时内容就是原本的二进制内容，然后被写入`.bin`文件。
 # 文件读取点
 
-继续看 `Files.class.php`：
+继续看 `Files.class.php`，这是最后一个功能点：
 
 ```php
 public function read(): void
@@ -175,9 +178,14 @@ public function read(): void
 这个地方很关键：
 
 ```php
-$contents = @file_get_contents($this->filename);
+try {
+    $contents = @file_get_contents($this->filename);
+} finally {
+    self::$inWorker = false;
+}
 $this->filter();
 ```
+
 
 程序是先读文件，再过滤路径。过滤函数如下：
 
