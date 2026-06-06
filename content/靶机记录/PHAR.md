@@ -262,83 +262,18 @@ public function check($obj): void
 ```
 这里如果把`$obj`赋值为`Myerror`类的对象就好了。
 4. 然后就像怎么触发这个`check()`呢，继续找一下。注意到有一个`__destruct`魔术方法还没用，所以看了一下：
-
-
-
-
-
-
-------------
-先看 `User.class.php`：
-
 ```php
 public function __destruct()
-{
-    if (is_array($this->password) && isset($this->password[0], $this->password[1])) {
-        $this->password[0]->{$this->password[1]}($this->username);
+    {
+        if (is_array($this->password) && isset($this->password[0], $this->password[1])) {
+            $this->password[0]->{$this->password[1]}($this->username);
+        }
     }
-}
-
-public function check($obj): void
-{
-    echo $obj;
-}
 ```
+说如果满足 `password` 是一个数组，且有两个参数的话，会调用`password[0]`中的`password[1](username`)
+也就是`password[0]`是一个对象，`password[1]`是一个函数名，`username`是一个参数
 
-这里 `$this->password[0]->{$this->password[1]}($this->username)` 可以让我们调用一个对象的方法。我们让它调用另一个 `User` 对象的 `check()`，参数传一个 `Myerror` 对象。`check()` 里面有 `echo $obj`，于是会触发对象的 `__toString()`。
-
-再看 `Myerror.class.php`：
-
-```php
-public function __toString()
-{
-    return (string) $this->message->{$this->level};
-}
-```
-
-这里会访问 `$this->message` 对象上的 `$this->level` 属性。如果 `$message` 是 `Files` 对象，而 `$level` 是一个不存在的属性名，比如 `readfile` 或 `system`，就会触发 `Files::__get()`。
-
-最后看 `Files::__get()`：
-
-```php
-public function __get($key)
-{
-    if (self::$inWorker && is_string($key) && preg_match('/^[A-Za-z_]\w*$/', $key)) {
-        ($key)($this->arg);
-    }
-    return '';
-}
-```
-
-这里就很致命了。只要满足两个条件：
-
-1. `Files::$inWorker === true`
-2. `$key` 是合法函数名
-
-就会执行：
-
-```php
-($key)($this->arg);
-```
-
-所以：
-
-```text
-level = readfile
-arg   = /home/welcome/user.txt
-```
-
-可以读文件。
-
-如果改成：
-
-```text
-level = system
-arg   = id
-```
-
-就可以执行命令。
-
+到这里pop链就分析完了。
 # fast-destruct 问题
 
 这里还有一个坑。普通 Phar metadata 里如果直接放对象，析构函数不一定会在 `Files::$inWorker = true` 的窗口里触发。`Files::read()` 里面的窗口很短：
