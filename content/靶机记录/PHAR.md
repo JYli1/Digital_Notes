@@ -225,7 +225,17 @@ Phar  unserialize
 
 我们先看最终的口子，也就是造成危害的点，（文件读取或命令执行），推荐先多注意一下魔术方法
 这里并没有像eval()这种这么明显的点。但是我们能看到：
-
+```php
+ public function __get($key)
+    {
+        if (self::$inWorker && is_string($key) && preg_match('/^[A-Za-z_]\w*$/', $key)) {
+            ($key)($this->arg);
+        }
+        return '';
+    }
+```
+`($key)($this->arg)`存在一个明显的动态函数调用
+只要我们构造(system)('ls')
 
 
 
