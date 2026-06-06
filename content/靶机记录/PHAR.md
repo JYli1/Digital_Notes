@@ -224,7 +224,7 @@ Phar  unserialize
 ```
 
 我们先看最终的口子，也就是造成危害的点，（文件读取或命令执行），推荐先多注意一下魔术方法
-这里并没有像eval()这种这么明显的点。但是我们能看到：
+1. 这里并没有像eval()这种这么明显的点。但是我们能看到：
 ```php
  public function __get($key)
     {
@@ -234,8 +234,24 @@ Phar  unserialize
         return '';
     }
 ```
-`($key)($this->arg)`存在一个明显的动态函数调用
-只要我们构造(system)('ls')
+`($key)($this->arg)`存在一个明显的动态函数调用（这是在php7之后才支持的）
+只要我们构造('system')('ls')就可以完成命令执行。
+2. 然后我们注意到他是在`__get`魔术方法里（调用的成员属性不存在是自动执行），所以我们去看哪里可以触发这个条件。
+也就是只要我们可以控制调用的成员属性就好了。
+注意到了`Myerror.class.php`：
+```php
+class Myerror
+{
+    public $message;
+    public $level;
+
+    public function __toString()
+    {
+        return (string) $this->message->{$this->level};
+    }
+}
+```
+这里我们完全控制调用的成员属性，只要把`level`赋值一个不存在的
 
 
 
