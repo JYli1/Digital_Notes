@@ -502,12 +502,8 @@ if __name__ == "__main__":
 ```bash
 python baji_rce.py id
 ```
-
-结果：
-
-```text
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-```
+![](file-20260606130337172.png)
+成功getshell。
 
 这里我也尝试过直接给 `welcome` 写 SSH 公钥，但是当前权限是 `www-data`，`/home/welcome` 目录权限不允许写 `.ssh`：
 
