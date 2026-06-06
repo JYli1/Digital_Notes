@@ -103,7 +103,7 @@ public function submit(): void
 /var/labdata/quarantine/<id>.txt  #config.php中定义的QUARANTINE
 ```
 
-`id` 是 16 字节随机数转 16 进制，所以长度是 32。
+`id` 是 16 字节随机数转 16 进制，所以长度是 32。（）
 
 再看 `repair()`：
 
