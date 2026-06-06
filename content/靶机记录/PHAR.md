@@ -586,7 +586,7 @@ hidden_maintenance_shell
 restore_recipe
 ```
 
-程序没有 strip，符号名都在，所以逆向很舒服。`hidden_maintenance_shell` 一看就是 ret2win 目标。IDA 里它的地址是：
+程序没有 strip，符号名都在，所以逆向很省事。`hidden_maintenance_shell` 一看就是 ret2win 目标。IDA 里它的地址是：
 
 ```text
 0x4013cb
