@@ -253,6 +253,15 @@ class Myerror
 ```
 这里我们完全控制调用哪个类的哪个成员属性，只要把`$message`赋值为`Files`，`$level`赋值一个不存在的成员属性就好了。
 3. 然后这里是在`__toString`魔术方法里，然后继续找谁可以调用`__toString`（把对象当作字符串调用时触发），而且是把`Myerror`类的对象当字符串。也就是找哪里可以控制一个字符串
+找到`User.class.php`中：
+```php
+public function check($obj): void
+    {
+        echo $obj;
+    }
+```
+这里如果把`$obj`赋值为`Myerror`类的对象就好了。
+4. 然后就像怎么触发这个`check()`呢，继续找一下。注意到有一个`__destruct`魔术方法还没用，所以看了一下：
 
 
 
