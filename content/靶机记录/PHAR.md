@@ -214,7 +214,7 @@ public function filter(): void
 题目里可以拼出一条 POP 链：
 
 ```text
-Phar metadata unserialize
+Phar  unserialize
     -> User::__destruct()
     -> User::check($obj)
     -> echo $obj
