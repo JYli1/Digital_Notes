@@ -383,7 +383,7 @@ $body = substr($data, 0, -28);
 $data = $body . sha1($body, true) . pack('V', Phar::SHA1) . 'GBMB';
 
 file_put_contents($out, $data);
-file_put_contents($out . '.url', rawurlencode($data));
+file_put_contents($out . '.txt', rawurlencode($data));
 ```
 
 本地生成时要关掉 `phar.readonly`：
