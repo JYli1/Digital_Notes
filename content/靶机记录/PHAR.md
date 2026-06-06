@@ -200,22 +200,16 @@ public function filter(): void
 }
 ```
 
-正常来看，它不允许绝对路径、不允许 `flag`、不允许 `data`、不允许 `://`。
-但是它过滤得太晚了，`file_get_contents()` 已经执行过了。相当于这个过滤完全没有用
+正常来看，它不允许绝对路径、不允许 `flag`、不允许 `data`、不允许 `://`。如果出现了就抛出异常，我们试一下，输入
+`./README.md/../README.md`也确实拦截了。
 
-于是我们可以利用 `phar://` 在过滤前触发 Phar metadata 反序列化。
+但是它过滤得太晚了，他虽然会拦截并输出`not reasonable`，但是`file_get_contents()` 已经执行过了。
 
-这也是为什么后面响应里经常会带一个：
-
-```text
-not reasonable
-```
-
-这不是失败，恰恰说明已经执行到过滤器了。如果文件内容或命令输出在 `not reasonable` 前面出现，就说明利用已经成功。
+于是我们可以利用 `phar://` 在过滤前触发 Phar  反序列化。（题目已经提示PHAR了所以想到了PHAR放序列化）
 
 # POP 链分析
 
-题目里面没有直接写 `unserialize()`，但是 PHP 7.4 下对 `phar://` 做文件操作时，会解析 Phar metadata，从而触发 metadata 的反序列化。
+题目里面没有直接写 `unserialize()`，但是 PHP 下对 `phar://` 做文件操作时，会解析 Phar metadata，从而触发 metadata 的反序列化。
 
 题目里可以拼出一条 POP 链：
 
