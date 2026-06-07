@@ -2843,14 +2843,14 @@
     ]
   },
   "content/靶机记录/PHAR.md": {
-    "scroll": 630.9783322390019,
+    "scroll": 305.14248159831754,
     "cursor": {
       "from": {
-        "line": 574,
+        "line": 0,
         "ch": 0
       },
       "to": {
-        "line": 574,
+        "line": 0,
         "ch": 0
       }
     },
@@ -2888,5 +2888,33 @@
     "expandedKeys": [
       "item-1-0"
     ]
+  },
+  "content/安全学习/PHP安全/PHP反序列化/phpGC回收机制的利用.md": {
+    "scroll": 148.3852341281241,
+    "cursor": {
+      "from": {
+        "line": 170,
+        "ch": 3
+      },
+      "to": {
+        "line": 170,
+        "ch": 62
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/安全学习/Java/Java基础.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
