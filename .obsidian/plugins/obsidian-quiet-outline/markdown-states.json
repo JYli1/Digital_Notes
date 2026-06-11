@@ -2922,17 +2922,63 @@
     ]
   },
   "content/安全学习/Java反序列化/CommonsCollections 反序列化链/CC1.md": {
-    "scroll": 14.836313976310407,
+    "scroll": 39.77311634788122,
     "cursor": {
       "from": {
-        "line": 12,
-        "ch": 34
+        "line": 48,
+        "ch": 38
       },
       "to": {
-        "line": 12,
-        "ch": 34
+        "line": 48,
+        "ch": 137
       }
     },
     "expandedKeys": []
+  },
+  "content/安全学习/Java反序列化/CommonsCollections 反序列化链/CC1 国外.md": {
+    "scroll": 26.190615835777127,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
+  },
+  "content/安全学习/Java反序列化/CommonsCollections 反序列化链/CC6.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 5,
+        "ch": 0
+      },
+      "to": {
+        "line": 5,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
+  },
+  "content/安全学习/Java安全/Java反序列化/CommonsCollections 反序列化链/CC6.md": {
+    "scroll": 1.1031312841137604,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
