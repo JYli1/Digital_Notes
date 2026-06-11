@@ -2980,5 +2980,21 @@
     "expandedKeys": [
       "item-1-0"
     ]
+  },
+  "content/安全学习/PHP安全/PHP命令执行/LD_PRELOAD劫持.md": {
+    "scroll": 68.55928726857633,
+    "cursor": {
+      "from": {
+        "line": 57,
+        "ch": 18
+      },
+      "to": {
+        "line": 57,
+        "ch": 18
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
