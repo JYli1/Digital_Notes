@@ -7,7 +7,7 @@ ProcessImplExec
 ProcessBuilderExec
 RuntimeExec
 ```
-
+ `Runtime.exec()` 命令执行
 ```java
 
 
@@ -21,10 +21,8 @@ public void runtimeExec(String userInput) throws IOException {
 
 
 ```
-```
 
-
-```
+`ProcessBuilder`
 ```java
 
 //2.### ProcessBuilder命令执行
@@ -35,6 +33,7 @@ public void processBuilderExec(String userParam) throws IOException {
 }
 ```
 
+`ProcessImpl`
 ```java
 
 //3.### ProcessImpl命令执行（反射调用）
@@ -49,6 +48,7 @@ public void processImplReflect(String cmd) throws Exception {
 }
 ```
 
+`Groovy`
 ```java
 //4。### Groovy 脚本引擎执行
 import groovy.lang.GroovyShell;
@@ -62,6 +62,7 @@ public void groovyExec(String userGroovyCode) {
 
 ```
 
+`LoadJsExec`
 ```java
 //5.###  LoadJsExec (使用 ScriptEngine 加载 JS)
 import javax.script.ScriptEngine;
