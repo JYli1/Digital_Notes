@@ -2984,14 +2984,14 @@
     ]
   },
   "content/安全学习/PHP安全/PHP命令执行/LD_PRELOAD劫持.md": {
-    "scroll": 68.04875503870439,
+    "scroll": 40.796035621947716,
     "cursor": {
       "from": {
-        "line": 43,
-        "ch": 0
+        "line": 68,
+        "ch": 31
       },
       "to": {
-        "line": 43,
+        "line": 68,
         "ch": 0
       }
     },
