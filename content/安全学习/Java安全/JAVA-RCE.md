@@ -23,6 +23,8 @@ public void runtimeExec(String userInput) throws IOException {
 ```
 ```
 
+
+```
 ```java
 
 //2.### ProcessBuilder命令执行
@@ -31,7 +33,9 @@ public void processBuilderExec(String userParam) throws IOException {
     // userParam 可能是 "127.0.0.1; id"
     new ProcessBuilder("ping", "-c", "1", userParam).start();
 }
+```
 
+```java
 
 //3.### ProcessImpl命令执行（反射调用）
 // 通过反射调用 ProcessImpl.start() 执行命令
@@ -43,7 +47,9 @@ public void processImplReflect(String cmd) throws Exception {
     // 执行 id 命令
     startMethod.invoke(null, new String[]{"/bin/sh", "-c", cmd}, null, null, null, false);
 }
+```
 
+```java
 //4。### Groovy 脚本引擎执行
 import groovy.lang.GroovyShell;
 
@@ -54,7 +60,9 @@ public void groovyExec(String userGroovyCode) {
     shell.evaluate(userGroovyCode);
 }
 
+```
 
+```java
 //5.###  LoadJsExec (使用 ScriptEngine 加载 JS)
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
