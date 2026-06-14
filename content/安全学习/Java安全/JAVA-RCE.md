@@ -20,6 +20,10 @@ public void runtimeExec(String userInput) throws IOException {
 }
 
 
+```
+```
+
+```java
 
 //2.### ProcessBuilder命令执行
 // 危险示例：让用户控制命令或参数
@@ -40,5 +44,25 @@ public void processImplReflect(String cmd) throws Exception {
     startMethod.invoke(null, new String[]{"/bin/sh", "-c", cmd}, null, null, null, false);
 }
 
+//4。### Groovy 脚本引擎执行
+import groovy.lang.GroovyShell;
 
+// 危险示例：直接执行用户提供的 Groovy 代码
+public void groovyExec(String userGroovyCode) {
+    GroovyShell shell = new GroovyShell();
+    // userGroovyCode 可以是 "Runtime.getRuntime().exec('calc')"
+    shell.evaluate(userGroovyCode);
+}
+
+
+//5.###  LoadJsExec (使用 ScriptEngine 加载 JS)
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
+public void loadJsExec(String userJsCode) throws Exception {
+    ScriptEngineManager factory = new ScriptEngineManager();
+    ScriptEngine engine = factory.getEngineByName("JavaScript");
+    // userJsCode 可以是: var a = java.lang.Runtime.getRuntime().exec("calc");
+    engine.eval(userJsCode);
+}
 ```
