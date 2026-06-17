@@ -2509,7 +2509,12 @@
         "ch": 0
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-2-1",
+      "item-1-0",
+      "item-1-5",
+      "item-2-8"
+    ]
   },
   "content/安全学习/ZIP解析.md": {
     "scroll": 0,
@@ -3024,5 +3029,24 @@
       }
     },
     "expandedKeys": []
+  },
+  "content/安全学习/面试临时学习.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 1,
+        "ch": 0
+      },
+      "to": {
+        "line": 1,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-2-2",
+      "item-1-1",
+      "item-1-6",
+      "item-2-9"
+    ]
   }
 }
