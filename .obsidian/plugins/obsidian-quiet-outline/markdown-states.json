@@ -1262,14 +1262,14 @@
     "expandedKeys": []
   },
   "content/安全学习/SQL注入/SQL注入提权.md": {
-    "scroll": 102.59999429256321,
+    "scroll": 24.262679628064244,
     "cursor": {
       "from": {
-        "line": 139,
+        "line": 24,
         "ch": 0
       },
       "to": {
-        "line": 139,
+        "line": 24,
         "ch": 0
       }
     },
@@ -2603,22 +2603,23 @@
     ]
   },
   "content/靶机记录/Aldape.md": {
-    "scroll": 340.00804366561334,
+    "scroll": 274.5390109454764,
     "cursor": {
       "from": {
-        "line": 352,
-        "ch": 31
+        "line": 125,
+        "ch": 0
       },
       "to": {
-        "line": 352,
-        "ch": 31
+        "line": 125,
+        "ch": 0
       }
     },
     "expandedKeys": [
       "item-1-0",
       "item-2-1",
       "item-2-5",
-      "item-1-11"
+      "item-1-11",
+      "item-1-2"
     ]
   },
   "content/靶机记录/Open2靶机(todo).md": {
@@ -3014,12 +3015,12 @@
     "scroll": 6.584526281280734,
     "cursor": {
       "from": {
-        "line": 24,
-        "ch": 16
+        "line": 35,
+        "ch": 13
       },
       "to": {
-        "line": 24,
-        "ch": 16
+        "line": 35,
+        "ch": 13
       }
     },
     "expandedKeys": []
