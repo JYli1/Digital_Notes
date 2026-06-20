@@ -3056,12 +3056,12 @@
     "scroll": 144.3407066934789,
     "cursor": {
       "from": {
-        "line": 163,
-        "ch": 31
+        "line": 161,
+        "ch": 29
       },
       "to": {
-        "line": 163,
-        "ch": 31
+        "line": 161,
+        "ch": 29
       }
     },
     "expandedKeys": [
