@@ -2945,18 +2945,21 @@
     ]
   },
   "content/安全学习/Java反序列化/CommonsCollections 反序列化链/CC1.md": {
-    "scroll": 39.77311634788122,
+    "scroll": 0,
     "cursor": {
       "from": {
-        "line": 48,
-        "ch": 38
+        "line": 38,
+        "ch": 15
       },
       "to": {
-        "line": 48,
-        "ch": 137
+        "line": 38,
+        "ch": 15
       }
     },
-    "expandedKeys": []
+    "expandedKeys": [
+      "item-1-0",
+      "item-1-7"
+    ]
   },
   "content/安全学习/Java反序列化/CommonsCollections 反序列化链/CC1 国外.md": {
     "scroll": 26.190615835777127,
