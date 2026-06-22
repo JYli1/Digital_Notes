@@ -3102,7 +3102,7 @@
     ]
   },
   "content/安全学习/面试临时复习.md": {
-    "scroll": 293.2442508710801,
+    "scroll": 265.578282102844,
     "cursor": {
       "from": {
         "line": 306,
@@ -3115,12 +3115,8 @@
     },
     "expandedKeys": [
       "item-1-0",
-      "item-2-15",
-      "item-1-21",
-      "item-1-30",
-      "item-1-34",
-      "item-1-37",
-      "item-1-11"
+      "item-1-11",
+      "item-1-37"
     ]
   },
   "content/安全学习/SQL注入/index.md": {
