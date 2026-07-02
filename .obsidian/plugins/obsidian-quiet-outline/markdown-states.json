@@ -1313,15 +1313,15 @@
     "expandedKeys": []
   },
   "content/安全学习/SSRF/SSRF打内网服务.md": {
-    "scroll": 12.504452743464523,
+    "scroll": 625.4001969796454,
     "cursor": {
       "from": {
-        "line": 178,
-        "ch": 0
+        "line": 218,
+        "ch": 2
       },
       "to": {
-        "line": 178,
-        "ch": 0
+        "line": 218,
+        "ch": 2
       }
     },
     "expandedKeys": [
@@ -1880,7 +1880,7 @@
     ]
   },
   "content/安全学习/SSRF/SSRF基础.md": {
-    "scroll": 116.57802008916582,
+    "scroll": 63.33030032275123,
     "cursor": {
       "from": {
         "line": 113,
@@ -1892,11 +1892,7 @@
       }
     },
     "expandedKeys": [
-      "item-1-0",
-      "item-1-13",
-      "item-1-4",
-      "item-1-8",
-      "item-1-11"
+      "item-1-0"
     ]
   },
   "content/基础漏洞总结/未命名.md": {
@@ -3105,15 +3101,15 @@
     ]
   },
   "content/安全学习/面试临时复习.md": {
-    "scroll": 95.94224137931035,
+    "scroll": 0,
     "cursor": {
       "from": {
-        "line": 118,
-        "ch": 20
+        "line": 190,
+        "ch": 0
       },
       "to": {
-        "line": 118,
-        "ch": 20
+        "line": 190,
+        "ch": 0
       }
     },
     "expandedKeys": [
@@ -3148,7 +3144,7 @@
     ]
   },
   "content/安全学习/SSRF/SSRF总览.md": {
-    "scroll": 1.2991071428571428,
+    "scroll": 0,
     "cursor": {
       "from": {
         "line": 3,
@@ -3533,5 +3529,21 @@
       }
     },
     "expandedKeys": []
+  },
+  "content/安全学习/SSRF/index.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 3,
+        "ch": 0
+      },
+      "to": {
+        "line": 3,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-0"
+    ]
   }
 }
