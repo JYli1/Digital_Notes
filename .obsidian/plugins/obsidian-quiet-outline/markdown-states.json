@@ -3601,12 +3601,12 @@
     "scroll": 20.440767008142895,
     "cursor": {
       "from": {
-        "line": 45,
-        "ch": 20
+        "line": 46,
+        "ch": 40
       },
       "to": {
-        "line": 45,
-        "ch": 20
+        "line": 46,
+        "ch": 40
       }
     },
     "expandedKeys": [
