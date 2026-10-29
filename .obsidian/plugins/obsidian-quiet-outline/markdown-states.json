@@ -3598,19 +3598,20 @@
     "expandedKeys": []
   },
   "content/绿盟青训/漏扫培训.md": {
-    "scroll": 39.80640924612556,
+    "scroll": 47.1809571441968,
     "cursor": {
       "from": {
-        "line": 53,
+        "line": 70,
         "ch": 0
       },
       "to": {
-        "line": 53,
+        "line": 70,
         "ch": 0
       }
     },
     "expandedKeys": [
-      "item-1-1"
+      "item-1-1",
+      "item-1-6"
     ]
   }
 }
