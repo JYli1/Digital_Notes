@@ -2354,15 +2354,15 @@
     "expandedKeys": []
   },
   "content/靶机记录/MM靶机.md": {
-    "scroll": 0,
+    "scroll": 13.494093761535622,
     "cursor": {
       "from": {
-        "line": 42,
-        "ch": 0
+        "line": 26,
+        "ch": 7
       },
       "to": {
-        "line": 42,
-        "ch": 0
+        "line": 26,
+        "ch": 7
       }
     },
     "expandedKeys": [
@@ -2619,7 +2619,7 @@
     "expandedKeys": []
   },
   "content/靶机记录/baker.md": {
-    "scroll": 581.4244020819364,
+    "scroll": 114.11904388099536,
     "cursor": {
       "from": {
         "line": 484,
@@ -2637,7 +2637,7 @@
     ]
   },
   "content/靶机记录/Aldape.md": {
-    "scroll": 183.02441452750963,
+    "scroll": 3.0972543905016754,
     "cursor": {
       "from": {
         "line": 125,
@@ -2854,7 +2854,8 @@
     },
     "expandedKeys": [
       "item-1-1",
-      "item-1-3"
+      "item-1-3",
+      "item-1-0"
     ]
   },
   "content/靶机记录/longshao.md": {
@@ -3613,5 +3614,19 @@
       "item-1-1",
       "item-1-6"
     ]
+  },
+  "未命名 1.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 0,
+        "ch": 0
+      },
+      "to": {
+        "line": 0,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
