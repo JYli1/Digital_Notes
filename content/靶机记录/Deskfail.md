@@ -51,5 +51,14 @@ Task Completed
 ```
 ![](file-20261030193103070.png)
 有一个env配置文件泄露了vnc凭证
-直接登录
+直接登录:
+```bash
+┌──(kali㉿JYlover)-[/mnt/c/Users/15819]
+└─$ vncviewer 172.16.12.210:5900
+```
+存在一个handover.txt泄露了desk用户密码，直接切换过去获得userflag
+![](file-20261030193809572.png)
 
+# 提权
+![](file-20261030193842103.png)
+也没有别的用户了，那肯定是直接提权了
