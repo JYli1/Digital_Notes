@@ -3634,12 +3634,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 0,
-        "ch": 7
+        "line": 3,
+        "ch": 0
       },
       "to": {
-        "line": 0,
-        "ch": 7
+        "line": 3,
+        "ch": 0
       }
     },
     "expandedKeys": []
