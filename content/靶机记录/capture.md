@@ -601,4 +601,7 @@ OpenWrt:~# ls / -a
 OpenWrt:~#
 ```
 存在.dockerenv文件
-chaung
+传fscan上去扫了一下，大概看一下内网情况
+![](file-20261104002335462.png)
+一共有3台机器：
+1. 之前webshell的机器：
