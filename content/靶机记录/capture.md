@@ -105,3 +105,4 @@ netflow-analyzer 诊断转储
 图片：本目录（系统升级镜像 + 诊断数据块）
 
 ```
+这里就知道有一个/var/captures文件，
