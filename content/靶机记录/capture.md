@@ -626,4 +626,4 @@ ls -lah /var/run/docker.sock
 OpenWrt:~# docker -v
 Docker version 26.1.5, build a72d7cdbeb991662bf954bfb8d02274124af21e3
 ```
-
+我们直接在容器内起一个docker环境，把宿主机的根目录挂载到
