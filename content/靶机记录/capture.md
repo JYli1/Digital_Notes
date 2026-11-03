@@ -27,3 +27,7 @@ Hello, MazeSec!
 # web渗透
 
 目录扫描一下：
+```bash
+dirsearch -u http://10.20.3.72:8080/
+
+```
