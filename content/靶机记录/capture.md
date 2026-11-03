@@ -121,6 +121,8 @@ root/netflow2019
 
 这里存在一个**CVE-2019-12272**
 ![](file-20261103155513575.png)
+![](file-20261103162751614.png)
+有.docker文件，所以我们现在应该是在docker容器中
 拿到webshell，但是找了一下都没有找到flag，所以先去看看上面获取到的一些文件
 ## /var/captures
 发现/var/captures下有两个流量包
@@ -165,4 +167,8 @@ May 24 09:58:19 OpenWrt user.notice netflow-cron: flush 0 packets, 0 bytes -> /v
 May 24 09:58:19 OpenWrt user.err netflow-cron: capture aborted: no traffic on br-lan, file removed
 ~":{"rx":"301056 B/s","tx":"281600 B/s"}}}
 
+```
+我们把流量包文件复制到www中。
+```bash
+cp -a /var/captures /www/files
 ```
