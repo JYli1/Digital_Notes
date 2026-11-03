@@ -122,4 +122,43 @@ root/netflow2019
 这里存在一个**CVE-2019-12272**
 ![](file-20261103155513575.png)
 拿到webshell，但是找了一下都没有找到flag，所以先去看看上面获取到的一些文件
+## /var/captures
+发现/var/captures下有两个流量包
+![](file-20261103155907831.png)
+## /var/log/messages
+/var/log/messages是一份系统日志
+```http
+HTTP/1.1 200 OK
+Date: Tue, 03 Nov 2026 08:00:52 GMT
+Server: uhttpd/2018-03-01, LuCI/0.10.0
+Content-Type: application/json
+Connection: keep-alive
+Content-Length: 2418
 
+{"result":{"1~
+May 24 08:00:01 OpenWrt syslog.info syslogd started: BusyBox v1.28.4
+May 24 08:00:01 OpenWrt user.notice kernel: klogd started: BusyBox v1.28.4 (2019-05-13 22:04:11 UTC)
+May 24 08:00:02 OpenWrt user.info kernel: [    0.000000] Linux version 4.14.120 (openwrt@buildhost) (gcc version 7.4.0 (OpenWrt GCC 7.4.0 r7828-ef3b437d7c)) #0 SMP Fri May 17 11:22:33 2019
+May 24 08:00:03 OpenWrt daemon.info procd: - init complete -
+May 24 08:00:05 OpenWrt daemon.info dnsmasq[814]: started, version 2.80 cachesize 150
+May 24 08:00:05 OpenWrt daemon.info dnsmasq[814]: reading /tmp/resolv.conf.auto
+May 24 08:00:08 OpenWrt cron.err crond[712]: crond (busybox 1.28.4) started, log level 5
+May 24 08:00:12 OpenWrt authpriv.info dropbear[905]: Running in background
+May 24 08:00:14 OpenWrt user.notice netflow-cron: collector ready (interval 30m, retention 7d, outdir /var/captures)
+May 24 09:02:44 OpenWrt authpriv.info dropbear[1671]: Child connection from 192.168.99.100:51234
+May 24 09:02:47 OpenWrt authpriv.info dropbear[1671]: Password auth succeeded for 'root' from 192.168.99.100:51234
+May 24 09:11:52 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:12:03 OpenWrt user.notice netflow-cron: capture started on br-lan (snaplen 128, filter 'ip')
+May 24 09:12:41 OpenWrt user.notice netflow-cron: flush 1096 packets, 11145411 bytes -> /var/captures/mgmt-20190524-0912.pcap
+May 24 09:30:52 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:31:07 OpenWrt user.notice netflow-cron: capture started on br-lan (snaplen 128, filter 'ip')
+May 24 09:31:58 OpenWrt user.notice netflow-cron: flush 2144 packets, 21386309 bytes -> /var/captures/mgmt-20190524-0931.pcap
+May 24 09:32:01 OpenWrt user.notice netflow-cron: retention sweep: 0 files removed (oldest kept: 7d)
+May 24 09:32:04 OpenWrt daemon.info dnsmasq[814]: DHCPDISCOVER(br-lan) 192.168.99.53 aa:bb:cc:00:11:53
+May 24 09:32:06 OpenWrt user.info netflow-analyzer: diagnostics pack rebuilt after config change, staged in /www/files
+May 24 09:58:11 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:58:19 OpenWrt user.notice netflow-cron: flush 0 packets, 0 bytes -> /var/captures/mgmt-20190524-0958.pcap
+May 24 09:58:19 OpenWrt user.err netflow-cron: capture aborted: no traffic on br-lan, file removed
+~":{"rx":"301056 B/s","tx":"281600 B/s"}}}
+
+```
