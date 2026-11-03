@@ -530,4 +530,23 @@ for pcap in PCAPS:
             total += len(sp_) + len(cp_)
 print('total plaintext', total)
 ```
+```bash
+┌──(kali㉿JYlover)-[/mnt/c/Users/Public]
+└─$ python3 tlsdec.py  /mnt/d/Downloads/10.20.3.72-loot/backup/etc/uhttpd.key /tmp/a  /mnt/d/Downloads/mgmt-20190524-0912.pcap /mnt/d/Downloads/mgmt-20190524-0931.pcap
+mgmt-2019052_192-168-99-100_38850_to_443 ok  server=426 client=187
+mgmt-2019052_192-168-99-100_38852_to_443 ok  server=4194489 client=234
+mgmt-2019052_192-168-99-100_37992_to_443 ok  server=6283742 client=156
+mgmt-2019052_192-168-99-100_34544_to_443 ok  server=214 client=317
+mgmt-2019052_192-168-99-100_34550_to_443 ok  server=200 client=2324
+mgmt-2019052_192-168-99-100_34554_to_443 ok  server=215 client=816
+mgmt-2019052_192-168-99-100_34560_to_443 ok  server=200 client=2348
+mgmt-2019052_192-168-99-100_33734_to_443 ok  server=1219 client=235
+mgmt-2019052_192-168-99-100_33740_to_443 ok  server=4194489 client=234
+mgmt-2019052_192-168-99-100_33754_to_443 ok  server=4194489 client=184
+mgmt-2019052_192-168-99-100_39540_to_443 bad pms len 42  server=0 client=0
+mgmt-2019052_192-168-99-100_39556_to_443 bad pms len 130  server=0 client=0
+mgmt-2019052_192-168-99-100_39562_to_443 bad pms len 123  server=0 client=0
+mgmt-2019052_192-168-99-100_33756_to_443 ok  server=1039 client=561
+total plaintext 18878318
+```
 
