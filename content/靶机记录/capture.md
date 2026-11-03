@@ -614,4 +614,11 @@ OpenWrt:~# cat /proc/self/status | grep CapEff
 CapEff: 00000000a80425fb
 ```
 如果CapEff的值为：0000003fffffffff，则证明为特权模式启动,很可惜不是的
-## 
+## Docker Socket 逃逸
+```bash
+ls -lah /var/run/docker.sock
+```
+检查是否挂载socket文件
+![](file-20261104003320803.png)
+果然存在，满足逃逸条件
+
