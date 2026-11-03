@@ -18,4 +18,11 @@ Nmap done: 1 IP address (1 host up) scanned in 8.33 seconds
 ```
 
 扫描一下端口，发现8080开着，80端口进去是一个欢迎页面，暂时没有什么信息
+```bash
+┌──(kali㉿JYlover)-[/mnt/d/github_project/bajitmp]
+└─$ curl http://10.20.3.72
+Hello, MazeSec!
+```
+
+# web渗透
 
