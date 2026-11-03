@@ -553,3 +553,16 @@ total plaintext 18878318
 这就可以正常看请求和响应了，最后有几个解密失败但是不影响。
 ![](file-20261104000435221.png)
 我们拿到了ssh的私钥，我们可以来登录
+```bash
+──(kali㉿JYlover)-[/tmp/a]
+└─$ ssh -i /tmp/a/key_fixed root@172.16.12.149
+The authenticity of host '172.16.12.149 (172.16.12.149)' can't be established.
+ED25519 key fingerprint is: SHA256:i2UIg7g9fQQwI5bCeo4D8HncjAedsXLeeoATKY9S5bc
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:8: [hashed name]
+    ~/.ssh/known_hosts:11: [hashed name]
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.16.12.149' (ED25519) to the list of known hosts.
+root@172.16.12.149's password: 
+```
+居然要密码，那说明不是这个密钥，但是注意信息收集时我们扫到了一个22端口，一个2222端口，显然22端口应该是我们现在webshell所处的docker容器的ssh端口，于是我们试试2222
