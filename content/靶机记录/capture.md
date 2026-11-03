@@ -125,6 +125,10 @@ root/netflow2019
 ## /var/captures
 发现/var/captures下有两个流量包
 ![](file-20261103155907831.png)
+```http
+-rw-r--r-- 1 root root 11145411 Nov  3 03:05 mgmt-20190524-0912.pcap
+-rw-r--r-- 1 root root 21386309 Nov  3 03:05 mgmt-20190524-0931.pcap
+```
 ## /var/log/messages
 /var/log/messages是一份系统日志
 ```http
