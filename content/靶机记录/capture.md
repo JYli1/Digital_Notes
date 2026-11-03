@@ -25,7 +25,10 @@ Hello, MazeSec!
 ```
 
 # web渗透
+进来8080.
 
+![](file-20261103154542366.png)
+提示我们有一个``/var/log/messages``文件，肯定是得登录的
 目录扫描一下：
 ```bash
 ┌  root@JYlover  bash  38.507s 
@@ -106,3 +109,9 @@ netflow-analyzer 诊断转储
 
 ```
 这里就知道有一个/var/captures文件，
+
+然后我们尝试登录（密码也是ai猜出来的）
+由于两个文件都提到了netflow，且构建时间为2019年
+```
+root/netflow2019       
+```
