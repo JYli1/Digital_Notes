@@ -251,3 +251,47 @@ exec python3 /opt/wrt/server.py"
 cp -a /var/backups /www/files 
 ```
 然后打包就可以直接访问下载了。
+看一下文件结构：
+```bash
+┌──(kali㉿JYlover)-[/mnt/d/Downloads/10.20.3.72-loot/backup]
+└─$ tree -a
+.
+├── backup-notes.txt
+├── etc
+│   ├── config
+│   │   ├── network
+│   │   ├── system
+│   │   └── uhttpd
+│   ├── uhttpd.crt
+│   └── uhttpd.key
+└── root
+    └── .ssh
+        ├── authorized_keys
+        ├── id_rsa
+        └── id_rsa.pub
+
+5 directories, 9 files
+```
+其中有私钥、证书、ssh的私钥公钥，还一份说明书
+看一下说明书：
+```bash
+┌──(kali㉿JYlover)-[/mnt/d/Downloads/10.20.3.72-loot/backup]
+└─$ cat backup-notes.txt 
+OpenWrt full backup - 2019-05-24 (root@OpenWrt)
+==============================================
+
+Contents:
+  etc/config/*        system configuration (network, uhttpd, system)
+  etc/uhttpd.key      TLS private key of the LuCI web UI (https, port 443)
+  etc/uhttpd.crt      self-signed cert CN=openwrt.lan (same key material)
+  root/.ssh/id_rsa    this router's own root key
+
+Notes:
+  * Management-bridge captures of 2019-05-24 are kept in /var/captures/
+    (mgmt-20190524-*.pcap). netflow-analyzer still needs them - do NOT delete.
+  * 2019-05-24 09:31 - pushed the Docker host's root key to this box over
+    HTTPS (admin -> SSH-Keys) so the host can be managed from the UI.
+    That session is inside the 09:31 capture.
+  * The uhttpd key predates the 15.05 upgrade - TODO: rotate it.
+```
+就是：**管理员通过「SSH-Keys」管理页，把宿主机 root 的私钥推到这台设备上了，那次 HTTPS 会话就在 09:31 的流量包里。**
