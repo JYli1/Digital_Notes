@@ -73,4 +73,14 @@ Manual runs write straight into outdir and stay unregistered.
 
 (none)
 
+
+生成时间：2019-05-24 09:32:10 UTC
+收集器：netflow-cron
+输出目录：/var/captures
+保留期：7 天
+
+定期汇总任务由“netflow-cron --register”注册，报告主机可以通过下载 CGI 拉取这些汇总任务。手动运行的结果直接写入输出目录，并保持未注册状态。
+
+（无注册任务）
 ```
+提示我们有一个/var/captures目录
