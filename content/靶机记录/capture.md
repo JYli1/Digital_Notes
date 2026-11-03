@@ -297,4 +297,237 @@ Notes:
 就是：**管理员通过「SSH-Keys」管理页，把宿主机 root 的私钥推到这台设备上了，那次 HTTPS 会话就在 09:31 的流量包里。**
 那么应该就是要解密HTTPS的流量包，里面会有明文私钥，这里贴一下可以解密的条件
 ![](file-20261103233547859.png)
-我们用上面的方法拿到两个流量包。
+我们用上面的方法拿到两个流量包。ai给写的解密脚本。
+```py
+"""
+TLS 1.2 / TLS_RSA_WITH_AES_128_CBC_SHA 被动解密
+- RSA 私钥解 ClientKeyExchange -> premaster secret
+- TLS 1.2 PRF(SHA256) -> master secret -> key_block
+- 每条记录: explicit IV + AES-128-CBC
+依赖: openssl CLI (RSA PKCS#1 v1.5 解密 + AES-CBC)
+"""
+import hashlib
+import hmac
+import os
+import struct
+import subprocess
+import sys
+import tempfile
+
+KEY = sys.argv[1]
+OUTDIR = sys.argv[2]
+PCAPS = sys.argv[3:]
+os.makedirs(OUTDIR, exist_ok=True)
+
+
+# ---------------------------------------------------------------- pcap
+def load_pcap(path):
+    d = open(path, 'rb').read()
+    magic = struct.unpack('<I', d[:4])[0]
+    end = '<' if magic == 0xa1b2c3d4 else '>'
+    snap, link = struct.unpack(end + 'II', d[16:24])
+    off, pkts = 24, []
+    while off + 16 <= len(d):
+        ts, tu, incl, orig = struct.unpack(end + 'IIII', d[off:off + 16])
+        off += 16
+        pkts.append(d[off:off + incl])
+        off += incl
+    return pkts
+
+
+def tcp_streams(pkts):
+    """返回 {(src,sp,dst,dp): bytes}，按 seq 重排并去重"""
+    segs = {}
+    for raw in pkts:
+        if len(raw) < 34 or struct.unpack('>H', raw[12:14])[0] != 0x0800:
+            continue
+        ip = raw[14:]
+        if len(ip) < 20 or ip[9] != 6:
+            continue
+        ihl = (ip[0] & 0xf) * 4
+        if len(ip) < ihl + 20:
+            continue
+        tot = struct.unpack('>H', ip[2:4])[0]
+        src = '.'.join(str(b) for b in ip[12:16])
+        dst = '.'.join(str(b) for b in ip[16:20])
+        sp, dp = struct.unpack('>HH', ip[ihl:ihl + 4])
+        seq = struct.unpack('>I', ip[ihl + 4:ihl + 8])[0]
+        doff = (ip[ihl + 12] >> 4) * 4
+        pay = ip[ihl + doff:tot]
+        if not pay:
+            continue
+        segs.setdefault((src, sp, dst, dp), {})[seq] = pay
+    out = {}
+    for key, m in segs.items():
+        buf, base = b'', None
+        for seq in sorted(m):
+            if base is None:
+                base = seq
+            if seq < base + len(buf):
+                ov = base + len(buf) - seq
+                if ov < len(m[seq]):
+                    buf += m[seq][ov:]
+                continue
+            buf += m[seq]
+        out[key] = buf
+    return out
+
+
+# ---------------------------------------------------------------- 加密
+def aes_cbc_decrypt(key, iv, data):
+    with tempfile.NamedTemporaryFile(delete=False) as f:
+        f.write(data)
+        tmp = f.name
+    try:
+        p = subprocess.run(
+            ['openssl', 'enc', '-d', '-aes-128-cbc', '-nopad',
+             '-K', key.hex(), '-iv', iv.hex(), '-in', tmp],
+            capture_output=True)
+        return p.stdout
+    finally:
+        os.unlink(tmp)
+
+
+def rsa_decrypt(ct):
+    with tempfile.NamedTemporaryFile(delete=False) as f:
+        f.write(ct)
+        tmp = f.name
+    try:
+        p = subprocess.run(
+            ['openssl', 'pkeyutl', '-decrypt', '-inkey', KEY,
+             '-pkeyopt', 'rsa_padding_mode:pkcs1', '-in', tmp],
+            capture_output=True)
+        if p.returncode != 0:
+            raise RuntimeError(p.stderr.decode()[:200])
+        return p.stdout
+    finally:
+        os.unlink(tmp)
+
+
+def prf12(secret, label, seed, n):
+    return p_hash(hashlib.sha256, secret, label + seed, n)
+
+
+def p_hash(h, secret, seed, n):
+    out, a = b'', seed
+    while len(out) < n:
+        a = hmac.new(secret, a, h).digest()
+        out += hmac.new(secret, a + seed, h).digest()
+    return out[:n]
+
+
+# ---------------------------------------------------------------- TLS
+def parse_records(buf):
+    off, recs = 0, []
+    while off + 5 <= len(buf):
+        ctype, ver, ln = struct.unpack('>BHH', buf[off:off + 5])
+        off += 5
+        if off + ln > len(buf):
+            break
+        recs.append((ctype, ver, buf[off:off + ln]))
+        off += ln
+    return recs
+
+
+def decrypt_flow(name, c2s, s2c):
+    """c2s/s2c: 该方向字节流。返回 (server 明文, client 明文)"""
+    hs = b''      # 客户端方向握手消息累积
+    srv_rnd = cli_rnd = None
+    enc_pms = None
+    ccs = False
+    c_plain, s_plain = b'', b''
+
+    for ctype, ver, data in parse_records(c2s):
+        if ctype == 22:
+            hs += data
+        elif ctype == 20:
+            ccs = True
+    if not ccs:
+        return None, None, 'no CCS'
+
+    # 解析客户端握手
+    off = 0
+    while off + 4 <= len(hs):
+        mt = hs[off]
+        ln = struct.unpack('>I', b'\x00' + hs[off + 1:off + 4])[0]
+        body = hs[off + 4:off + 4 + ln]
+        off += 4 + ln
+        if mt == 1 and len(body) >= 34:            # ClientHello
+            cli_rnd = body[2:34]
+        elif mt == 16:                              # ClientKeyExchange
+            l = struct.unpack('>H', body[:2])[0]
+            enc_pms = body[2:2 + l]
+
+    # 解析服务端握手（独立循环，避免和服务端记录混在一起）
+    shs = b''
+    for ctype, ver, data in parse_records(s2c):
+        if ctype == 22:
+            shs += data
+        elif ctype == 20:
+            break
+    off = 0
+    while off + 4 <= len(shs):
+        mt = shs[off]
+        ln = struct.unpack('>I', b'\x00' + shs[off + 1:off + 4])[0]
+        body = shs[off + 4:off + 4 + ln]
+        off += 4 + ln
+        if mt == 2 and len(body) >= 34:            # ServerHello
+            srv_rnd = body[2:34]
+
+    if not (cli_rnd and srv_rnd and enc_pms):
+        return None, None, 'missing hello/pms'
+
+    pms = rsa_decrypt(enc_pms)
+    if len(pms) != 48:
+        return None, None, 'bad pms len %d' % len(pms)
+    master = prf12(pms, b'master secret', cli_rnd + srv_rnd, 48)
+    kb = prf12(master, b'key expansion', srv_rnd + cli_rnd, 104)
+    c_mac, s_mac = kb[0:20], kb[20:40]
+    c_key, s_key = kb[40:56], kb[56:72]
+
+    def strip(pt):
+        if not pt:
+            return b''
+        pad = pt[-1]
+        body = pt[:-(pad + 1)] if 0 <= pad < 16 else pt
+        return body[:-20] if len(body) > 20 else b''
+
+    seen_c = seen_s = False
+    for ctype, ver, data in parse_records(c2s):
+        if ctype == 20:
+            seen_c = True
+            continue
+        if seen_c and ctype == 23 and len(data) > 32:
+            c_plain += strip(aes_cbc_decrypt(c_key, data[:16], data[16:]))
+    for ctype, ver, data in parse_records(s2c):
+        if ctype == 20:
+            seen_s = True
+            continue
+        if seen_s and ctype == 23 and len(data) > 32:
+            s_plain += strip(aes_cbc_decrypt(s_key, data[:16], data[16:]))
+    return s_plain, c_plain, 'ok'
+
+
+total = 0
+for pcap in PCAPS:
+    pkts = load_pcap(pcap)
+    streams = tcp_streams(pkts)
+    flows = {}
+    for (s, sp, d, dp), buf in streams.items():
+        if dp == 443:
+            flows.setdefault((s, sp, d, dp), {})['c2s'] = buf
+        elif sp == 443:
+            flows.setdefault((d, dp, s, sp), {})['s2c'] = buf
+    for (s, sp, d, dp), parts in flows.items():
+        if len(parts) != 2:
+            continue
+        sp_, cp_, st = decrypt_flow('%s:%d' % (s, sp), parts['c2s'], parts['s2c'])
+        tag = '%s_%s_%d_to_%d' % (os.path.basename(pcap)[:12], s.replace('.', '-'), sp, dp)
+        print('%-40s %s  server=%d client=%d' % (tag, st, len(sp_ or b''), len(cp_ or b'')))
+        if st == 'ok':
+            open(os.path.join(OUTDIR, tag + '.server.txt'), 'wb').write(sp_)
+            open(os.path.join(OUTDIR, tag + '.client.txt'), 'wb').write(cp_)
+            total += len(sp_) + len(cp_)
+print('total plaintext', total)
+```
+
