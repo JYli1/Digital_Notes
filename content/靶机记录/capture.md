@@ -83,7 +83,7 @@ Manual runs write straight into outdir and stay unregistered.
 
 （无注册任务）
 ```
-提示我们有一个/var/captures目录
+
 ```bash
 ┌  root@JYlover  bash  67ms 
 └  ~/webtool/Dirsearch  #  curl http://10.20.3.72:8080/files/readme.txt
@@ -94,5 +94,14 @@ collector: netflow-cron, 30 min rotation, 7 day retention
 archive  : /var/captures
 export   : /www/export/index.txt
 images   : this directory (sysupgrade image + diagnostic blob)
+
+
+netflow-analyzer 诊断转储
+=================================
+构建版本：0.9.4 (2019-05-24)
+收集器：netflow-cron，30 分钟轮换，7 天保留
+归档：/var/captures
+导出：/www/export/index.txt
+图片：本目录（系统升级镜像 + 诊断数据块）
 
 ```
