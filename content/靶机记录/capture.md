@@ -28,6 +28,29 @@ Hello, MazeSec!
 
 目录扫描一下：
 ```bash
-dirsearch -u http://10.20.3.72:8080/
+┌  root@JYlover  bash  38.507s 
+└  ~/webtool/Dirsearch  #  dirsearch -u http://10.20.3.72:8080/
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, asp, aspx, jsp, html, htm | HTTP method: GET | Threads: 25 | Wordlist size: 12289
+
+Target: http://10.20.3.72:8080/
+
+[15:17:00] Scanning: 
+[15:17:08] 403 -   181B - /adminjsp
+[15:17:08] 403 -   181B - /admin-ajax.php
+[15:17:08] 403 -   181B - /admin-ANTIGO
+......
+[15:17:12] 403 -   181B - /adminxxx
+[15:17:18] 403 -   122B - /export/
+[15:17:18] 403 -   122B - /export
+[15:17:18] 403 -   122B - /files
+[15:17:18] 403 -   122B - /files/
+[15:17:20] 200 -    3KB - /index.html
+
+Task Completed
 
 ```
+中间省略了很多admin开头的文件，没有什么规律，主要是在后面的export和files目录，应该是存在
