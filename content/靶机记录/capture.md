@@ -607,3 +607,9 @@ OpenWrt:~#
 1. 之前webshell的机器：192.168.90.21 
 2. 我们这台机器：192.168.90.22
 3. 还一台192.168.90.1应该就是宿主机了，我们的目标应该就是逃逸到宿主机获取flag
+
+先看一下是不是特权模式
+```bash
+OpenWrt:~# cat /proc/self/status | grep CapEff
+CapEff: 00000000a80425fb
+```
