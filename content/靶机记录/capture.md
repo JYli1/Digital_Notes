@@ -56,7 +56,7 @@ Task Completed
 中间省略了很多admin开头的文件，没有什么规律。
 主要是在后面的`/export`和`/files`目录，他们的响应大小也不同，且403说明文件夹存在只是我们没有权限
 
-这里我也不知道ai怎么猜出来的一个**export/readme.txt**文件，想不通
+这里我也不知道ai怎么猜出来的一个**export/index.txt**和**files/readme.txt**文件，想不通
 ```bash
 ┌  root@JYlover  bash  32.9s 
 └  ~/webtool/Dirsearch  #  curl http://10.20.3.72:8080/export/index.txt
