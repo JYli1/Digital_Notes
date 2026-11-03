@@ -103,11 +103,13 @@ backup-notes.txt    ← 路标
 
 这三条合起来意味着：
 
-| 配置 | 后果 |
-|---|---|
-| 静态 RSA 密钥交换（无 PFS） | 只要拿到服务器私钥，就能解密**历史**流量 |
-| 关掉 EMS | master secret 的 PRF 只吃 `client_random + server_random`，可逐条计算 |
-| 关掉 EtM（走 MAC-then-encrypt） | 密文解出来，砍掉尾部 20 字节 HMAC-SHA1 + padding 就是明文 |
+| 配置                         | 后果                                                           |
+| -------------------------- | ------------------------------------------------------------ |
+| 静态 RSA 密钥交换（无 PFS）         | 只要拿到服务器私钥，就能解密**历史**流量                                       |
+| 关掉 EMS                     | master secret 的 PRF 只吃 `client_random + server_random`，可逐条计算 |
+| 关掉 EtM（走 MAC-then-encrypt） | 密文解出来，砍掉尾部 20 字节 HMAC-SHA1 + padding 就是明文                    |
+|                            |                                                              |
+|                            |                                                              |
 
 **手工解密六步**（脚本 `tlsdec.py`，python + openssl 就够，不需要 scapy/wireshark）：
 

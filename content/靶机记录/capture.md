@@ -295,3 +295,4 @@ Notes:
   * The uhttpd key predates the 15.05 upgrade - TODO: rotate it.
 ```
 就是：**管理员通过「SSH-Keys」管理页，把宿主机 root 的私钥推到这台设备上了，那次 HTTPS 会话就在 09:31 的流量包里。**
+那么应该就是要解密HTTPS的流量包，里面会有明文私钥
