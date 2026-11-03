@@ -815,4 +815,121 @@ def main():
 if __name__ == "__main__":
     main()"
 ```
+还有启动脚本中有详细的项目信息：
+```sh
+#!/bin/bash
+# WRT 容器入口：netflow-analyzer 调试容器
+#   * uhttpd 风格 Web 服务（80/443，LuCI 0.10）
+#   * sshd（22，容器内部 —— 流量包里的 SSH 会话是连到这里的）
+#   * /var/captures/  真实抓包样本（由 gen/capture_traffic.sh 捕获）
+#   * /var/backups/   系统备份（backup-20190524.tar.gz，含 uhttpd 私钥）
+set -e
 
+export LUCI_DOCROOT=/www
+export LUCI_CGI_DIR=/cgi-bin
+export LUCI_BACKUP_DIR=/var/backups
+export LUCI_KEYSTORE_DIR=/var/keys
+export LUCI_PASSWORD="${LUCI_PASSWORD:-netflow2019}"
+export BASH_BIN=/bin/bash
+
+# ---- 目录结构 ----
+mkdir -p /www /www/files /www/export /cgi-bin /var/captures /var/backups /var/keys \
+         /var/log /root/.ssh /run/sshd
+
+# ---- Web 素材 ----
+cp /opt/wrt/www/index.html /www/
+[ -d /opt/wrt/www/luci ] && cp -r /opt/wrt/www/luci/* /www/ 2>/dev/null || true
+cp /opt/wrt/cgi/*.sh /cgi-bin/
+cp /opt/wrt/cgi/luci-bwc /cgi-bin/luci-bwc
+cp /opt/wrt/cgi/luci-bwc /usr/bin/luci-bwc
+chmod +x /cgi-bin/*.sh /cgi-bin/luci-bwc /usr/bin/luci-bwc
+
+# ---- 备份包就位（/var/backups）----
+if [ -d /opt/wrt/backup ]; then
+    cp /opt/wrt/backup/* /var/backups/ 2>/dev/null || true
+fi
+
+# ---- 抓包样本就位（/var/captures，路径穿越的目标）----
+if [ -d /opt/wrt/captures ]; then
+    cp /opt/wrt/captures/* /var/captures/ 2>/dev/null || true
+    rm -f /var/captures/.keep
+fi
+
+# ---- 公开下载目录：制造 TLS 流量用的数据块 ----
+dd if=/dev/urandom of=/www/files/big.bin bs=1024 count=4096 status=none
+dd if=/dev/urandom of=/www/files/openwrt-15.05-sysupgrade.bin \
+   bs=1024 count=512 status=none
+cat > /www/files/readme.txt <<'READMEEOF'
+netflow-analyzer diagnostics dump
+=================================
+build    : 0.9.4 (2019-05-24)
+collector: netflow-cron, 30 min rotation, 7 day retention
+archive  : /var/captures
+export   : /www/export/index.txt
+images   : this directory (sysupgrade image + diagnostic blob)
+READMEEOF
+
+# ---- 导出目录（rpcd ACL 只授权这里的读权限，cgi-io 从这里对外提供下载）----
+# 注意：这里**不列**任何归档句柄，也不教命名规则；导出登记为空。
+#       真实句柄由采集器自己写进系统日志 /var/log/messages（flush 行）。
+{
+    printf 'netflow-analyzer export index\n'
+    printf '=============================\n'
+    printf 'generated : 2019-05-24 09:32:10 UTC\n'
+    printf 'collector : netflow-cron\n'
+    printf 'outdir    : /var/captures\n'
+    printf 'retention : 7 days\n\n'
+    printf 'Scheduled rollups are registered here by "netflow-cron --register"\n'
+    printf 'so the reporting host can pull them through the download CGI.\n'
+    printf 'Manual runs write straight into outdir and stay unregistered.\n\n'
+    printf '(none)\n'
+} > /www/export/index.txt
+
+# ---- 采集器运行日志（syslog 格式；放这里让"已知目录、不知文件名"有解）----
+cat > /var/log/messages <<'LOGEOF'
+May 24 08:00:01 OpenWrt syslog.info syslogd started: BusyBox v1.28.4
+May 24 08:00:01 OpenWrt user.notice kernel: klogd started: BusyBox v1.28.4 (2019-05-13 22:04:11 UTC)
+May 24 08:00:02 OpenWrt user.info kernel: [    0.000000] Linux version 4.14.120 (openwrt@buildhost) (gcc version 7.4.0 (OpenWrt GCC 7.4.0 r7828-ef3b437d7c)) #0 SMP Fri May 17 11:22:33 2019
+May 24 08:00:03 OpenWrt daemon.info procd: - init complete -
+May 24 08:00:05 OpenWrt daemon.info dnsmasq[814]: started, version 2.80 cachesize 150
+May 24 08:00:05 OpenWrt daemon.info dnsmasq[814]: reading /tmp/resolv.conf.auto
+May 24 08:00:08 OpenWrt cron.err crond[712]: crond (busybox 1.28.4) started, log level 5
+May 24 08:00:12 OpenWrt authpriv.info dropbear[905]: Running in background
+May 24 08:00:14 OpenWrt user.notice netflow-cron: collector ready (interval 30m, retention 7d, outdir /var/captures)
+May 24 09:02:44 OpenWrt authpriv.info dropbear[1671]: Child connection from 192.168.99.100:51234
+May 24 09:02:47 OpenWrt authpriv.info dropbear[1671]: Password auth succeeded for 'root' from 192.168.99.100:51234
+May 24 09:11:52 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:12:03 OpenWrt user.notice netflow-cron: capture started on br-lan (snaplen 128, filter 'ip')
+May 24 09:12:41 OpenWrt user.notice netflow-cron: flush 1096 packets, 11145411 bytes -> /var/captures/mgmt-20190524-0912.pcap
+May 24 09:30:52 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:31:07 OpenWrt user.notice netflow-cron: capture started on br-lan (snaplen 128, filter 'ip')
+May 24 09:31:58 OpenWrt user.notice netflow-cron: flush 2144 packets, 21386309 bytes -> /var/captures/mgmt-20190524-0931.pcap
+May 24 09:32:01 OpenWrt user.notice netflow-cron: retention sweep: 0 files removed (oldest kept: 7d)
+May 24 09:32:04 OpenWrt daemon.info dnsmasq[814]: DHCPDISCOVER(br-lan) 192.168.99.53 aa:bb:cc:00:11:53
+May 24 09:32:06 OpenWrt user.info netflow-analyzer: diagnostics pack rebuilt after config change, staged in /www/files
+May 24 09:58:11 OpenWrt user.notice netflow-cron: manual capture requested by root (tty pts/0)
+May 24 09:58:19 OpenWrt user.notice netflow-cron: flush 0 packets, 0 bytes -> /var/captures/mgmt-20190524-0958.pcap
+May 24 09:58:19 OpenWrt user.err netflow-cron: capture aborted: no traffic on br-lan, file removed
+LOGEOF
+
+# ---- sshd（router 风格；容器内 22 端口，不对外发布）----
+ssh-keygen -A >/dev/null 2>&1 || true
+chmod 700 /root/.ssh
+chmod 600 /root/.ssh/authorized_keys /root/.ssh/id_rsa 2>/dev/null || true
+/usr/sbin/sshd 2>/dev/null || echo "WARN: sshd 启动失败"
+
+# ---- 素材就位检查 ----
+for f in /var/captures/mgmt-20190524-0912.pcap /var/captures/mgmt-20190524-0931.pcap \
+         /var/backups/backup-20190524.tar.gz \
+         /opt/wrt/tls/server.crt /opt/wrt/tls/server.key; do
+    [ -f "$f" ] || echo "WARN: 缺少素材 $f"
+done
+
+echo "=================================================="
+echo " OpenWrt 18.06.4 (LuCI 0.10.0) - netflow-analyzer"
+echo " http://0.0.0.0:80  |  https://0.0.0.0:443  |  sshd :22"
+echo " captures: /var/captures   backups: /var/backups"
+echo "=================================================="
+
+exec python3 /opt/wrt/server.py"
+```
