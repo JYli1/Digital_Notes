@@ -247,3 +247,7 @@ echo "=================================================="
 exec python3 /opt/wrt/server.py"
 ```
 我们知道有/var/backups备份文件，可以用复制到/www/files/下面下载的方式得到
+```bash
+cp -a /var/backups /www/files 
+```
+然后打包就可以直接访问下载了。
