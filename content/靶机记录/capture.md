@@ -622,4 +622,8 @@ ls -lah /var/run/docker.sock
 ![](file-20261104003320803.png)
 果然存在，满足逃逸条件
 这里socket逃逸需要容器有docker条件，没有的话可以安装一下，但是这里已经装好了，显然是作者给我们的按时，说明就是该方法逃逸
+```bash
+OpenWrt:~# docker -v
+Docker version 26.1.5, build a72d7cdbeb991662bf954bfb8d02274124af21e3
+```
 
