@@ -592,4 +592,12 @@ OpenWrt:~#
 ```
 登陆成功
 # docker逃逸
-原本以为这里已经到了宿主机了，但是mei'xiang'd
+原本以为这里已经到了宿主机了，但是没想到居然还是在docker容器中
+```bash
+OpenWrt:~# ls / -a
+.              bin            etc            media          proc           sbin           tmp
+..             dev            home           mnt            root           srv            usr
+.dockerenv     entrypoint.sh  lib            opt            run            sys            var
+OpenWrt:~#
+```
+存在.dockerenv文件
