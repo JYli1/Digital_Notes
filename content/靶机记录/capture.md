@@ -551,24 +551,5 @@ total plaintext 18878318
 ```
 ![](file-20261103235013590.png)
 这就可以正常看请求和响应了，最后有几个解密失败但是不影响。
-我们ip a看一下自己的ip。
-```http
-HTTP/1.1 200 OK
-Date: Tue, 03 Nov 2026 15:51:31 GMT
-Server: uhttpd/2018-03-01, LuCI/0.10.0
-Content-Type: application/json
-Connection: keep-alive
-Content-Length: 600
-
-{"result":{"11: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host 
-       valid_lft forever preferred_lft forever
-2: eth0@if6: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
-    link/ether b2:cf:7a:d1:4e:a5 brd ff:ff:ff:ff:ff:ff
-    inet 192.168.90.21/24 brd 192.168.90.255 scope global eth0
-       valid_lft forever preferred_lft forever":{"rx":"986112 B/s","tx":"41984 B/s"}}}
-```
-192.168.90.21。
+![](file-20261104000435221.png)
+我们拿到了ssh的私钥，我们可以来登录
