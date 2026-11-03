@@ -2171,11 +2171,11 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 5,
+        "line": 16,
         "ch": 0
       },
       "to": {
-        "line": 5,
+        "line": 16,
         "ch": 0
       }
     },
@@ -3663,6 +3663,26 @@
       "item-2-9",
       "item-1-15",
       "item-1-0"
+    ]
+  },
+  "content/靶机记录/capture.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 20,
+        "ch": 0
+      },
+      "to": {
+        "line": 20,
+        "ch": 0
+      }
+    },
+    "expandedKeys": [
+      "item-1-1",
+      "item-1-2",
+      "item-1-3",
+      "item-2-6",
+      "item-1-12"
     ]
   }
 }
