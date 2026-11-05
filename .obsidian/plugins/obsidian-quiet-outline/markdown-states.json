@@ -2171,12 +2171,12 @@
     "scroll": 0,
     "cursor": {
       "from": {
-        "line": 16,
-        "ch": 0
+        "line": 11,
+        "ch": 18
       },
       "to": {
-        "line": 16,
-        "ch": 0
+        "line": 11,
+        "ch": 18
       }
     },
     "expandedKeys": []
@@ -2292,7 +2292,7 @@
     ]
   },
   "content/常用命令/GitHacker.md": {
-    "scroll": 3.727664464234415,
+    "scroll": 13.376041367423154,
     "cursor": {
       "from": {
         "line": 73,
@@ -2324,7 +2324,7 @@
     "expandedKeys": []
   },
   "content/常用命令/提权命令.md": {
-    "scroll": 0,
+    "scroll": 33.8448721631715,
     "cursor": {
       "from": {
         "line": 0,
@@ -3096,7 +3096,7 @@
     ]
   },
   "content/安全学习/面试临时复习.md": {
-    "scroll": 99.7156267934738,
+    "scroll": 104.77125522669509,
     "cursor": {
       "from": {
         "line": 64,
@@ -3666,14 +3666,14 @@
     ]
   },
   "content/靶机记录/capture.md": {
-    "scroll": 622.1456478023556,
+    "scroll": 602.0798621085895,
     "cursor": {
       "from": {
-        "line": 0,
+        "line": 593,
         "ch": 0
       },
       "to": {
-        "line": 0,
+        "line": 593,
         "ch": 0
       }
     },
@@ -3703,5 +3703,19 @@
       "item-1-0",
       "item-2-3"
     ]
+  },
+  "content/常用命令/index.md": {
+    "scroll": 0,
+    "cursor": {
+      "from": {
+        "line": 3,
+        "ch": 0
+      },
+      "to": {
+        "line": 3,
+        "ch": 0
+      }
+    },
+    "expandedKeys": []
   }
 }
